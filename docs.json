@@ -8,13 +8,15 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
-  "navigation": {
+  "navigation": [
+    {
             "group": "GENERAL",
             "pages": [
               "general/intro",
               "general/start"
             ]
-  },
+    }
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
