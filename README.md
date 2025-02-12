@@ -1,1 +1,0 @@
-# brightbrowser.ai
