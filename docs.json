@@ -10,11 +10,11 @@
   "favicon": "/favicon.svg",
   "navigation": [
     {
-            "group": "GENERAL",
-            "pages": [
-              "general/intro",
-              "general/start"
-            ]
+      "group": "GENERAL",
+      "pages": [
+        "general/intro",
+        "general/start"
+      ]
     }
   ],
   "logo": {
