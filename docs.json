@@ -2,9 +2,9 @@
   "$schema": "https://mintlify.com/docs.json",
   "name": "Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg",
-    "href": "https://toolip.io"
+    "dark": "",
+    "light": ",
+    "href": ""
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -24,7 +24,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://toolip.io/dashboard"
+    "url": ""
   },
   "navigation": [
     {
@@ -36,7 +36,6 @@
     }
   ],
   "footerSocials": {
-    "linkedin": "https://linkedin.com/company/toolip-io",
-    "github": "https://github.com/sysadmin-toolip"
+    "linkedin": "https://linkedin.com/company/toolip-io"
   }
 }
