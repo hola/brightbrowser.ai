@@ -15,6 +15,13 @@
         "general/intro",
         "general/start"
       ]
+    },
+        {
+      "group": "CHECK",
+      "pages": [
+        "general/intro",
+        "general/start"
+      ]
     }
   ],
   "logo": {
