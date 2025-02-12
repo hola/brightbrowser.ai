@@ -9,13 +9,11 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-          {
             "group": "GENERAL",
             "pages": [
               "general/intro",
               "general/start"
             ]
-          }
   },
   "logo": {
     "light": "/logo/light.svg",
