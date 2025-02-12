@@ -10,9 +10,6 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
           {
             "group": "GENERAL",
             "pages": [
@@ -20,9 +17,7 @@
               "general/start"
             ]
           }
-        ]
-      }
-    ]
+        ]   
   },
   "logo": {
     "light": "/logo/light.svg",
