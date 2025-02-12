@@ -28,21 +28,15 @@
   },
   "navigation": [
     {
-        "group": "PRODUCTS",
-        "pages": [
-            {
-                "group": "GENERAL",
-                "pages": [
-                  "general/intro",
-                  "general/start"
-                ]
-            }
-        ]
+      "group": "GENERAL",
+      "pages": [
+        "general/intro",
+        "general/start"
+      ]
     }
   ],
   "footerSocials": {
     "linkedin": "https://linkedin.com/company/toolip-io",
     "github": "https://github.com/sysadmin-toolip"
   }
-
 }
