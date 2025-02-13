@@ -8,10 +8,8 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
+  "navigation":  [
       {
-        "tab": "Guides",
         "groups": [
           {
             "group": "GENERAL",
@@ -22,8 +20,7 @@
           }
         ]
       }
-    ]
-  },
+    ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
