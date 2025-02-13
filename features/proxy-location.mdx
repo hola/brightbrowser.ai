@@ -55,9 +55,7 @@ Pass it in format `USER:PASS` as environment variable `AUTH`
 
 ## Code Examples
 
-Change proxy location before scraping
-
-<Tip>Select your pefered tech-stack</Tip>
+Set the proxy location prior to scraping
 
 <CodeGroup>
   ```js NodeJS - Playwright
@@ -78,7 +76,7 @@ Change proxy location before scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
@@ -134,7 +132,7 @@ Change proxy location before scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
@@ -203,7 +201,7 @@ Change proxy location before scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
