@@ -18,8 +18,7 @@
             "pages": [
               "general/intro",
               "general/start",
-              "general/configuration",
-              "general/faqs"
+              "general/configuration"
             ]
           },
           {
@@ -27,6 +26,16 @@
             "pages": [
               "cdp-func/standard",
               "cdp-func/custom"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/captcha-solver",
+              "features/proxy-location",
+              "features/playground",
+              "features/premium-domains",
+              "features/troubleshooting"
             ]
           }
         ]
