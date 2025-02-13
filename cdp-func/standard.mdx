@@ -9,7 +9,7 @@ BrightBrowser.ai is fully **CDP-compatible**, meaning every **Puppeteer function
 The following are a few common browser navigation functions to get you started.
 
 <AccordionGroup>
-  <Accordion title="Get Page HTML">
+  <Accordion title="Get HTML page">
     ```js NodeJS - Puppeteer
     const page = await browser.newPage();  
     await page.goto('https://example.com');  
@@ -27,16 +27,7 @@ The following are a few common browser navigation functions to get you started.
     **More info:** [Puppeteer Click API](https://pptr.dev/api/puppeteer.page.click)
   </Accordion>
 
-  <Accordion title="Scroll to Page Bottom">
-    You might need to scroll the viewport to the bottom at times, such as when activating 'infinite scroll'. Here's how:
-    ```js NodeJS - Puppeteer
-    const page = await browser.newPage();  
-    await page.goto('https://example.com');  
-    await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-    ```
-  </Accordion>
-
-  <Accordion title="Take Screenshot">
+  <Accordion title="Screenshot">
     <CodeGroup>
       ```js NodeJS - Puppeteer
       await page.screenshot({ path: 'screenshot.png', fullPage: true });
@@ -50,21 +41,20 @@ The following are a few common browser navigation functions to get you started.
     </CodeGroup>
 
     <Note>
-      When running the example scripts above, the screenshot will be saved as **screenshot.png** within your files.
+      The example scripts above will save the screenshot as **screenshot.png** in your files.
     </Note>
   </Accordion>
 
-  <Accordion title="Set Cookies">
-    Please note that this is supported only for customers who completed the **KYC verification process**.
+  <Accordion title="Scroll to Bottom">
+    You might need to scroll the viewport to the bottom at times, such as when activating 'infinite scroll'. Here's how:
     ```js NodeJS - Puppeteer
     const page = await browser.newPage();  
-    await page.setCookie({ name: 'LANG', value: 'en-US', domain: 'example.com' });  
-    await page.goto('https://example.com');
+    await page.goto('https://example.com');  
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight));
     ```
-    **More info:** [Puppeteer Set Cookie API](https://pptr.dev/api/puppeteer.page.setcookie)
   </Accordion>
 
-  <Accordion title="Blocking Endpoints">
+  <Accordion title="Block Endpoints">
     It is possible to block endpoints that are not required to save bandwidth. See an example of this below:
     ```js NodeJS - Puppeteer
     const blockedUrls = ['*doubleclick.net*'];
@@ -76,7 +66,17 @@ The following are a few common browser navigation functions to get you started.
     ```
   </Accordion>
 
-  <Accordion title="Country Targeting">
+  <Accordion title="Setting Cookies">
+    Please note that this is supported only for customers who completed the **KYC verification process**.
+    ```js NodeJS - Puppeteer
+    const page = await browser.newPage();  
+    await page.setCookie({ name: 'LANG', value: 'en-US', domain: 'example.com' });  
+    await page.goto('https://example.com');
+    ```
+    **More info:** [Puppeteer Set Cookie API](https://pptr.dev/api/puppeteer.page.setcookie)
+  </Accordion>
+
+  <Accordion title="Country Routing">
     When using the Scraping Browser, the same **country-targeting** parameter is available to use as in our other proxy products.
     When setting up your script, add the `-country` flag, **after** your "USER" credentials within the Bright Data endpoint, followed by the 2-letter [ISO code](https://www.nationsonline.org/oneworld/country_code_list.htm) for that country.
     ```js
