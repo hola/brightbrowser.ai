@@ -35,7 +35,6 @@
             "pages": [
               "features/captcha-solver",
               "features/proxy-location",
-              "features/playground",
               "features/premium-domains",
               "features/troubleshooting"
             ]
