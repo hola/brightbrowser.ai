@@ -1,0 +1,191 @@
+---
+title: "BrightBrowser.AI FAQ"
+description: "Answers to common questions about BrightBrowser.AI, including supported languages, debugging techniques, and best practices."
+sidebarTitle: "Need Help?"
+---
+
+<AccordionGroup>
+  ### **Configuration & Setup**
+
+  <Accordion title="How do I make BrightBrowser.AI work from a specific country?">
+    BrightBrowser.AI dynamically optimizes your connection for seamless access. However, if you need to lock the browser to a specific location, you can manually set the country parameter.
+
+    **Set a country manually**
+
+    Just append `-country-XX` to your **authentication string**, where `XX` is the **ISO 3166-1 alpha-2 country code**.
+
+    **Example: Targeting the US in Puppeteer**
+
+    <CodeGroup>
+      ```js Puppeteer
+      const BBAI_WS_ENDPOINT = `wss://${USERNAME}-country-us:PASSWORD@brd.superproxy.io:9222`;
+      ```
+    </CodeGroup>
+
+    **What about Europe?**
+
+    To route traffic through the **entire EU region**, use `-country-eu`. This will ensure your requests originate from a European country dynamically selected for the best performance.
+  </Accordion>
+
+  <Accordion title="Which programming languages and automation tools work with BrightBrowser.AI?">
+    BrightBrowser.AI supports major browser automation frameworks **out of the box**, with full **native support** for:
+
+    * **Puppeteer (Node.js)**
+
+    * **Playwright (Node.js, Python, C#)**
+
+    * **Selenium (Java, Python, C#, Node.js, Go, Ruby)**
+
+    | Language    | Puppeteer        | Playwright        | Selenium          |
+    | ----------- | ---------------- | ----------------- | ----------------- |
+    | **Node.js** | ✅ **Native**     | ✅ **Native**      | ✅ **WebDriverJS** |
+    | **Python**  | ❌                | ✅ **Native**      | ✅ **WebDriver**   |
+    | **Java**    | ✅ Puppeteer-Java | ✅ Playwright-Java | ✅ **Native**      |
+    | **C#**      | ✅ PuppeteerSharp | ✅ Playwright-.NET | ✅ **WebDriver**   |
+    | **Go**      | ❌                | ✅ Playwright-Go   | ✅ WebDriver-Go    |
+    | **Ruby**    | ✅ Puppeteer-Ruby | ✅ Playwright-Ruby | ✅ WebDriver-Ruby  |
+  </Accordion>
+
+  ***
+
+  ### **Debugging & Troubleshooting**
+
+  <Accordion title="How can I debug my BrightBrowser.AI session?">
+    Seeing **what your browser is doing in real time** is critical for debugging. BrightBrowser.AI integrates seamlessly with **Chrome DevTools** for full visibility.
+
+    **To inspect your live session, enable debugging mode:**
+
+    * **Option 1: Manually via the Bright Data Control Panel**
+
+    * **Option 2: Remotely via your script**
+
+    **Example: Open DevTools from your Puppeteer script**
+
+    <CodeGroup>
+      ```js Puppeteer
+      const page = await browser.newPage();
+      const client = await page.target().createCDPSession();
+      await client.send('Page.inspect', { frameId: page.mainFrame()._id });
+      ```
+    </CodeGroup>
+  </Accordion>
+
+  <Accordion title="Where do I find the BrightBrowser.AI Debugger?">
+    You have **two ways** to access the debugger:
+
+    <Tabs>
+      <Tab title="Through the Control Panel">
+        Open the **Bright Data Dashboard** and navigate to **My Zones** → Select your **BrightBrowser.AI proxy** → Click **"Chrome DevTools Debugger"**.
+      </Tab>
+
+      <Tab title="Via Code (Remote)">
+        Use the **CDP API** to open a **DevTools debugging session** from your script:
+
+        <CodeGroup>
+          ```js Puppeteer
+          const page = await browser.newPage();
+          const client = await page.target().createCDPSession();
+          const { url: inspectUrl } = await client.send('Page.inspect', { frameId: page.mainFrame()._id });
+          console.log(`Inspect your session here: ${inspectUrl}`);
+          ```
+        </CodeGroup>
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="How do I capture screenshots of my BrightBrowser.AI session?">
+    Need **visual proof** of what's happening in your session? Grab a **screenshot** at any time:
+
+    <Tabs>
+      <Tab title="Node.js">
+        ```js Puppeteer
+        await page.screenshot({ path: 'screenshot.png', fullPage: true });
+        ```
+      </Tab>
+
+      <Tab title="Python">
+        ```python Playwright
+        await page.screenshot(path='screenshot.png', full_page=True)
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  ***
+
+  ### **Performance & Best Practices**
+
+  <Accordion title="Why does my page take longer to load than expected?">
+    Some websites have **complex anti-bot measures**, which require extra processing to **bypass protections**.
+
+    **To ensure smooth navigation, increase the timeout threshold:**
+
+    <CodeGroup>
+      ```js Puppeteer
+      await page.goto('https://example.com', { timeout: 120000 });
+      ```
+    </CodeGroup>
+
+    <Tip>
+      Always set a **higher timeout (2+ minutes)** for bot-protected websites.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Can I open multiple pages in a single session?">
+    **Nope!** BrightBrowser.AI is designed for **single-page navigation per session**.
+
+    **What this means:**
+
+    * You can **navigate within a page** (clicks, scrolling, interactions).
+
+    * But **you can't load a second domain** within the same session.
+
+    **Solution?** If you need to load multiple pages, **spawn a new session** for each URL.
+  </Accordion>
+
+  <Accordion title="How long can my session stay active?">
+    * **Idle sessions** (no interaction) **auto-close after 5 minutes**.
+
+    * **Max session duration:** 30 minutes. After that, your session will time out.
+  </Accordion>
+
+  ***
+
+  ### **Integration & Authentication**
+
+  <Accordion title="How do I verify my connection?">
+    If you're getting **connection issues**, run the following **cURL test**:
+
+    ```sh
+    curl -v -u USER:PASS https://brd.superproxy.io:9222/json/protocol
+    ```
+
+    **If you get JSON in response:**
+    ✅ **You're successfully connected!**\
+    **If no JSON appears:**
+    ❌ **Check your credentials & network settings.**
+  </Accordion>
+
+  <Accordion title="What are the most common error codes?">
+    | Error Code | Meaning                  | How to Fix                                   |
+    | ---------- | ------------------------ | -------------------------------------------- |
+    | **403**    | Authentication issue     | Check credentials & correct API zone.        |
+    | **407**    | Proxy connection failure | Verify proxy settings & remote browser port. |
+    | **503**    | Service unavailable      | Try again in 1-2 minutes.                    |
+  </Accordion>
+
+  <Accordion title="How does BrightBrowser.AI pricing work?">
+    Simple: **You pay per GB of data transferred**.
+
+    * **No per-instance fees**
+
+    * **No hourly costs**
+
+    * **No extra charges for specific countries**
+
+    However, certain **"Premium Domains"** may have additional costs due to **extra unblocking measures**.
+  </Accordion>
+</AccordionGroup>
+
+```
+```
