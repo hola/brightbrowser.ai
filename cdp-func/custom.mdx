@@ -1,26 +1,25 @@
 ---
 title: Custom CDP Functions
 sidebarTitle: Custom
-description: **BrightBrowser.ai** enhances standard CDP functions with custom functions for better control, stealth, and efficiency in web automation. Developers can bypass anti-bot systems, optimize scraping, and fine-tune browser behavior with ease.
+description: "BrightBrowser.ai enhances standard CDP functions with custom functions for better control, stealth, and efficiency in web automation. Developers can bypass anti-bot systems, optimize scraping, and fine-tune browser behavior with ease."
 ---
 
 ## Captcha Solver
 
-When navigating a page with Scraping Browser, our integrated CAPTCHA solver **automatically solves all CAPTCHAs** by default. You can monitor this auto-solving process in your code with the following custom CDP functions.
+BrightBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
 
 <Note>
   If you would like to disable CAPTCHA solver entirely through the Control Panel see our feature for [Disable Captcha Solver](/scraping-automation/scraping-browser/features/captcha-solver)
 </Note>
 
 <Note>
-  Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default.
+  Once a CAPTCHA is solved, BrightBrowser.ai automatically submits the form if required.
 </Note>
 
 ## CAPTCHA Solver - Automatic Solve
 
 <AccordionGroup>
   <Accordion title="Captcha.solve">
-    Use this command to return the status after the captcha was solved, failed, or not detected.
     Use this command to return the status after the captcha was solved, failed, or not detected.
 
     <CodeGroup>
@@ -79,19 +78,19 @@ When navigating a page with Scraping Browser, our integrated CAPTCHA solver **au
     </CodeGroup>
 
     <Note>
-      If CAPTCHA-solving fails, please attempt a retry. If the issue persists, submit a support reques detailing the specific problem you encountered.
+      If CAPTCHA-solving fails, retry the process. If the issue persists, submit a support request with details of the problem for further assistance.
     </Note>
   </Accordion>
 
   <Accordion title="Custom CDP commands for CAPTCHA status">
-    Use the commands below to pinpoint a more specific stage in the CAPTCHA solving flow:
+    Use the following commands to identify specific stages in the CAPTCHA-solving process and debug more effectively.:
 
     |                         |                                                                      |
     | ----------------------- | -------------------------------------------------------------------- |
-    | `Captcha.detected`      | Scraping Browser has encountered a CAPTCHA and has begun to solve it |
-    | `Captcha.solveFinished` | Scraping Browser successfully solved the CAPTCHA                     |
-    | `Captcha.solveFailed`   | Scraping Browser failed in solving the CAPTCHA                       |
-    | `Captcha.waitForSolve`  | Scraping Browser waits for CAPTCHA solver to finish                  |
+    | `Captcha.detected`      | BrightBrowser.ai has encountered a CAPTCHA and has begun to solve it |
+    | `Captcha.solveFinished` | BrightBrowser.ai successfully solved the CAPTCHA                     |
+    | `Captcha.solveFailed`   | BrightBrowser.ai failed in solving the CAPTCHA                       |
+    | `Captcha.waitForSolve`  | BrightBrowser.ai waits for CAPTCHA solver to finish                  |
 
     **Examples**
 
