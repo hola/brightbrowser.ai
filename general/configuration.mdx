@@ -42,10 +42,17 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
               const html = await page.content();
               console.log(html);
               
-          } finally {
-              await browser.close();
-          }
-      })();
+             } finally {  
+       driver.quit();  
+      }  
+      }  
+
+      if (require.main == module) {  
+      main().catch(err => {  
+       console.error(err.stack || err);  
+       process.exit(1);  
+      });  
+      }
       ```
 
       ```js Playwright
@@ -68,13 +75,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
               await page.screenshot({ path: './page.png', fullPage: true });  
          console.log('Navigated! Scraping page content...');  
        const html = await page.content();  
-       console.log(html)  
-       // CAPTCHA solving: If you know you are likely to encounter a CAPTCHA on your target page, add the following few lines of code to get the status of Scraping Browser's automatic CAPTCHA solver   
-       // Note 1: If no captcha was found it will return not_detected status after detectTimeout   
-       // Note 2: Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default   
-       // const client = await page.target().createCDPSession();  
-       // const {status} = await client.send('Captcha.solve', {detectTimeout: 30*1000});   
-       // console.log(`Captcha solve status: ${status}`)   
+       console.log(html)   
           } finally {  
               await browser.close();  
          }  
@@ -109,12 +110,18 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
 
               console.log('Extracting page content...');
               const html = await driver.getPageSource();
-              console.log(html);
-              
-          } finally {
-              await driver.quit();
-          }
-      })();
+              console.log(html);           
+      } finally {  
+       driver.quit();  
+      }  
+      }  
+
+      if (require.main == module) {  
+      main().catch(err => {  
+       console.error(err.stack || err);  
+       process.exit(1);  
+      });  
+      }
       ```
     </CodeGroup>
   </Tab>
@@ -199,77 +206,78 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
           {
               var socket = new ClientWebSocket();
               var authBytes = Encoding.UTF8.GetBytes(new Uri(BBAI_WS_ENDPOINT).UserInfo);
-              var authHeader = "Basic " + Convert.ToBase64String(authBytes);
+              var authHeader = "Basic " + Convert.ToBase64String(authBytes);  
               socket.Options.SetRequestHeader("Authorization", authHeader);
+              socket.Options.KeepAliveInterval = TimeSpan.Zero;  
               await socket.ConnectAsync(uri, cToken);
               return socket;
           }
       });
 
-      Console.WriteLine("Connected! Navigating...");
-      var page = await browser.NewPageAsync();
-      await page.GoToAsync("https://example.com", new NavigationOptions { Timeout = 120000 });
-
-      Console.WriteLine("Taking screenshot...");
-      await page.ScreenshotAsync("./page.png", new ScreenshotOptions { FullPage = true });
-
-      Console.WriteLine("Extracting page content...");
-      var html = await page.GetContentAsync();
+      Console.WriteLine("Connecting to BrightBrowser.AI...");  
+      using var browser = await Connect(SBR_WS_ENDPOINT);  
+      Console.WriteLine("Connected! Navigating...");  
+      var page = await browser.NewPageAsync();  
+      await page.GoToAsync("https://example.com", new NavigationOptions()  
+      {  
+      Timeout = 2 * 60 * 1000,  
+      });  
+      Console.WriteLine("Taking page screenshot to file page.png");  
+      await page.ScreenshotAsync("./page.png", new ()  
+      {  
+      FullPage = true,  
+      });  
+      Console.WriteLine("Navigated! Scraping page content...");  
+      var html = await page.GetContentAsync();   
       Console.WriteLine(html);
+      ```
 
-      await browser.CloseAsync();
+      ```python Playwright
+      var AUTH = "USER:PASS";  
+      var SBR_CDP = $"wss://{AUTH}@brd.superproxy.io:9222";  
+
+      Console.WriteLine("Connecting to BrightBrowser.AI...");  
+      using var pw = await Playwright.CreateAsync();  
+      await using var browser = await pw.Chromium.ConnectOverCDPAsync(SBR_CDP);  
+      Console.WriteLine("Connected! Navigating...");  
+      var page = await browser.NewPageAsync();  
+      await page.GotoAsync("https://example.com", new()  
+      {  
+      Timeout = 2 * 60 * 1000,  
+      });  
+      Console.WriteLine("Taking page screenshot to file page.png");  
+      await page.ScreenshotAsync(new ()  
+      {  
+      Path = "./page.png",  
+      FullPage = true,  
+      });  
+      Console.WriteLine("Navigated! BrightBrowser.AI content...");   
+      var html = await page.ContentAsync();   
+      Console.WriteLine(html);  
+
       ```
 
       ```python Selenium
-      from selenium.webdriver import Remote, ChromeOptions
-      from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
+      using OpenQA.Selenium;  
+using OpenQA.Selenium.Chrome;  
+using OpenQA.Selenium.Remote;  
+var AUTH = "USER:PASS";  
+var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
+  
+Console.WriteLine("Connecting to  BrightBrowser.AI...");  
+var options = new ChromeOptions();  
+using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
+Console.WriteLine("Connected! Navigating to https://example.com...");  
+driver.Navigate().GoToUrl("https://example.com");  
+  
+Console.WriteLine("Taking page screenshot to file page.png");  
+var screenshot = driver.GetScreenshot();  
+screenshot.SaveAsFile("./page.png");  
+  
+Console.WriteLine("Navigated!  BrightBrowser.AIcontent...");  
+var html = driver.PageSource;  
+Console.WriteLine(html);
 
-      AUTH = 'USER:PASS'
-      BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
-
-      def main():
-          print("Connecting to BrightBrowser.AI...")
-          sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
-          
-          with Remote(sbr_connection, options=ChromeOptions()) as driver:
-              print("Connected! Navigating...")
-              driver.get('https://example.com')
-
-              print("Taking screenshot...")
-              driver.get_screenshot_as_file('./page.png')
-
-              print("Extracting page content...")
-              html = driver.page_source
-              print(html)
-
-      if __name__ == '__main__':
-          main()
-      ```
-
-      ```python Selenium
-      from selenium.webdriver import Remote, ChromeOptions
-      from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
-
-      AUTH = 'USER:PASS'
-      BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
-
-      def main():
-          print("Connecting to BrightBrowser.AI...")
-          sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
-          
-          with Remote(sbr_connection, options=ChromeOptions()) as driver:
-              print("Connected! Navigating...")
-              driver.get('https://example.com')
-
-              print("Taking screenshot...")
-              driver.get_screenshot_as_file('./page.png')
-
-              print("Extracting page content...")
-              html = driver.page_source
-              print(html)
-
-      if __name__ == '__main__':
-          main()
       ```
     </CodeGroup>
   </Tab>
