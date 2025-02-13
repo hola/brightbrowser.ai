@@ -1,17 +1,16 @@
 ---
 title: "BrightBrowser.AI FAQ"
-description: "Answers to common questions about BrightBrowser.AI, including supported languages, debugging techniques, and best practices."
+description: "Find answers to common questions about BrightBrowser.AI, including supported languages, debugging techniques, and best practices."
 sidebarTitle: "Need Help?"
 ---
 
 <AccordionGroup>
-  ### **Configuration & Setup**
+  ## 🌍 **Configuration & Setup**
 
-  <Accordion title="How do I make BrightBrowser.AI work from a specific country?">
-    BrightBrowser.AI dynamically optimizes your connection for seamless access. However, if you need to lock the browser to a specific location, you can manually set the country parameter.
+  <Accordion title="Can I force BrightBrowser.AI to use a specific country?">
+    BrightBrowser.AI **automatically** optimizes IP routing for the best performance. However, if you need to scrape from a specific country, you can manually set the location.
 
-    **Set a country manually**
-
+    **How?**\
     Just append `-country-XX` to your **authentication string**, where `XX` is the **ISO 3166-1 alpha-2 country code**.
 
     **Example: Targeting the US in Puppeteer**
@@ -22,19 +21,24 @@ sidebarTitle: "Need Help?"
       ```
     </CodeGroup>
 
-    **What about Europe?**
+    **Want all of Europe?**\
+    Use `-country-eu` to dynamically select an EU-based IP.
 
-    To route traffic through the **entire EU region**, use `-country-eu`. This will ensure your requests originate from a European country dynamically selected for the best performance.
+    <Tip>
+      **Heads-up:** For **bot-heavy** websites, manually selecting a country may actually decrease success rates. Let BrightBrowser.AI handle it automatically when possible!
+    </Tip>
   </Accordion>
 
-  <Accordion title="Which programming languages and automation tools work with BrightBrowser.AI?">
-    BrightBrowser.AI supports major browser automation frameworks **out of the box**, with full **native support** for:
+  <Accordion title="Which languages and automation tools does BrightBrowser.AI support?">
+    BrightBrowser.AI is **battle-tested** for web automation and supports:
 
     * **Puppeteer (Node.js)**
 
     * **Playwright (Node.js, Python, C#)**
 
     * **Selenium (Java, Python, C#, Node.js, Go, Ruby)**
+
+    **Supported environments:**
 
     | Language    | Puppeteer        | Playwright        | Selenium          |
     | ----------- | ---------------- | ----------------- | ----------------- |
@@ -48,16 +52,16 @@ sidebarTitle: "Need Help?"
 
   ***
 
-  ### **Debugging & Troubleshooting**
+  ## 🔎 **Debugging & Troubleshooting**
 
-  <Accordion title="How can I debug my BrightBrowser.AI session?">
+  <Accordion title="How do I debug my BrightBrowser.AI session?">
     Seeing **what your browser is doing in real time** is critical for debugging. BrightBrowser.AI integrates seamlessly with **Chrome DevTools** for full visibility.
 
-    **To inspect your live session, enable debugging mode:**
+    **Two ways to debug:**
 
-    * **Option 1: Manually via the Bright Data Control Panel**
+    * **Control Panel:** Open the debugger in Bright Data’s dashboard.
 
-    * **Option 2: Remotely via your script**
+    * **Remote Code:** Attach DevTools from your script.
 
     **Example: Open DevTools from your Puppeteer script**
 
@@ -70,12 +74,12 @@ sidebarTitle: "Need Help?"
     </CodeGroup>
   </Accordion>
 
-  <Accordion title="Where do I find the BrightBrowser.AI Debugger?">
-    You have **two ways** to access the debugger:
+  <Accordion title="How do I access the BrightBrowser.AI Debugger?">
+    **Two ways:**
 
     <Tabs>
       <Tab title="Through the Control Panel">
-        Open the **Bright Data Dashboard** and navigate to **My Zones** → Select your **BrightBrowser.AI proxy** → Click **"Chrome DevTools Debugger"**.
+        Open **Bright Data Dashboard** → **My Zones** → Select **BrightBrowser.AI** → Click **"Chrome DevTools Debugger"**.
       </Tab>
 
       <Tab title="Via Code (Remote)">
@@ -93,8 +97,8 @@ sidebarTitle: "Need Help?"
     </Tabs>
   </Accordion>
 
-  <Accordion title="How do I capture screenshots of my BrightBrowser.AI session?">
-    Need **visual proof** of what's happening in your session? Grab a **screenshot** at any time:
+  <Accordion title="How can I take a screenshot of my session?">
+    Need **visual proof** of what's happening in your session? Capture a **screenshot** at any time:
 
     <Tabs>
       <Tab title="Node.js">
@@ -113,7 +117,7 @@ sidebarTitle: "Need Help?"
 
   ***
 
-  ### **Performance & Best Practices**
+  ## ⚡ **Performance & Best Practices**
 
   <Accordion title="Why does my page take longer to load than expected?">
     Some websites have **complex anti-bot measures**, which require extra processing to **bypass protections**.
@@ -131,7 +135,7 @@ sidebarTitle: "Need Help?"
     </Tip>
   </Accordion>
 
-  <Accordion title="Can I open multiple pages in a single session?">
+  <Accordion title="Can I navigate to multiple pages in one session?">
     **Nope!** BrightBrowser.AI is designed for **single-page navigation per session**.
 
     **What this means:**
@@ -151,7 +155,7 @@ sidebarTitle: "Need Help?"
 
   ***
 
-  ### **Integration & Authentication**
+  ## 🔑 **Integration & Authentication**
 
   <Accordion title="How do I verify my connection?">
     If you're getting **connection issues**, run the following **cURL test**:
