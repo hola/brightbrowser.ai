@@ -144,6 +144,40 @@ sidebarTitle: "Need help?"
     </Tabs>
   </Accordion>
 
+  <Accordion title="How do I automatically open DevTools for every session?">
+    If you want DevTools to open automatically every time a session starts, you can integrate the following snippet into your script:
+
+    <CodeGroup>
+      ```js NodeJS - Puppeteer
+
+      const { exec } = require('child_process');
+      const chromeExecutable = 'google-chrome';
+
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const openDevtools = async (page, client) => {
+      // Get current frameId  
+      const frameId = page.mainFrame()._id;
+      // Get DevTools URL from BrightBrowser.AI
+      const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
+      // Open DevTools URL in local Chrome
+      exec(`"${chromeExecutable}" "${inspectUrl}"`, error => {
+        if (error)
+            throw new Error('Unable to open DevTools: ' + error);
+      });
+      // Wait for DevTools UI to load
+      await delay(5000);
+      };
+
+      const page = await browser.newPage();
+      const client = await page.target().createCDPSession();
+      await openDevtools(page, client);
+      await page.goto('http://example.com');
+      ```
+    </CodeGroup>
+
+    Now, every time you run your script, DevTools will open instantly, allowing you to inspect network traffic, debug JavaScript, and analyze performance.
+  </Accordion>
+
   <Accordion title="How can I take a screenshot of my session?">
     Need **visual proof** of what's happening in your session? Capture a **screenshot** at any time:
 
