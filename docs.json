@@ -45,9 +45,9 @@
     ]
   },
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg",
-    "href": "https://toolip.io"
+    "dark": "/logo/logo.svg",
+    "light": "/logo/logo.svg",
+    "href": "https://brightbrowser.ai/"
   },
   "navbar": {
     "links": [
