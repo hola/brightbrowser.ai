@@ -38,14 +38,14 @@ sidebarTitle: "Need help?"
 
     **Supported environments:**
 
-    | Language    | Puppeteer        | Playwright        | Selenium          |
-    | :---------- | :--------------- | :---------------- | :---------------- |
-    | **Node.js** | ✅ Native     | ✅ Native     | ✅ WebDriverJS |
-    | **Python**  | ❌                | ✅ Native      | ✅ WebDriver   |
-    | **Java**    | ✅ Puppeteer-Java | ✅ Playwright-Java | ✅ Native      |
-    | **C#**      | ✅ PuppeteerSharp | ✅ Playwright-.NET | ✅ WebDriver   |
-    | **Go**      | ❌                | ✅ Playwright-Go   | ✅ WebDriver-Go    |
-    | **Ruby**    | ✅ Puppeteer-Ruby | ✅ Playwright-Ruby | ✅ WebDriver-Ruby  |
+    | Language    | Puppeteer        | Playwright        | Selenium         |
+    | :---------- | :--------------- | :---------------- | :--------------- |
+    | **Node.js** | ✅ Native         | ✅ Native          | ✅ WebDriverJS    |
+    | **Python**  | ❌                | ✅ Native          | ✅ WebDriver      |
+    | **Java**    | ✅ Puppeteer-Java | ✅ Playwright-Java | ✅ Native         |
+    | **C#**      | ✅ PuppeteerSharp | ✅ Playwright-.NET | ✅ WebDriver      |
+    | **Go**      | ❌                | ✅ Playwright-Go   | ✅ WebDriver-Go   |
+    | **Ruby**    | ✅ Puppeteer-Ruby | ✅ Playwright-Ruby | ✅ WebDriver-Ruby |
   </Accordion>
 
   <Accordion title="How do I debug my BrightBrowser.AI session?">
@@ -80,12 +80,66 @@ sidebarTitle: "Need help?"
         Use the **CDP API** to open a **DevTools debugging session** from your script:
 
         <CodeGroup>
-          ```js Puppeteer
-          const page = await browser.newPage();
-          const client = await page.target().createCDPSession();
-          const { url: inspectUrl } = await client.send('Page.inspect', { frameId: page.mainFrame()._id });
-          console.log(`Inspect your session here: ${inspectUrl}`);
+          ```js Puppeteer - Node.js
+                    const page = await browser.newPage();  
+                    const client = await page.target().createCDPSession();  
+                    const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
+                    const {url: inspectUrl} = await client.send('Page.inspect', {  
+                        frameId: frame.id,  
+                    });  
+                    console.log(`Inspect session at ${inspectUrl}`);
           ```
+
+          ```js Playwright - Node.js
+          const page = await browser.newPage();  
+          const client = await page.context().newCDPSession(page);  
+          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
+          const {url: inspectUrl} = await client.send('Page.inspect', {  
+              frameId: frame.id,  
+          });  
+          console.log(`Inspect session at ${inspectUrl}`);
+          ```
+
+          ```Python Playwright - Python
+          # Python Playwright - Inspect page using devtools  
+          page = await browser.new_page()  
+          client = await page.context.new_cdp_session(page)  
+          frame_tree = await client.send('Page.getFrameTree', {})  
+          frame_id = frame_tree['frameTree']['frame']['id']  
+          inspect = await client.send('Page.inspect', {'frameId': frame_id})  
+          inspect_url = inspect['url']  
+          print('Inspect session at', inspect_url)
+          ```
+`
+
+          ```cs Playwright - C#
+          var page = await browser.NewPageAsync();  
+          var client = await page.Context.NewCDPSessionAsync(page);  
+          var frameTree = await client.SendAsync("Page.getFrameTree");  
+          var frameId = frameTree.Value  
+              .GetProperty("frameTree")  
+              .GetProperty("frame")  
+              .GetProperty("id")  
+              .GetString()!;  
+          var inspect = await client.SendAsync("Page.inspect", new ()  
+          {  
+              { "frameId", frameId },  
+          });  
+          var inspectUrl = inspect.Value  
+              .GetProperty("url")  
+              .GetString()!;  
+          Console.WriteLine($"Inspect session at {inspectUrl}");
+          ```
+          
+          ```cs PuppeteerSharp
+          var page = await browser.NewPageAsync();  
+          var client = await page.Target.CreateCDPSessionAsync();  
+          var frameTree = await client.SendAsync("Page.getFrameTree");  
+          var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;  
+          var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });  
+          var inspectUrl = inspect["url"]!;  
+          Console.WriteLine($"Inspect session at {inspectUrl}");
+          ``
         </CodeGroup>
       </Tab>
     </Tabs>
