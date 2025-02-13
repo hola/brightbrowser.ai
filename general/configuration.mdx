@@ -1,0 +1,299 @@
+---
+title: "Configuring BrightBrowser.AI"
+description: "Set up BrightBrowser.AI for web automation. Get your credentials, run sample scripts, and inspect live sessions effortlessly."
+sidebarTitle: "Configuration"
+---
+
+## Setting Up BrightBrowser.AI
+
+Before diving into automation, let's **grab your credentials**. You’ll need your **Username and Password**, which you can find in the **Overview** tab of your BrightBrowser.AI zone.
+
+<Warning>
+  Make sure you have **Puppeteer, Playwright, or Selenium installed** before proceeding.
+</Warning>
+
+## Test Your Setup
+
+Run the sample code below to confirm that **BrightBrowser.AI is connected and working**.
+**Remember:** Replace `USER:PASS` with your actual credentials.
+
+<Tabs>
+  <Tab title="Node.js">
+    <CodeGroup>
+      ```js Puppeteer
+      const puppeteer = require('puppeteer-core');
+
+      const AUTH = 'USER:PASS';
+      const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;
+
+      (async () => {
+          console.log('Connecting to BrightBrowser.AI...');
+          const browser = await puppeteer.connect({ browserWSEndpoint: BBAI_WS_ENDPOINT });
+          
+          try {
+              console.log('Connected! Navigating...');
+              const page = await browser.newPage();
+              await page.goto('https://example.com', { timeout: 120000 });
+              
+              console.log('Taking screenshot...');
+              await page.screenshot({ path: './page.png', fullPage: true });
+              
+              console.log('Extracting page content...');
+              const html = await page.content();
+              console.log(html);
+              
+          } finally {
+              await browser.close();
+          }
+      })();
+      ```
+
+      ```js Playwright
+      const pw = require('playwright');
+
+      const AUTH = 'USER:PASS';
+      const BBAI_CDP = `wss://${AUTH}@brd.superproxy.io:9222`;
+
+      (async () => {
+          console.log('Connecting to BrightBrowser.AI...');
+          const browser = await pw.chromium.connectOverCDP(BBAI_CDP);
+          
+          try {
+              console.log('Connected! Navigating...');
+              const page = await browser.newPage();
+              await page.goto('https://example.com', { timeout: 120000 });
+              
+              console.log('Taking screenshot...');
+              await page.screenshot({ path: './page.png', fullPage: true });
+              
+              console.log('Extracting page content...');
+              const html = await page.content();
+              console.log(html);
+              
+          } finally {
+              await browser.close();
+          }
+      })();
+      ```
+
+      ```js Selenium
+      const { Builder, Browser } = require('selenium-webdriver');
+      const fs = require('fs/promises');
+
+      const AUTH = 'USER:PASS';
+      const BBAI_WEBDRIVER = `https://${AUTH}@brd.superproxy.io:9515`;
+
+      (async () => {
+          console.log('Connecting to BrightBrowser.AI...');
+          const driver = await new Builder().forBrowser(Browser.CHROME).usingServer(BBAI_WEBDRIVER).build();
+          
+          try {
+              console.log('Navigating...');
+              await driver.get('https://example.com');
+              
+              console.log('Taking screenshot...');
+              const screenshot = await driver.takeScreenshot();
+              await fs.writeFile('./page.png', Buffer.from(screenshot, 'base64'));
+
+              console.log('Extracting page content...');
+              const html = await driver.getPageSource();
+              console.log(html);
+              
+          } finally {
+              await driver.quit();
+          }
+      })();
+      ```
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="Python">
+    <CodeGroup>
+      ```python Playwright
+      import asyncio
+      from playwright.async_api import async_playwright
+
+      AUTH = 'USER:PASS'
+      BBAI_WS_CDP = f'wss://{AUTH}@brd.superproxy.io:9222'
+
+      async def run(playwright):
+          print("Connecting to BrightBrowser.AI...")
+          browser = await playwright.chromium.connect_over_cdp(BBAI_WS_CDP)
+          try:
+              print("Connected! Navigating...")
+              page = await browser.new_page()
+              await page.goto('https://example.com', timeout=120000)
+
+              print("Taking screenshot...")
+              await page.screenshot(path='./page.png', full_page=True)
+
+              print("Extracting page content...")
+              html = await page.content()
+              print(html)
+
+          finally:
+              await browser.close()
+
+      async def main():
+          async with async_playwright() as playwright:
+              await run(playwright)
+
+      if __name__ == '__main__':
+          asyncio.run(main())
+      ```
+
+      ```python Selenium
+      from selenium.webdriver import Remote, ChromeOptions
+      from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
+
+      AUTH = 'USER:PASS'
+      BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
+
+      def main():
+          print("Connecting to BrightBrowser.AI...")
+          sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
+          
+          with Remote(sbr_connection, options=ChromeOptions()) as driver:
+              print("Connected! Navigating...")
+              driver.get('https://example.com')
+
+              print("Taking screenshot...")
+              driver.get_screenshot_as_file('./page.png')
+
+              print("Extracting page content...")
+              html = driver.page_source
+              print(html)
+
+      if __name__ == '__main__':
+          main()
+      ```
+    </CodeGroup>
+  </Tab>
+
+  <Tab title="C#">
+    <CodeGroup>
+      ```cs PuppeteerSharp
+      using PuppeteerSharp;
+      using System.Net.WebSockets;
+      using System.Text;
+
+      var AUTH = "USER:PASS";
+      var BBAI_WS_ENDPOINT = $"wss://{AUTH}@brd.superproxy.io:9222";
+
+      var browser = await Puppeteer.ConnectAsync(new ConnectOptions
+      {
+          BrowserWSEndpoint = BBAI_WS_ENDPOINT,
+          WebSocketFactory = async (uri, _, cToken) =>
+          {
+              var socket = new ClientWebSocket();
+              var authBytes = Encoding.UTF8.GetBytes(new Uri(BBAI_WS_ENDPOINT).UserInfo);
+              var authHeader = "Basic " + Convert.ToBase64String(authBytes);
+              socket.Options.SetRequestHeader("Authorization", authHeader);
+              await socket.ConnectAsync(uri, cToken);
+              return socket;
+          }
+      });
+
+      Console.WriteLine("Connected! Navigating...");
+      var page = await browser.NewPageAsync();
+      await page.GoToAsync("https://example.com", new NavigationOptions { Timeout = 120000 });
+
+      Console.WriteLine("Taking screenshot...");
+      await page.ScreenshotAsync("./page.png", new ScreenshotOptions { FullPage = true });
+
+      Console.WriteLine("Extracting page content...");
+      var html = await page.GetContentAsync();
+      Console.WriteLine(html);
+
+      await browser.CloseAsync();
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+***
+
+## **Live Debugging with DevTools**
+
+Want a **real-time view** of your BrightBrowser.AI session?
+Run the snippet below to **auto-launch Chrome DevTools** every time you start a session.
+
+```js Puppeteer
+const { exec } = require('child_process');
+const chromeExecutable = 'google-chrome';
+
+const openDevtools = async (page, client) => {
+    const frameId = page.mainFrame()._id;
+    const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
+    
+    exec(`"${chromeExecutable}" "${inspectUrl}"`, (error) => {
+        if (error) throw new Error('Unable to open devtools: ' + error);
+    });
+};
+
+const page = await browser.newPage();
+const client = await page.target().createCDPSession();
+await openDevtools(page, client);
+await page.goto('https://example.com');
+```
+
+***
+
+## **Session Limits & Timeouts**
+
+* **Single Navigation Per Session:**
+
+  You can
+
+  **load one site per session**
+
+  . After that, interact freely via
+
+  **clicks, scrolling, and JS execution**
+
+  .
+
+* **Idle Timeout:**
+
+  Sessions inactive for
+
+  **5 minutes**
+
+  auto-close.
+
+* **Max Session Length:**
+
+  Sessions expire after
+
+  **30 minutes**
+
+  to prevent abuse.
+
+***
+
+## **Run Your Script**
+
+<Tabs>
+  <Tab title="Node.js">
+    ```sh
+    node script.js
+    ```
+  </Tab>
+
+  <Tab title="Python">
+    ```sh
+    python main.py
+    ```
+  </Tab>
+
+  <Tab title="C#" />
+</Tabs>
+
+***
+
+## **Final Thoughts**
+
+BrightBrowser.AI is built for **serious automation**—**no CAPTCHAs, no blocks, no rate limits**.
+Whether you're scraping at scale or automating workflows, **this is the browser you actually need.** 🚀
+
+***
