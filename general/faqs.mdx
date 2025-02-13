@@ -81,36 +81,10 @@ sidebarTitle: "FAQs"
 
         <CodeGroup>
           ```js Puppeteer
-          const page = await browser.newPage();  
-          const client = await page.target().createCDPSession();  
-          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
-          const {url: inspectUrl} = await client.send('Page.inspect', {  
-          frameId: frame.id,  
-          });  
-          console.log(`Inspect session at ${inspectUrl}`);
-
-          ```
-
-          ```js Playwright 
-          const page = await browser.newPage();  
-          const client = await page.context().newCDPSession(page);  
-          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
-          const {url: inspectUrl} = await client.send('Page.inspect', {  
-          frameId: frame.id,  
-          });  
-          console.log(`Inspect session at ${inspectUrl}`);
-
-          ```
-
-          ```js PuppeteerSharp 
-          var page = await browser.NewPageAsync();  
-          var client = await page.Target.CreateCDPSessionAsync();  
-          var frameTree = await client.SendAsync("Page.getFrameTree");  
-          var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;  
-          var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });  
-          var inspectUrl = inspect["url"]!;  
-          Console.WriteLine($"Inspect session at {inspectUrl}");
-
+          const page = await browser.newPage();
+          const client = await page.target().createCDPSession();
+          const { url: inspectUrl } = await client.send('Page.inspect', { frameId: page.mainFrame()._id });
+          console.log(`Inspect your session here: ${inspectUrl}`);
           ```
         </CodeGroup>
       </Tab>
