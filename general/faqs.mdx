@@ -110,7 +110,6 @@ sidebarTitle: "Need help?"
           inspect_url = inspect['url']  
           print('Inspect session at', inspect_url)
           ```
-`
 
           ```cs Playwright - C#
           var page = await browser.NewPageAsync();  
@@ -130,7 +129,7 @@ sidebarTitle: "Need help?"
               .GetString()!;  
           Console.WriteLine($"Inspect session at {inspectUrl}");
           ```
-          
+
           ```cs PuppeteerSharp
           var page = await browser.NewPageAsync();  
           var client = await page.Target.CreateCDPSessionAsync();  
@@ -139,7 +138,7 @@ sidebarTitle: "Need help?"
           var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });  
           var inspectUrl = inspect["url"]!;  
           Console.WriteLine($"Inspect session at {inspectUrl}");
-          ``
+          ```
         </CodeGroup>
       </Tab>
     </Tabs>
