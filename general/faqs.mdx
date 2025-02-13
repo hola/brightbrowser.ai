@@ -169,7 +169,21 @@ sidebarTitle: "Need help?"
 
     <CodeGroup>
       ```js Puppeteer
-      await page.goto('https://example.com', { timeout: 120000 });
+      // Navigate to site with 2 min timeout  
+      page.goto('<https://example.com>', { timeout: 2*60*1000 });  
+      ```
+
+      ```python Playwright
+      #  Navigate to site with 2 min timeout   
+      page.goto('<https://example.com>', timeout=2*60*1000)  
+      ```
+
+      ```cs PuppeteerSharp
+      //  Navigate to site with 2 min timeout   
+      await page.GoToAsync("https://example.com", new NavigationOptions()  
+      {  
+          Timeout = 2*60*1000,  
+      });
       ```
     </CodeGroup>
 
