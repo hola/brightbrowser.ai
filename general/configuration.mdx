@@ -289,22 +289,24 @@ Want a **real-time view** of your BrightBrowser.AI session?
 Run the snippet below to **auto-launch Chrome DevTools** every time you start a session.
 
 ```js Puppeteer
-const { exec } = require('child_process');
-const chromeExecutable = 'google-chrome';
-
-const openDevtools = async (page, client) => {
-    const frameId = page.mainFrame()._id;
-    const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
-    
-    exec(`"${chromeExecutable}" "${inspectUrl}"`, (error) => {
-        if (error) throw new Error('Unable to open devtools: ' + error);
-    });
-};
-
-const page = await browser.newPage();
-const client = await page.target().createCDPSession();
-await openDevtools(page, client);
-await page.goto('https://example.com');
+const { exec } = require('child_process');  
+const chromeExecutable = 'google-chrome';  
+  
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));  
+const openDevtools = async (page, client) => {  
+    const frameId = page.mainFrame()._id;  
+    const { url: inspectUrl } = await client.send('Page.inspect', { frameId });  
+    exec(`"${chromeExecutable}" "${inspectUrl}"`, error => {  
+        if (error)  
+            throw new Error('Unable to open devtools: ' + error);  
+    });  
+    await delay(5000);  
+};  
+  
+const page = await browser.newPage();  
+const client = await page.target().createCDPSession();  
+await openDevtools(page, client);  
+await page.goto('http://example.com');
 ```
 
 ***
