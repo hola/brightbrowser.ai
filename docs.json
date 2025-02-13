@@ -24,8 +24,8 @@
           {
             "group": "CDP Core Functions",
             "pages": [
-              "cdp-func/custom",
-              "cdp-func/standard"
+              "cdp-func/standard",
+              "cdp-func/custom"
             ]
           }
         ]
