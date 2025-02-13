@@ -31,7 +31,7 @@
             ]
           },
           {
-            "group": "Features",
+            "group": "Tools & Troubleshooting",
             "pages": [
               "features/captcha-solver",
               "features/proxy-location",
