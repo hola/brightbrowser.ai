@@ -324,7 +324,7 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
 
 <AccordionGroup>
   <Accordion title="Emulation.getSupportedDevices">
-    Use this command to get a list of all possible devices that can be emulated. This method returns an array of device options that can be used with the setDevice command.
+    Use this command to get a list of all possible devices that can be emulated. This function returns an array of device options that can be used with the setDevice command.
 
     ```js Example
     Emulation.getSupportedDevices().then(devices => { console.log(devices);});
@@ -332,7 +332,7 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
   </Accordion>
 
   <Accordion title="Emulation.setDevice">
-    Once you've received the list above of supported devices, you can emulate a specific device using the Emulation.setDevice command. This command changes the screen width, height, userAgent, and devicePixelRatio to match the specified device.
+    After retrieving the list of supported devices, you can emulate a specific device using the Emulation.setDevice command. This adjusts the screen width, height, userAgent, and devicePixelRatio to match the selected device.
 
     <CodeGroup>
       ```js Usage
@@ -356,7 +356,7 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
 
 ## Custom Client SSL/TLS Certificates
 
-Use this command to install custom client SSL/TLS certificates where required for specific domain authentication. These certificates are applied for the duration of a **single** Scraping Browser session and are automatically removed once the session ends.
+Use this command to **install custom client SSL/TLS certificates** for domain authentication when required. These certificates remain active for the **current Scraping Browser session** and are automatically removed when the session ends.
 
 <AccordionGroup>
   <Accordion title="Browser.addCertificate">
@@ -388,7 +388,7 @@ Use this command to install custom client SSL/TLS certificates where required fo
 
             async function scrape(url = TARGET_URL, file = CERT_FILE, pass = CERT_PASS) {
               if (AUTH == 'USER:PASS') {
-                throw new Error(`Provide Scraping Browsers credentials in AUTH`
+                throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
                     + ` environment variable or update the script.`);
               }
               console.log(`Connecting to Browser...`);
@@ -426,7 +426,7 @@ Use this command to install custom client SSL/TLS certificates where required fo
 
             def scrape(url=TARGET_URL, file=CERT_FILE, pswd=CERT_PASS):
                 if AUTH == 'USER:PASS':
-                raise Exception('Provide Scraping Browsers credentials in AUTH '
+                raise Exception('Provide BrightBrowser.ai credentials in AUTH '
                                 'environment variable or update the script.')
                 print('Connecting to Browser...')
                 server_addr = f'https://{AUTH}@brd.superproxy.io:9515'
