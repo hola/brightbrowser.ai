@@ -3,35 +3,34 @@ title: "Change Proxy Location"
 description: "Use Proxy.setLocation to dynamically change proxy locations for geo-targeted data collection . Set latitude, longitude, and radius before scraping to control request origin."
 sidebarTitle: Proxy Location
 ---
+
 The `Proxy.setLocation` function lets you **dynamically adjust your proxy's location** within a specified radius, making it ideal for **geo-targeted data collection and testing location-specific content.**
 
 ## Parameters
 
 <ParamField path="lat" type="float">
-Specifies the latitude of the desired proxy location.
+  Defines the latitude of the desired proxy location.
 </ParamField>
 
 <ParamField path="lon" type="float">
-Specifies the longitude of the desired proxy location.
+  Defines the longitude of the desired proxy location.
 </ParamField>
 
 <ParamField path="distance" type="float">
-Defines the maximum distance from the provided coordinates within which the proxy can be located.
-<Note>Unit: Kilometers.</Note>
+  Defines the maximum allowable <Tooltip tip="In Kilometers">distance</Tooltip> from the specified coordinates where the proxy can be assigned.
 </ParamField>
 
 <ParamField path="strict" type="boolean" default="true">
-Defines the desired behavior in case no peers are available in the specified distance.
+  Defines the desired behavior in case no peers are available in the specified distance.
 
-`strict: true` - our system will search for available peers only within the specific distance.
+  `strict: true` - our system will search for available peers only within the specific distance.
 
-`strict: false` - if no peers are available in the specified distance we will automatically expand the distance and look for the nearest available peers.
+  `strict: false` - if no peers are available within the specified distance, the system automatically expands the radius to find the nearest available peers.
 </ParamField>
 
 ## Usage
 
 The `Proxy.setLocation` command should be invoked before navigating to the site for which the proxy is intended. This ensures that the proxy location is set accurately according to the specified parameters before any data requests are made.
-
 
 **How to run examples**
 
@@ -39,207 +38,208 @@ You need to get Scraping Browsers credentials in the control panel.
 Pass it in format `USER:PASS` as environment variable `AUTH`
 
 <CodeGroup>
-```sh Shell
-export AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
-```
+  ```sh Shell
+  export AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
+  ```
 
-```sh CMD
-set AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
-```
+  ```sh CMD
+  set AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
+  ```
 
-```powershell Powershell
-$Env:AUTH = 'brd-customer-<customer_id>-zone-<zone_name>:<zone_password>'
-```
+  ```powershell Powershell
+  $Env:AUTH = 'brd-customer-<customer_id>-zone-<zone_name>:<zone_password>'
+  ```
 </CodeGroup>
 
 <Tip>You can also pass `TARGET_URL` environment variable to change default targeted website.</Tip>
 
 ## Code Examples
+
 Change proxy location before scraping
 
 <Tip>Select your pefered tech-stack</Tip>
 
 <CodeGroup>
-```js NodeJS - Playwright
-#!/usr/bin/env node
-const playwright = require('playwright');
-const {
-    AUTH = 'USER:PASS',
-    TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
-    LOCATION = 'amsterdam',
-} = process.env;
+  ```js NodeJS - Playwright
+  #!/usr/bin/env node
+  const playwright = require('playwright');
+  const {
+      AUTH = 'USER:PASS',
+      TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
+      LOCATION = 'amsterdam',
+  } = process.env;
 
-const LOCATIONS = Object.freeze({
-    amsterdam: { lat: 52.377956, lon: 4.897070 },
-    london: { lat: 51.509865, lon: -0.118092 },
-    new_york: { lat: 40.730610, lon: -73.935242 },
-    paris: { lat: 48.864716, lon: 2.349014 },
-});
+  const LOCATIONS = Object.freeze({
+      amsterdam: { lat: 52.377956, lon: 4.897070 },
+      london: { lat: 51.509865, lon: -0.118092 },
+      new_york: { lat: 40.730610, lon: -73.935242 },
+      paris: { lat: 48.864716, lon: 2.349014 },
+  });
 
-async function scrape(url = TARGET_URL, location = LOCATION) {
-    if (AUTH == 'USER:PASS') {
-        throw new Error(`Provide Scraping Browsers credentials in AUTH`
-            + ` environment variable or update the script.`);
-    }
-    if (!LOCATIONS[location]) {
-        throw new Error(`Unknown location`);
-    }
-    const { lat, lon } = LOCATIONS[location];
-    console.log(`Connecting to Browser...`);
-    const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
-    const browser = await playwright.chromium.connectOverCDP(endpointURL);
-    try {
-        console.log(`Connected! Changing proxy location`
-            + ` to ${location} (${lat}, ${lon})...`);
-        const page = await browser.newPage();
-        const client = await page.context().newCDPSession(page);
-        await client.send('Proxy.setLocation', {
-            lat, lon,
-            distance: 50 /* kilometers */,
-            strict: true,
-        });
-        console.log(`Navigating to ${url}...`);
-        await page.goto(url, { timeout: 2 * 60 * 1000 });
-        console.log(`Navigated! Scraping data...`);
-        const data = await page.$eval('body', el => el.innerText);
-        console.log(`Scraped! Data:`, JSON.parse(data));
-    } finally {
-        await browser.close();
-    }
-}
+  async function scrape(url = TARGET_URL, location = LOCATION) {
+      if (AUTH == 'USER:PASS') {
+          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+              + ` environment variable or update the script.`);
+      }
+      if (!LOCATIONS[location]) {
+          throw new Error(`Unknown location`);
+      }
+      const { lat, lon } = LOCATIONS[location];
+      console.log(`Connecting to Browser...`);
+      const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
+      const browser = await playwright.chromium.connectOverCDP(endpointURL);
+      try {
+          console.log(`Connected! Changing proxy location`
+              + ` to ${location} (${lat}, ${lon})...`);
+          const page = await browser.newPage();
+          const client = await page.context().newCDPSession(page);
+          await client.send('Proxy.setLocation', {
+              lat, lon,
+              distance: 50 /* kilometers */,
+              strict: true,
+          });
+          console.log(`Navigating to ${url}...`);
+          await page.goto(url, { timeout: 2 * 60 * 1000 });
+          console.log(`Navigated! Scraping data...`);
+          const data = await page.$eval('body', el => el.innerText);
+          console.log(`Scraped! Data:`, JSON.parse(data));
+      } finally {
+          await browser.close();
+      }
+  }
 
-if (require.main == module) {
-    scrape().catch(error => {
-        console.error(error.stack || error.message || error);
-        process.exit(1);
-    });
-}
-```
+  if (require.main == module) {
+      scrape().catch(error => {
+          console.error(error.stack || error.message || error);
+          process.exit(1);
+      });
+  }
+  ```
 
-```js NodeJS - Puppeteer
-#!/usr/bin/env node
-const puppeteer = require('puppeteer-core');
-const {
-    AUTH = 'USER:PASS',
-    TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
-    LOCATION = 'amsterdam',
-} = process.env;
+  ```js NodeJS - Puppeteer
+  #!/usr/bin/env node
+  const puppeteer = require('puppeteer-core');
+  const {
+      AUTH = 'USER:PASS',
+      TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
+      LOCATION = 'amsterdam',
+  } = process.env;
 
-const LOCATIONS = Object.freeze({
-    amsterdam: { lat: 52.377956, lon: 4.897070 },
-    london: { lat: 51.509865, lon: -0.118092 },
-    new_york: { lat: 40.730610, lon: -73.935242 },
-    paris: { lat: 48.864716, lon: 2.349014 },
-});
+  const LOCATIONS = Object.freeze({
+      amsterdam: { lat: 52.377956, lon: 4.897070 },
+      london: { lat: 51.509865, lon: -0.118092 },
+      new_york: { lat: 40.730610, lon: -73.935242 },
+      paris: { lat: 48.864716, lon: 2.349014 },
+  });
 
-async function scrape(url = TARGET_URL, location = LOCATION) {
-    if (AUTH == 'USER:PASS') {
-        throw new Error(`Provide Scraping Browsers credentials in AUTH`
-            + ` environment variable or update the script.`);
-    }
-    if (!LOCATIONS[location]) {
-        throw new Error(`Unknown location`);
-    }
-    const { lat, lon } = LOCATIONS[location];
-    console.log(`Connecting to Browser...`);
-    const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
-    const browser = await puppeteer.connect({ browserWSEndpoint });
-    try {
-        console.log(`Connected! Changing proxy location`
-            + ` to ${location} (${lat}, ${lon})...`);
-        const page = await browser.newPage();
-        const client = await page.createCDPSession();
-        await client.send('Proxy.setLocation', {
-            lat, lon,
-            distance: 50 /* kilometers */,
-            strict: true,
-        });
-        console.log(`Navigating to ${url}...`);
-        await page.goto(url, { timeout: 2 * 60 * 1000 });
-        console.log(`Navigated! Scraping data...`);
-        const data = await page.$eval('body', el => el.innerText);
-        console.log(`Scraped! Data:`, JSON.parse(data));
-    } finally {
-        await browser.close();
-    }
-}
+  async function scrape(url = TARGET_URL, location = LOCATION) {
+      if (AUTH == 'USER:PASS') {
+          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+              + ` environment variable or update the script.`);
+      }
+      if (!LOCATIONS[location]) {
+          throw new Error(`Unknown location`);
+      }
+      const { lat, lon } = LOCATIONS[location];
+      console.log(`Connecting to Browser...`);
+      const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
+      const browser = await puppeteer.connect({ browserWSEndpoint });
+      try {
+          console.log(`Connected! Changing proxy location`
+              + ` to ${location} (${lat}, ${lon})...`);
+          const page = await browser.newPage();
+          const client = await page.createCDPSession();
+          await client.send('Proxy.setLocation', {
+              lat, lon,
+              distance: 50 /* kilometers */,
+              strict: true,
+          });
+          console.log(`Navigating to ${url}...`);
+          await page.goto(url, { timeout: 2 * 60 * 1000 });
+          console.log(`Navigated! Scraping data...`);
+          const data = await page.$eval('body', el => el.innerText);
+          console.log(`Scraped! Data:`, JSON.parse(data));
+      } finally {
+          await browser.close();
+      }
+  }
 
-function getErrorDetails(error) {
-    if (error.target?._req?.res) {
-        const {
-            statusCode,
-            statusMessage,
-        } = error.target._req.res;
-        return `Unexpected Server Status ${statusCode}: ${statusMessage}`;
-    }
-}
+  function getErrorDetails(error) {
+      if (error.target?._req?.res) {
+          const {
+              statusCode,
+              statusMessage,
+          } = error.target._req.res;
+          return `Unexpected Server Status ${statusCode}: ${statusMessage}`;
+      }
+  }
 
-if (require.main == module) {
-    scrape().catch(error => {
-        console.error(getErrorDetails(error)
-            || error.stack
-            || error.message
-            || error);
-        process.exit(1);
-    });
-}
-```
+  if (require.main == module) {
+      scrape().catch(error => {
+          console.error(getErrorDetails(error)
+              || error.stack
+              || error.message
+              || error);
+          process.exit(1);
+      });
+  }
+  ```
 
-```js NodeJS - Selenium
-#!/usr/bin/env node
-const { Builder, Browser, By } = require('selenium-webdriver');
-const {
-    AUTH = 'USER:PASS',
-    TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
-    LOCATION = 'amsterdam',
-} = process.env;
+  ```js NodeJS - Selenium
+  #!/usr/bin/env node
+  const { Builder, Browser, By } = require('selenium-webdriver');
+  const {
+      AUTH = 'USER:PASS',
+      TARGET_URL = 'https://geo.brdtest.com/mygeo.json',
+      LOCATION = 'amsterdam',
+  } = process.env;
 
-const LOCATIONS = Object.freeze({
-    amsterdam: { lat: 52.377956, lon: 4.897070 },
-    london: { lat: 51.509865, lon: -0.118092 },
-    new_york: { lat: 40.730610, lon: -73.935242 },
-    paris: { lat: 48.864716, lon: 2.349014 },
-});
+  const LOCATIONS = Object.freeze({
+      amsterdam: { lat: 52.377956, lon: 4.897070 },
+      london: { lat: 51.509865, lon: -0.118092 },
+      new_york: { lat: 40.730610, lon: -73.935242 },
+      paris: { lat: 48.864716, lon: 2.349014 },
+  });
 
-async function scrape(url = TARGET_URL, location = LOCATION) {
-    if (AUTH == 'USER:PASS') {
-        throw new Error(`Provide Scraping Browsers credentials in AUTH`
-            + ` environment variable or update the script.`);
-    }
-    if (!LOCATIONS[location]) {
-        throw new Error(`Unknown location`);
-    }
-    const { lat, lon } = LOCATIONS[location];
-    console.log(`Connecting to Browser...`);
-    const server = `https://${AUTH}@brd.superproxy.io:9515`;
-    const driver = await new Builder()
-        .forBrowser(Browser.CHROME)
-        .usingServer(server)
-        .build();
-    try {
-        console.log(`Connected! Changing proxy location`
-            + ` to ${location} (${lat}, ${lon})...`);
-        await driver.sendAndGetDevToolsCommand('Proxy.setLocation', {
-            lat, lon,
-            distance: 50 /* kilometers */,
-            strict: true,
-        });
-        console.log(`Navigating to ${url}...`);
-        await driver.get(url);
-        console.log(`Navigated! Scraping data...`);
-        const body = await driver.findElement(By.css('body'));
-        const data = await body.getText();
-        console.log(`Scraped! Data:`, JSON.parse(data));
-    } finally {
-        await driver.quit();
-    }
-}
+  async function scrape(url = TARGET_URL, location = LOCATION) {
+      if (AUTH == 'USER:PASS') {
+          throw new Error(`Provide Scraping Browsers credentials in AUTH`
+              + ` environment variable or update the script.`);
+      }
+      if (!LOCATIONS[location]) {
+          throw new Error(`Unknown location`);
+      }
+      const { lat, lon } = LOCATIONS[location];
+      console.log(`Connecting to Browser...`);
+      const server = `https://${AUTH}@brd.superproxy.io:9515`;
+      const driver = await new Builder()
+          .forBrowser(Browser.CHROME)
+          .usingServer(server)
+          .build();
+      try {
+          console.log(`Connected! Changing proxy location`
+              + ` to ${location} (${lat}, ${lon})...`);
+          await driver.sendAndGetDevToolsCommand('Proxy.setLocation', {
+              lat, lon,
+              distance: 50 /* kilometers */,
+              strict: true,
+          });
+          console.log(`Navigating to ${url}...`);
+          await driver.get(url);
+          console.log(`Navigated! Scraping data...`);
+          const body = await driver.findElement(By.css('body'));
+          const data = await body.getText();
+          console.log(`Scraped! Data:`, JSON.parse(data));
+      } finally {
+          await driver.quit();
+      }
+  }
 
-if (require.main == module) {
-    scrape().catch(error => {
-        console.error(error.stack || error.message || error);
-        process.exit(1);
-    });
-}
-```
+  if (require.main == module) {
+      scrape().catch(error => {
+          console.error(error.stack || error.message || error);
+          process.exit(1);
+      });
+  }
+  ```
 </CodeGroup>
