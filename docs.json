@@ -17,14 +17,15 @@
             "group": "GENERAL",
             "pages": [
               "general/intro",
-              "general/start"
+              "general/start",
+              "general/configuration"
             ]
           },
           {
-            "group": "CD",
+            "group": "CDP Core Functions",
             "pages": [
-              "general/intro",
-              "general/start"
+              "cdp-func/custom",
+              "cdp-func/standard"
             ]
           }
         ]
