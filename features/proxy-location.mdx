@@ -1,6 +1,6 @@
 ---
 title: "Change Proxy Location"
-description: "Use Proxy.setLocation to dynamically change proxy locations for geo-targeted data collection . Set latitude, longitude, and radius before scraping to control request origin."
+description: "Use Proxy.setLocation to dynamically change proxy locations for geo-targeted data collection. Set latitude, longitude, and radius before scraping to control request origin."
 sidebarTitle: Proxy Location
 ---
 
@@ -30,20 +30,20 @@ The `Proxy.setLocation` function lets you **dynamically adjust your proxy's loca
 
 ## Usage
 
-The `Proxy.setLocation` command should be invoked before navigating to the site for which the proxy is intended. This ensures that the proxy location is set accurately according to the specified parameters before any data requests are made.
+Call the `Proxy.setLocation` function before navigating to the target site to ensure the proxy location is correctly applied before any requests are made.
 
 **How to run examples**
 
-You need to get Scraping Browsers credentials in the control panel.
+You need to get BrightBrowser.ai credentials in the control panel.
 Pass it in format `USER:PASS` as environment variable `AUTH`
 
 <CodeGroup>
-  ```sh Shell
-  export AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
-  ```
-
   ```sh CMD
   set AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
+  ```
+    
+  ```sh Shell
+  export AUTH=brd-customer-<customer_id>-zone-<zone_name>:<zone_password>
   ```
 
   ```powershell Powershell
