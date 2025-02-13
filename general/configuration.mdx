@@ -21,38 +21,38 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
   <Tab title="Node.js">
     <CodeGroup>
       ```js Puppeteer
-      const puppeteer = require('puppeteer-core');
+      const puppeteer = require('puppeteer-core');  
+      // Enter your zone name and password below
+      const AUTH = 'USER:PASS';  
+      const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
 
-      const AUTH = 'USER:PASS';
-      const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;
-
-      (async () => {
-          console.log('Connecting to BrightBrowser.AI...');
-          const browser = await puppeteer.connect({ browserWSEndpoint: BBAI_WS_ENDPOINT });
-          
-          try {
-              console.log('Connected! Navigating...');
-              const page = await browser.newPage();
-              await page.goto('https://example.com', { timeout: 120000 });
-              
-              console.log('Taking screenshot...');
-              await page.screenshot({ path: './page.png', fullPage: true });
-              
-              console.log('Extracting page content...');
-              const html = await page.content();
-              console.log(html);
-              
-             } finally {  
-       driver.quit();  
+      async function main() {  
+      console.log('Connecting to BrightBrowser.AI...');  
+      const browser = await puppeteer.connect({  
+        browserWSEndpoint: SBR_WS_ENDPOINT,  
+      });  
+      try {  
+        console.log('Connected! Navigating...');  
+        const page = await browser.newPage();  
+        // Enter your test URL below
+        await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
+        console.log('Taking screenshot to page.png');  
+        await page.screenshot({ path: './page.png', fullPage: true });  
+      console.log('Navigated! BrightBrowser.AI...');  
+      const html = await page.content();  
+      console.log(html)  
+      } finally {  
+        await browser.close();  
       }  
       }  
 
-      if (require.main == module) {  
+      if (require.main === module) {  
       main().catch(err => {  
-       console.error(err.stack || err);  
-       process.exit(1);  
+        console.error(err.stack || err);  
+        process.exit(1);  
       });  
       }
+
       ```
 
       ```js Playwright
@@ -62,7 +62,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
         
       async function main() {  
-          console.log('Connecting to Scraping Browser...');  
+          console.log('Connecting to BrightBrowser.AI...');  
           const browser = await puppeteer.connect({  
               browserWSEndpoint: SBR_WS_ENDPOINT,  
          });  
@@ -73,7 +73,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
               await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
               console.log('Taking screenshot to page.png');  
               await page.screenshot({ path: './page.png', fullPage: true });  
-         console.log('Navigated! Scraping page content...');  
+         console.log('Navigated! BrightBrowser.AI content...');  
        const html = await page.content();  
        console.log(html)   
           } finally {  
@@ -259,24 +259,24 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
 
       ```python Selenium
       using OpenQA.Selenium;  
-using OpenQA.Selenium.Chrome;  
-using OpenQA.Selenium.Remote;  
-var AUTH = "USER:PASS";  
-var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
-  
-Console.WriteLine("Connecting to  BrightBrowser.AI...");  
-var options = new ChromeOptions();  
-using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
-Console.WriteLine("Connected! Navigating to https://example.com...");  
-driver.Navigate().GoToUrl("https://example.com");  
-  
-Console.WriteLine("Taking page screenshot to file page.png");  
-var screenshot = driver.GetScreenshot();  
-screenshot.SaveAsFile("./page.png");  
-  
-Console.WriteLine("Navigated!  BrightBrowser.AIcontent...");  
-var html = driver.PageSource;  
-Console.WriteLine(html);
+      using OpenQA.Selenium.Chrome;  
+      using OpenQA.Selenium.Remote;  
+      var AUTH = "USER:PASS";  
+      var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
+
+      Console.WriteLine("Connecting to  BrightBrowser.AI...");  
+      var options = new ChromeOptions();  
+      using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
+      Console.WriteLine("Connected! Navigating to https://example.com...");  
+      driver.Navigate().GoToUrl("https://example.com");  
+
+      Console.WriteLine("Taking page screenshot to file page.png");  
+      var screenshot = driver.GetScreenshot();  
+      screenshot.SaveAsFile("./page.png");  
+
+      Console.WriteLine("Navigated!  BrightBrowser.AIcontent...");  
+      var html = driver.PageSource;  
+      Console.WriteLine(html);
 
       ```
     </CodeGroup>
