@@ -133,19 +133,19 @@ Choose your preferred method below to see more:
   </Tab>
 </Tabs>
 
-### Leveraging Chrome Dev Tools
+### Taking advantage of Chrome Dev Tools
 
-* With the Scraping Browser Debugger now connected to your live session, you gain access to the powerful features of Chrome Dev Tools.
+* With the BrightBrowser.ai Debugger connected to your live session, you gain **full access to Chrome DevTools powerful features**.
 
-* Utilize the Dev Tools interface to inspect HTML elements, analyze network requests, debug JavaScript code, and monitor performance. Leverage breakpoints, console logging, and other debugging techniques to identify and resolve issues within your code.
+* Use the DevTools interface to inspect HTML, analyze network requests, debug JavaScript, and monitor performance. Leverage breakpoints, console logging, and advanced debugging techniques to **troubleshoot and optimize your code efficiently**.
 
 <Frame>
   ![test-sites.png](/images/scraping-automation/scraping-browser/features/debugger/test-sites.png)
 </Frame>
 
-### Automatically opening devtools locally to view your live browser session
+### Auto-Launch DevTools for Live Browser Sessions
 
-If you would like to automatically launch devtools on every session to view your live browser session, you can integrate the following code snippet:
+To automatically open Chrome DevTools for every session and monitor your live browser activity, integrate the following code snippet into your setup:
 
 ```js NodeJS - Puppeteer
 // Launch devtools locally
@@ -174,9 +174,9 @@ await openDevtools(page, client);
 await page.goto('http://example.com');
 ```
 
-### Debugger Walkthrough
+### Debugging Overview
 
-Check out the Scraping Browser Debugger in action below
+Check out the BrightBrowser.ai Debugger in action below
 
 <Frame>
   <iframe width="660" height="350" src="https://www.youtube.com/embed/68Kom7tS-QY" title="Debugger Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
@@ -184,18 +184,18 @@ Check out the Scraping Browser Debugger in action below
 
 ## Error codes
 
-Analyze some of the popular error codes you might be receiving below:
+Explore some of the common error codes you may encounter and their potential causes below:
 
 | Error Code | Meaning                                 | What can you do about it?                                                                                                                                               |
 | ---------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `407`      | An issue with the remote browser's port | Please check your remote browser's port. The correct port for Scraping Browser is either the default port:9222 OR if you are using Selenium specifically, use port:9515 |
-| `403`      | Authentication Error                    | Check authentication credentials (username, password) and check that you are using the correct "Browser API" zone from Bright Data control panel                        |
-| `503`      | Service Unavailable                     | We are likely scaling browsers right now to meet demand. Try to reconnect in 1 minute.                                                                                  |
+| `407`      | Check your remote browser’s port . The correct port for BrightBrowser.ai is 9222 by default, or 9515 if using Selenium. |
+| `403`      | Authentication Error                    | Verify your username and password , and ensure you're using the correct "Browser API" zone from the Bright Data control panel                        |
+| `503`      | Service Unavailable                     | We’re currently scaling browsers to meet demand. Try reconnecting in 1 minute.                                                                                  |
 
 ## FAQs
 
-Check out our [frequently asked questions](/scraping-automation/scraping-browser/faqs) regarding Scraping Browser
+For any questions about BrightBrowser.ai visit our [frequently asked questions](/general/faqs) page.
 
 ## How To
 
-Find out more about the [common library navigational functions](/scraping-automation/scraping-browser/code-examples) and examples for browser automation and specifically for Scraping Browser
+Find out more about the [common library navigational functions](/scraping-automation/scraping-browser/code-examples) and examples for browser automation and specifically for BrightBrowser.ai.
