@@ -1,5 +1,201 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "BrightBrowser.ai Troubleshooting"
+description: "Running into issues? No worries—learn how to debug like a pro, decode error messages, and fine-tune your scraping setup using Chrome DevTools. Master troubleshooting techniques to keep your automation smooth and efficient."
+sidebarTitle: Troubleshooting
 ---
 
+## BrightBrowser.ai Debugger Tool
+
+Web scraping often involves complex interactions, making debugging essential for smooth development. The BrightBrowser.ai Debugger works alongside Chrome DevTools, giving you deep visibility, precise control, and real-time code analysis to fine-tune your automation with maximum efficiency.
+
+### Where to find it
+
+You can launch the BrightBrowser.ai Debugger in two ways:
+
+1. Manually using Control Panel.
+
+2. Remotely using your script.
+
+Choose your preferred method below to see more:
+
+<Tabs>
+  <Tab title="Manually">
+    Fire up the BrightBrowser.ai Debugger straight from your Bright Data Control Panel with these quick steps:
+
+    1. Head to **My Zones** in the control panel.
+
+    2. Select your BrightBrowser.ai **zone**.
+
+    3. Jump into the **Overview** tab.
+
+    4. Press the **Chrome DevTools Debugger** button on the right.
+
+    <Frame>
+      ![chrome-devtools-debugger.png](/images/scraping-automation/scraping-browser/features/debugger/chrome-devtools-debugger.png)
+    </Frame>
+
+    ### Getting Started with the BrightBrowser.ai Debugger & Chrome Dev Tools
+
+    <Steps>
+      <Step title="Open a BrightBrowser.ai Session">
+        * Make sure you have an active BrightBrowser.ai session running.
+
+        * If you're unsure how to start one, check out our Quick Start Guide.
+      </Step>
+
+      <Step title="Start the Debugger">
+        * Once your session is live, fire up the Debugger.
+
+        * Head to the "Access Parameters" tab and click the Debugger button to open the BrightBrowser.ai Debugger interface (see the screenshot above ).
+      </Step>
+
+      <Step title="Connect to a Live Browser Session">
+        * Inside the Debugger, you'll see a list of your active BrightBrowser.ai sessions.
+
+        * Pick the session you want to debug.
+
+        * Click the session link or copy/paste it into your browser to establish a direct connection between the Debugger and your session.
+
+        <Frame>
+          ![](/images/scraping-automation/scraping-browser/features/debugger/all-set.png)
+        </Frame>
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Remotely">
+    To **launch the debugger directly from your script**, send the **CDP command**: `Page.inspect`.
+    This will instantly open an inspection session for real-time debugging.
+
+    See the following examples:
+
+    <CodeGroup>
+      ```js NodeJS
+      // Puppeteer - Inspect page using devtools
+      const page = await browser.newPage();
+      const client = await page.target().createCDPSession();
+      const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
+      const {url: inspectUrl} = await client.send('Page.inspect', {
+          frameId: frame.id,
+      });
+      console.log(`Inspect session at ${inspectUrl}`);
+
+      // Playwright - Inspect page using devtools
+      const page = await browser.newPage();
+      const client = await page.context().newCDPSession(page);
+      const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
+      const {url: inspectUrl} = await client.send('Page.inspect', {
+          frameId: frame.id,
+      });
+      console.log(`Inspect session at ${inspectUrl}`);
+      ```
+
+      ```python Python
+      # Playwright - Inspect page using devtools
+      page = await browser.new_page()
+      client = await page.context.new_cdp_session(page)
+      frame_tree = await client.send('Page.getFrameTree', {})
+      frame_id = frame_tree['frameTree']['frame']['id']
+      inspect = await client.send('Page.inspect', {'frameId': frame_id})
+      inspect_url = inspect['url']
+      print('Inspect session at', inspect_url)
+      ```
+
+      ```cs C#
+      // PuppeteerSharp - Inspect page using devtools
+      var page = await browser.NewPageAsync();
+      var client = await page.Target.CreateCDPSessionAsync();
+      var frameTree = await client.SendAsync("Page.getFrameTree");
+      var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;
+      var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });
+      var inspectUrl = inspect["url"]!;
+      Console.WriteLine($"Inspect session at {inspectUrl}");
+
+      // Playwright - Inspect page using devtools
+      var page = await browser.NewPageAsync();
+      var client = await page.Context.NewCDPSessionAsync(page);
+      var frameTree = await client.SendAsync("Page.getFrameTree");
+      var frameId = frameTree.Value
+          .GetProperty("frameTree")
+          .GetProperty("frame")
+          .GetProperty("id")
+          .GetString()!;
+      var inspect = await client.SendAsync("Page.inspect", new ()
+      {
+          { "frameId", frameId },
+      });
+      var inspectUrl = inspect.Value
+          .GetProperty("url")
+          .GetString()!;
+      Console.WriteLine($"Inspect session at {inspectUrl}");
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+### Leveraging Chrome Dev Tools
+
+* With the Scraping Browser Debugger now connected to your live session, you gain access to the powerful features of Chrome Dev Tools.
+
+* Utilize the Dev Tools interface to inspect HTML elements, analyze network requests, debug JavaScript code, and monitor performance. Leverage breakpoints, console logging, and other debugging techniques to identify and resolve issues within your code.
+
+<Frame>
+  ![test-sites.png](/images/scraping-automation/scraping-browser/features/debugger/test-sites.png)
+</Frame>
+
+### Automatically opening devtools locally to view your live browser session
+
+If you would like to automatically launch devtools on every session to view your live browser session, you can integrate the following code snippet:
+
+```js NodeJS - Puppeteer
+// Launch devtools locally
+
+const { exec } = require('child_process');
+const chromeExecutable = 'google-chrome';
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const openDevtools = async (page, client) => {
+    // get current frameId
+    const frameId = page.mainFrame()._id;
+    // get URL for devtools from scraping browser
+    const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
+    // open devtools URL in local chrome
+    exec(`"${chromeExecutable}" "${inspectUrl}"`, error => {
+        if (error)
+            throw new Error('Unable to open devtools: ' + error);
+    });
+    // wait for devtools ui to load
+    await delay(5000);
+};
+
+const page = await browser.newPage();
+const client = await page.target().createCDPSession();
+await openDevtools(page, client);
+await page.goto('http://example.com');
+```
+
+### Debugger Walkthrough
+
+Check out the Scraping Browser Debugger in action below
+
+<Frame>
+  <iframe width="660" height="350" src="https://www.youtube.com/embed/68Kom7tS-QY" title="Debugger Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+</Frame>
+
+## Error codes
+
+Analyze some of the popular error codes you might be receiving below:
+
+| Error Code | Meaning                                 | What can you do about it?                                                                                                                                               |
+| ---------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `407`      | An issue with the remote browser's port | Please check your remote browser's port. The correct port for Scraping Browser is either the default port:9222 OR if you are using Selenium specifically, use port:9515 |
+| `403`      | Authentication Error                    | Check authentication credentials (username, password) and check that you are using the correct "Browser API" zone from Bright Data control panel                        |
+| `503`      | Service Unavailable                     | We are likely scaling browsers right now to meet demand. Try to reconnect in 1 minute.                                                                                  |
+
+## FAQs
+
+Check out our [frequently asked questions](/scraping-automation/scraping-browser/faqs) regarding Scraping Browser
+
+## How To
+
+Find out more about the [common library navigational functions](/scraping-automation/scraping-browser/code-examples) and examples for browser automation and specifically for Scraping Browser
