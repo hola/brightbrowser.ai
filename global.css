@@ -1,3 +1,4 @@
+
 /* Основной цвет текста */
 body, p, span, h1, h2, h3, h4, h5, h6 {
   color: var(--text-color, #525252) !important;

@@ -1,5 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
+  "styles": ["/global.css"],
   "theme": "mint",
   "name": "Documentation",
   "colors": {
