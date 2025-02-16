@@ -1,0 +1,21 @@
+/* Основной цвет текста */
+body, p, span, h1, h2, h3, h4, h5, h6 {
+  color: #525252 !important;
+}
+
+/* Цвет неактивных вкладок */
+.nav-tab {
+  color: #7A7A7A !important;
+}
+
+/* Цвет заголовков групп в меню */
+.nav-group-title {
+  color: #525252 !important;
+}
+
+/* Стили для активной вкладки */
+.nav-tab.active {
+  color: #225641 !important;
+  background-color: #ECFFC7 !important;
+  font-weight: bold;
+}
