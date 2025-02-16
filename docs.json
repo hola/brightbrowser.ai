@@ -8,7 +8,7 @@
     "dark": "#2E7558",
     "anchors": {
       "from": "#225641",
-      "to": "2E7558"
+      "to": "#2E7558"
     }
   },
   "favicon": "/favicon.svg",
