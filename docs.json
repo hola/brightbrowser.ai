@@ -3,6 +3,7 @@
   "name": "Mint Starter Kit",
   "theme": "mint",
   "prompt": "Hello ? ",
+  "eyebrows": "section",
   "colors": {
     "primary": "#225641",
     "light": "#2E7558",
