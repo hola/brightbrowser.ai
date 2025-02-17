@@ -2,8 +2,6 @@
   "$schema": "https://mintlify.com/docs.json",
   "name": "Mint Starter Kit",
   "theme": "venus",
-  "prompt": "Hello ? ",
-  "eyebrows": "section",
   "colors": {
     "primary": "#225641",
     "light": "#2E7558",
