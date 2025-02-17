@@ -70,8 +70,7 @@ Choose your preferred method below to see more:
     See the following examples:
 
     <CodeGroup>
-      ```js NodeJS
-      // Puppeteer - Inspect page using devtools
+      ```js NodeJS + Puppeteer
       const page = await browser.newPage();
       const client = await page.target().createCDPSession();
       const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
@@ -79,8 +78,9 @@ Choose your preferred method below to see more:
           frameId: frame.id,
       });
       console.log(`Inspect session at ${inspectUrl}`);
+      ```
 
-      // Playwright - Inspect page using devtools
+      ```js NodeJS + Playwright
       const page = await browser.newPage();
       const client = await page.context().newCDPSession(page);
       const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
@@ -101,8 +101,7 @@ Choose your preferred method below to see more:
       print('Inspect session at', inspect_url)
       ```
 
-      ```cs C#
-      // PuppeteerSharp - Inspect page using devtools
+      ```cs C# + PuppeteerSharp
       var page = await browser.NewPageAsync();
       var client = await page.Target.CreateCDPSessionAsync();
       var frameTree = await client.SendAsync("Page.getFrameTree");
@@ -110,8 +109,9 @@ Choose your preferred method below to see more:
       var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });
       var inspectUrl = inspect["url"]!;
       Console.WriteLine($"Inspect session at {inspectUrl}");
+      ```
 
-      // Playwright - Inspect page using devtools
+      ```cs C# + Playwright
       var page = await browser.NewPageAsync();
       var client = await page.Context.NewCDPSessionAsync(page);
       var frameTree = await client.SendAsync("Page.getFrameTree");
@@ -186,11 +186,11 @@ Check out the BrightBrowser.ai Debugger in action below
 
 Explore some of the common error codes you may encounter and their potential causes below:
 
-| Error Code | Meaning                                 | What can you do about it?                                                                                                                                               |
-| ---------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `407`      | An issue with the remote browser's port | Check your remote browser’s port . The correct port for BrightBrowser.ai is 9222 by default, or 9515 if using Selenium. |
-| `403`      | Authentication Error                    | Verify your username and password , and ensure you're using the correct "Browser API" zone from the Bright Data control panel                        |
-| `503`      | Service Unavailable                     | We’re currently scaling browsers to meet demand. Try reconnecting in 1 minute.                                                                                  |
+| Error Code | Meaning                                 | What can you do about it?                                                                                                     |
+| ---------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `407`      | An issue with the remote browser's port | Check your remote browser’s port . The correct port for BrightBrowser.ai is 9222 by default, or 9515 if using Selenium.       |
+| `403`      | Authentication Error                    | Verify your username and password , and ensure you're using the correct "Browser API" zone from the Bright Data control panel |
+| `503`      | Service Unavailable                     | We’re currently scaling browsers to meet demand. Try reconnecting in 1 minute.                                                |
 
 ## FAQs
 
