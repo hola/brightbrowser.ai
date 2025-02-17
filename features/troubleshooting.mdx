@@ -91,7 +91,6 @@ Choose your preferred method below to see more:
       ```
 
       ```python Python
-      # Playwright - Inspect page using devtools
       page = await browser.new_page()
       client = await page.context.new_cdp_session(page)
       frame_tree = await client.send('Page.getFrameTree', {})
