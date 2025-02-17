@@ -7,11 +7,9 @@
     "light": "#2E7558",
     "dark": "#225641"
   },
-  {
   "codeblocks": {
     "theme": "default"
-  }
-},
+  },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
