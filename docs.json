@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "Mint Starter Kit",
-  "theme": "mint",
+  "theme": "venus",
   "prompt": "Hello ? ",
   "eyebrows": "section",
   "colors": {
