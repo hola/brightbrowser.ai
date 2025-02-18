@@ -46,7 +46,7 @@ Choose your preferred method below to see more:
       <Step title="Start the Debugger">
         * Once your session is live, fire up the Debugger.
 
-        * Head to the "Access Parameters" tab and click the Debugger button to open the BrightBrowser.ai Debugger interface (see the screenshot above ).
+        * Head to the "Access Parameters" tab and click the Debugger button to open the BrightBrowser.ai Debugger interface (see the screenshot above).
       </Step>
 
       <Step title="Connect to a Live Browser Session">
@@ -64,71 +64,81 @@ Choose your preferred method below to see more:
   </Tab>
 
   <Tab title="Remotely">
-    To **launch the debugger directly from your script**, send the **CDP command**: `Page.inspect`.
+    To **launch the debugger directly from your script**, send the **CDP command**: `Page.inspect`.\
     This will instantly open an inspection session for real-time debugging.
 
-    See the following examples:
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+          ```js Puppeteer
+          const page = await browser.newPage();
+          const client = await page.target().createCDPSession();
+          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
+          const {url: inspectUrl} = await client.send('Page.inspect', {
+              frameId: frame.id,
+          });
+          console.log(`Inspect session at ${inspectUrl}`);
+          ```
 
-    <CodeGroup>
-      ```js NodeJS + Puppeteer
-      const page = await browser.newPage();
-      const client = await page.target().createCDPSession();
-      const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
-      const {url: inspectUrl} = await client.send('Page.inspect', {
-          frameId: frame.id,
-      });
-      console.log(`Inspect session at ${inspectUrl}`);
-      ```
+          ```js Playwright
+          const page = await browser.newPage();
+          const client = await page.context().newCDPSession(page);
+          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
+          const {url: inspectUrl} = await client.send('Page.inspect', {
+              frameId: frame.id,
+          });
+          console.log(`Inspect session at ${inspectUrl}`);
+          ```
+        </CodeGroup>
+      </Tab>
 
-      ```js NodeJS + Playwright
-      const page = await browser.newPage();
-      const client = await page.context().newCDPSession(page);
-      const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});
-      const {url: inspectUrl} = await client.send('Page.inspect', {
-          frameId: frame.id,
-      });
-      console.log(`Inspect session at ${inspectUrl}`);
-      ```
+      <Tab title="Python">
+        <CodeGroup>
+          ```python Playwright
+          page = await browser.new_page()
+          client = await page.context.new_cdp_session(page)
+          frame_tree = await client.send('Page.getFrameTree', {})
+          frame_id = frame_tree['frameTree']['frame']['id']
+          inspect = await client.send('Page.inspect', {'frameId': frame_id})
+          inspect_url = inspect['url']
+          print('Inspect session at', inspect_url)
+          ```
+        </CodeGroup>
+      </Tab>
 
-      ```python Python
-      page = await browser.new_page()
-      client = await page.context.new_cdp_session(page)
-      frame_tree = await client.send('Page.getFrameTree', {})
-      frame_id = frame_tree['frameTree']['frame']['id']
-      inspect = await client.send('Page.inspect', {'frameId': frame_id})
-      inspect_url = inspect['url']
-      print('Inspect session at', inspect_url)
-      ```
+      <Tab title="C#">
+        <CodeGroup>
+          ```cs PuppeteerSharp
+          var page = await browser.NewPageAsync();
+          var client = await page.Target.CreateCDPSessionAsync();
+          var frameTree = await client.SendAsync("Page.getFrameTree");
+          var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;
+          var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });
+          var inspectUrl = inspect["url"]!;
+          Console.WriteLine($"Inspect session at {inspectUrl}");
+          ```
 
-      ```cs C# + PuppeteerSharp
-      var page = await browser.NewPageAsync();
-      var client = await page.Target.CreateCDPSessionAsync();
-      var frameTree = await client.SendAsync("Page.getFrameTree");
-      var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;
-      var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });
-      var inspectUrl = inspect["url"]!;
-      Console.WriteLine($"Inspect session at {inspectUrl}");
-      ```
-
-      ```cs C# + Playwright
-      var page = await browser.NewPageAsync();
-      var client = await page.Context.NewCDPSessionAsync(page);
-      var frameTree = await client.SendAsync("Page.getFrameTree");
-      var frameId = frameTree.Value
-          .GetProperty("frameTree")
-          .GetProperty("frame")
-          .GetProperty("id")
-          .GetString()!;
-      var inspect = await client.SendAsync("Page.inspect", new ()
-      {
-          { "frameId", frameId },
-      });
-      var inspectUrl = inspect.Value
-          .GetProperty("url")
-          .GetString()!;
-      Console.WriteLine($"Inspect session at {inspectUrl}");
-      ```
-    </CodeGroup>
+          ```cs Playwright
+          var page = await browser.NewPageAsync();
+          var client = await page.Context.NewCDPSessionAsync(page);
+          var frameTree = await client.SendAsync("Page.getFrameTree");
+          var frameId = frameTree.Value
+              .GetProperty("frameTree")
+              .GetProperty("frame")
+              .GetProperty("id")
+              .GetString()!;
+          var inspect = await client.SendAsync("Page.inspect", new ()
+          {
+              { "frameId", frameId },
+          });
+          var inspectUrl = inspect.Value
+              .GetProperty("url")
+              .GetString()!;
+          Console.WriteLine($"Inspect session at {inspectUrl}");
+          ```
+        </CodeGroup>
+      </Tab>
+    </Tabs>
   </Tab>
 </Tabs>
 
@@ -187,9 +197,9 @@ Explore some of the common error codes you may encounter and their potential cau
 
 | Error Code | Meaning                                 | What can you do about it?                                                                                                     |
 | ---------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `407`      | An issue with the remote browser's port | Check your remote browser’s port . The correct port for BrightBrowser.ai is 9222 by default, or 9515 if using Selenium.       |
+| `407`      | An issue with the remote browser's port | Check your remote browser's port . The correct port for BrightBrowser.ai is 9222 by default, or 9515 if using Selenium.       |
 | `403`      | Authentication Error                    | Verify your username and password , and ensure you're using the correct "Browser API" zone from the Bright Data control panel |
-| `503`      | Service Unavailable                     | We’re currently scaling browsers to meet demand. Try reconnecting in 1 minute.                                                |
+| `503`      | Service Unavailable                     | We're currently scaling browsers to meet demand. Try reconnecting in 1 minute.                                                |
 
 ## FAQs
 
