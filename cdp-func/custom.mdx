@@ -71,15 +71,15 @@ BrightBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHA
       <Tab title="Python">
         <CodeGroup>
           ```python Playwright
-                page = await browser.new_page()   
-                client = await page.context.new_cdp_session(page)   
-                await page.goto('[https://site-with-captcha.com](https://site-with-captcha.com/)')  
-                # Note 1: If no captcha was found it will return not_detected status after detectTimeout   
-                # Note 2: Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default  
-                client = await page.context.new_cdp_session(page)  
-                solve_result = await client.send('Captcha.solve', { 'detectTimeout': 30*1000 })   
-                status = solve_result['status']   
-                print(f'Captcha solve status: {status}') 
+          page = await browser.new_page()   
+          client = await page.context.new_cdp_session(page)   
+          await page.goto('[https://site-with-captcha.com](https://site-with-captcha.com/)')  
+          # Note 1: If no captcha was found it will return not_detected status after detectTimeout   
+          # Note 2: Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default  
+          client = await page.context.new_cdp_session(page)  
+          solve_result = await client.send('Captcha.solve', { 'detectTimeout': 30*1000 })   
+          status = solve_result['status']   
+          print(f'Captcha solve status: {status}') 
           ```
         </CodeGroup>
       </Tab>
