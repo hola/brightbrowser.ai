@@ -106,25 +106,33 @@ BrightBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHA
       <Tab title="Asynchronous">
         The following code sets up a CDP session, listens for CAPTCHA events, and handles timeouts:
 
-        <CodeGroup>
-          ```js NodeJS - Puppeteer
-          // Node.js - Puppeteer - waiting for CAPTCHA solving events  
-          const client = await page.target().createCDPSession();   
-          await new Promise((resolve, reject)=>{   
-            client.on('Captcha.solveFinished', resolve);   
-            client.on('Captcha.solveFailed', ()=>reject(new Error('Captcha failed')));   
-            setTimeout(reject, 5 * 60 * 1000, new Error('Captcha solve timeout'));  
-          });
-          ```
+        <Tabs>
+          <Tab title="Node.js">
+            <CodeGroup>
+              ```js Puppeteer
+                // Node.js - Puppeteer - waiting for CAPTCHA solving events  
+                const client = await page.target().createCDPSession();   
+                await new Promise((resolve, reject)=>{   
+                  client.on('Captcha.solveFinished', resolve);   
+                  client.on('Captcha.solveFailed', ()=>reject(new Error('Captcha failed')));   
+                  setTimeout(reject, 5 * 60 * 1000, new Error('Captcha solve timeout'));  
+                });
+              ```
+            </CodeGroup>
+          </Tab>
 
-          ```python Python - Playwright
-          # Python - Playwright - waiting for CAPTCHA solving events  
-          client = await page.context.new_cdp_session(page)  
-          client.on('Captcha.detected', lambda c: print('Captcha detected', c))   
-          client.on('Captcha.solveFinished', lambda _: print('Captcha solved!'))   
-          client.on('Captcha.solveFailed', lambda _: print('Captcha failed!'))
-          ```
-        </CodeGroup>
+          <Tab title="Python">
+            <CodeGroup>
+              ```python Playwright
+                    # Python - Playwright - waiting for CAPTCHA solving events  
+                    client = await page.context.new_cdp_session(page)  
+                    client.on('Captcha.detected', lambda c: print('Captcha detected', c))   
+                    client.on('Captcha.solveFinished', lambda _: print('Captcha solved!'))   
+                    client.on('Captcha.solveFailed', lambda _: print('Captcha failed!'))
+              ```
+            </CodeGroup>
+          </Tab>
+        </Tabs>
       </Tab>
 
       <Tab title="Synchronous">
