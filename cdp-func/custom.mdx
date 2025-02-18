@@ -109,13 +109,13 @@ BrightBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHA
         <Tabs>
           <Tab title="Node.js">
             <CodeGroup>
-            ```js Puppeteer
-            // Node.js - Puppeteer - waiting for CAPTCHA solving events  
-            const client = await page.target().createCDPSession();   
-            await new Promise((resolve, reject)=>{client.on('Captcha.solveFinished', resolve);   
-            client.on('Captcha.solveFailed', ()=>reject(new Error('Captcha failed')));   
-            setTimeout(reject, 5 * 60 * 1000, new Error('Captcha solve timeout'));});
-            ```
+              ```js Puppeteer
+              // Node.js - Puppeteer - waiting for CAPTCHA solving events  
+              const client = await page.target().createCDPSession();   
+              await new Promise((resolve, reject)=>{client.on('Captcha.solveFinished', resolve);   
+              client.on('Captcha.solveFailed', ()=>reject(new Error('Captcha failed')));   
+              setTimeout(reject, 5 * 60 * 1000, new Error('Captcha solve timeout'));});
+              ```
             </CodeGroup>
           </Tab>
 
@@ -179,59 +179,75 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
 
     Examples of CDP commands to disable auto-solver **completely** within the session:
 
-    <CodeGroup>
-      ```js NodeJS - Puppeteer
-      // Node.js Puppeteer - Disable Captcha auto-solver completely  
-      const page = await browser.newPage();  
-      const client = await page.target().createCDPSession();  
-      await client.send('Captcha.setAutoSolve', { autoSolve: false })
-      ```
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+          ```js Puppeteer
+          // Node.js Puppeteer - Disable Captcha auto-solver completely  
+          const page = await browser.newPage();  
+          const client = await page.target().createCDPSession();  
+          await client.send('Captcha.setAutoSolve', { autoSolve: false });
+          ```
+        </CodeGroup>
+      </Tab>
 
-      ```python Python - Playwright
-      # Python Playwright - Disable Captcha auto-solver completely  
-      page = await browser.new_page()  
-      client = await page.context.new_cdp_session(page)  
-      await client.send('Captcha.setAutoSolve', {'autoSolve': False}):
-      ```
+      <Tab title="Python">
+        <CodeGroup>
+          ```python Playwright
+          # Python Playwright - Disable Captcha auto-solver completely  
+          page = await browser.new_page()  
+          client = await page.context.new_cdp_session(page)  
+          await client.send('Captcha.setAutoSolve', {'autoSolve': False})
+          ```
 
-      ```python - Selenium
-      # Python Selenium - Disable Captcha auto-solver completely  
-      driver.execute('executeCdpCommand', {  
-          'cmd': 'Captcha.setAutoSolve',  
-          'params': {'autoSolve': False},  
-      })
-      ```
-    </CodeGroup>
+          ```python Selenium
+          # Python Selenium - Disable Captcha auto-solver completely  
+          driver.execute('executeCdpCommand', {  
+              'cmd': 'Captcha.setAutoSolve',  
+              'params': {'autoSolve': False},  
+          })
+          ```
+        </CodeGroup>
+      </Tab>
+    </Tabs>
   </Accordion>
 
   <Accordion title="Disable auto-solver for a specific CAPTCHA type only - Examples">
-    <CodeGroup>
-      ```js NodeJS - Puppeteer
-      // Node.js Puppeteer - Disable Captcha auto-solver for ReCaptcha only  
-      const page = await browser.newPage();  
-      const client = await page.target().createCDPSession();  
-      await client.send('Captcha.setAutoSolve', {  
-          autoSolve: true,  
-          options: [{  
-              type: 'usercaptcha',  
-              disabled: true,  
-          }],  
-      });
-      ```
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+          ```js Puppeteer
+          // Node.js Puppeteer - Disable Captcha auto-solver for ReCaptcha only  
+          const page = await browser.newPage();  
+          const client = await page.target().createCDPSession();  
+          await client.send('Captcha.setAutoSolve', {  
+              autoSolve: true,  
+              options: [{  
+                  type: 'usercaptcha',  
+                  disabled: true,  
+              }],  
+          });
+          ```
+        </CodeGroup>
+      </Tab>
 
-      ```python Python - Playwright
-      # Python Playwright - Disable Captcha auto-solver for ReCaptcha only  
-      page = await browser.new_page()  
-      client = await page.context.new_cdp_session(page)  
-      await client.send('Captcha.setAutoSolve', {  
-          'autoSolve': True,  
-          'options': [{  
-              'type': 'usercaptcha',  
-              'disabled': True,  
-          }],  
-      })
-      ```
-    </CodeGroup>
+      <Tab title="Python">
+        <CodeGroup>
+          ```python Playwright
+          # Python Playwright - Disable Captcha auto-solver for ReCaptcha only  
+          page = await browser.new_page()  
+          client = await page.context.new_cdp_session(page)  
+          await client.send('Captcha.setAutoSolve', {  
+              'autoSolve': True,  
+              'options': [{  
+                  'type': 'usercaptcha',  
+                  'disabled': True,  
+              }],  
+          })
+          ```
+        </CodeGroup>
+      </Tab>
+    </Tabs>
   </Accordion>
 
   <Accordion title="Manually solving CAPTCHAs - Examples">
