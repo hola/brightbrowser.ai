@@ -4,7 +4,7 @@ description: "Unlock the full potential of BrightBrowser.ai with CDP integration
 sidebarTitle: Standard
 ---
 
-BrightBrowser.ai is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the **[official Puppeteer documentation](https://pptr.dev/)**. But we didn’t stop there—**we’ve added [exclusive BrightBrowser.ai CDP functions](https://docs.brightbrowser.ai/cdp-func/custom)**, fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
+BrightBrowser.ai is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the [official Puppeteer documentation](https://pptr.dev/). But we didn’t stop there—**we’ve added** [exclusive BrightBrowser.ai CDP functions](https://docs.brightbrowser.ai/cdp-func/custom), fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
 
 The following are a few common browser navigation functions to get you started.
 
@@ -15,6 +15,7 @@ The following are a few common browser navigation functions to get you started.
     await page.goto('https://example.com');  
     const html = await page.content();
     ```
+
     **More info:** [Puppeteer Page Content API](https://pptr.dev/api/puppeteer.page.content)
   </Accordion>
 
@@ -24,21 +25,30 @@ The following are a few common browser navigation functions to get you started.
     await page.goto('https://example.com');  
     await page.click('a[href]');
     ```
+
     **More info:** [Puppeteer Click API](https://pptr.dev/api/puppeteer.page.click)
   </Accordion>
 
   <Accordion title="Screenshot">
-    <CodeGroup>
-      ```js NodeJS - Puppeteer
-      await page.screenshot({ path: 'screenshot.png', fullPage: true });
-      ```
-      ```python Python - Playwright
-      await page.screenshot(path='screenshot.png', full_page=True)
-      ```
-      ```cs C# - PuppeteerSharp
-      await page.ScreenshotAsync("screenshot.png", new () { FullPage = true });
-      ```
-    </CodeGroup>
+    <Tabs>
+      <Tab title="Node.js">
+        ```js Puppeteer
+          await page.screenshot({ path: 'screenshot.png', fullPage: true });
+        ```
+      </Tab>
+
+      <Tab title="Python">
+        ```python Playwright
+          await page.screenshot(path='screenshot.png', full_page=True)
+        ```
+      </Tab>
+
+      <Tab title="C#">
+        ```cs PuppeteerSharp
+          await page.ScreenshotAsync("screenshot.png", new () { FullPage = true });
+        ```
+      </Tab>
+    </Tabs>
 
     <Note>
       The example scripts above will save the screenshot as **screenshot.png** in your files.
@@ -47,6 +57,7 @@ The following are a few common browser navigation functions to get you started.
 
   <Accordion title="Scroll to Bottom">
     You might need to scroll the viewport to the bottom at times, such as when activating 'infinite scroll'. Here's how:
+
     ```js NodeJS - Puppeteer
     const page = await browser.newPage();  
     await page.goto('https://example.com');  
@@ -56,6 +67,7 @@ The following are a few common browser navigation functions to get you started.
 
   <Accordion title="Block Endpoints">
     It is possible to block endpoints that are not required to save bandwidth. See an example of this below:
+
     ```js NodeJS - Puppeteer
     const blockedUrls = ['*doubleclick.net*'];
     const page = await browser.newPage();
@@ -68,25 +80,31 @@ The following are a few common browser navigation functions to get you started.
 
   <Accordion title="Setting Cookies">
     Please note that this is supported only for customers who completed the **KYC verification process**.
+
     ```js NodeJS - Puppeteer
     const page = await browser.newPage();  
     await page.setCookie({ name: 'LANG', value: 'en-US', domain: 'example.com' });  
     await page.goto('https://example.com');
     ```
+
     **More info:** [Puppeteer Set Cookie API](https://pptr.dev/api/puppeteer.page.setcookie)
   </Accordion>
 
   <Accordion title="Country Routing">
     When using the Scraping Browser, the same **country-targeting** parameter is available to use as in our other proxy products.
     When setting up your script, add the `-country` flag, **after** your "USER" credentials within the Bright Data endpoint, followed by the 2-letter [ISO code](https://www.nationsonline.org/oneworld/country_code_list.htm) for that country.
+
     ```js
     const SBR_WS_ENDPOINT = `wss://${USER-country-us:PASS}@brd.superproxy.io:9222`;
     ```
+
     In the example above, we added `-country-us` to the Bright Data endpoint within our script, so our request will originate from the United States ("us").
 
     #### **EU Region**
+
     You can target the entire European Union region in the same manner as "Country" above by adding "eu" after "country" in your request: `-country-eu`
     Requests sent using `-country-eu` will use IPs from **one** of the countries below which are included automatically within "eu":
+
     ```sh Countries
     AL, AZ, KG, BA, UZ, BI, XK, SM, DE, AT, CH, UK, GB, IE, IM, FR, ES, NL, IT, PT, BE, AD, MT, MC, MA, LU, TN, DZ, GI, LI, SE, DK, FI, NO, AX, IS, GG, JE, EU, GL, VA, FX, FO
     ```
