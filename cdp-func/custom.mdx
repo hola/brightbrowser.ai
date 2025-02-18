@@ -251,8 +251,10 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
   </Accordion>
 
   <Accordion title="Manually solving CAPTCHAs - Examples">
+    <Tabs>
+  <Tab title="Node.js">
     <CodeGroup>
-      ```js NodeJS - Puppeteer
+      ```js Puppeteer
       // Node.js Puppeteer - manually solving CAPTCHA after navigation  
       const page = await browser.newPage();  
       const client = await page.target().createCDPSession();  
@@ -261,9 +263,13 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
       const {status} = await client.send('Captcha.solve', { detectTimeout: 30*1000 });  
       console.log('Captcha solve status:', status);
       ```
+    </CodeGroup>
+  </Tab>
 
-      ```python Python - Playwright
-      # Python Playwright- manually solving CAPTCHA after navigation  
+  <Tab title="Python">
+    <CodeGroup>
+      ```python Playwright
+      # Python Playwright - manually solving CAPTCHA after navigation  
       page = await browser.new_page()  
       client = await page.context.new_cdp_session(page)  
       await client.send('Captcha.setAutoSolve', {'autoSolve': False})  
@@ -272,7 +278,7 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
       print('Captcha solve status:', solve_result['status'])
       ```
 
-      ```python Python - Selenium
+      ```python Selenium
       # Python Selenium - manually solving CAPTCHA after navigation  
       driver.execute('executeCdpCommand', {  
           'cmd': 'Captcha.setAutoSolve',  
@@ -286,6 +292,8 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
       print('Captcha solve status:', solve_result['value']['status'])
       ```
     </CodeGroup>
+  </Tab>
+</Tabs>
   </Accordion>
 
   <Accordion title="CaptchaOptions for other Captcha types">
