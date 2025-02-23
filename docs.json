@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "Mint Starter Kit",
+  "name": "BrightBrowser Documentation",
   "theme": "mint",
   "colors": {
     "primary": "#225641",
