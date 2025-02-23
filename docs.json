@@ -11,7 +11,7 @@
     "decoration": "gradient"
   },
   "search": {
-    "prompt": "BB"
+    "prompt": "Type a keyword to find setup guides, code snippets, or debugging tips..."
   },
   "favicon": "/favicon.svg",
   "navigation": {
