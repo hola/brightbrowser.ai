@@ -8,7 +8,7 @@
     "dark": "#225641"
   },
   "favicon": "/favicon.svg",
-  "eyebrows":"breadcrumbs",
+  "eyebrows":"section",
   "navigation": {
     "tabs": [
       {
