@@ -7,6 +7,7 @@
     "light": "#2E7558",
     "dark": "#225641"
   },
+  "rounded": "sharp",
   "background": {
     "decoration": "grid"
   },
