@@ -13,6 +13,7 @@
       {
         "groups": [
           {
+            "tab": "Guides",
             "group": "Welcome & Configuration",
             "pages": [
               "general/intro",
