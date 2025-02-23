@@ -11,7 +11,7 @@
     "decoration": "grid"
   },
   "search": {
-    "prompt": "Type a keyword to find setup guides, code snippets, or debugging tips..."
+    "prompt": "Type a keyword to find setup guides..."
   },
   "favicon": "/favicon.svg",
   "navigation": {
