@@ -11,9 +11,9 @@
   "navigation": {
     "tabs": [
       {
+        "tab": "Guides",
         "groups": [
-          {
-            "tab": "Guides",
+          {            
             "group": "Welcoe & Configuration",
             "pages": [
               "general/intro",
