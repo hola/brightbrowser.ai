@@ -14,7 +14,7 @@
         "tab": "Guides",
         "groups": [
           {            
-            "group": "Welcoe & Configuration",
+            "group": "Welcome & Configuration",
             "pages": [
               "general/intro",
               "general/start",
