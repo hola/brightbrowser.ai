@@ -15,12 +15,9 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
         "groups": [
           {            
-            "group": "Welcoe & Configuration",
+            "group": "Welcome & Configuration",
             "pages": [
               "general/intro",
               "general/start",
@@ -46,8 +43,6 @@
             ]
           }
         ]
-      }
-    ]
   },
   "logo": {
     "dark": "/logo/logo.svg",
