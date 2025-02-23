@@ -8,7 +8,7 @@
     "dark": "#225641"
   },
   "background": {
-    "decoration": "grid"
+    "decoration": "windows"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
