@@ -9,10 +9,10 @@
   },
   "fonts": {
   "heading": {
-    "family": "Poppins"
+    "family": "inter"
   },
   "body": {
-    "family": "Poppins"
+    "family": "inter"
   }
 },
   "background": {
