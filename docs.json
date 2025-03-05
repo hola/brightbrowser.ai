@@ -18,7 +18,6 @@
 "background": {
     "decoration": "grid",
     "image": {
-    "dark": "/logo/back-initial.svg",
     "light": "/logo/back-initial.svg"
   }
 },
