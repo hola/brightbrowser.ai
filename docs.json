@@ -17,6 +17,7 @@
 },
   "background": {
     "decoration": "grid"
+    "color": "#CDFD50"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
