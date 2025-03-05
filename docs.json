@@ -16,7 +16,7 @@
   }
 },
   "background": {
-    "decoration": "grid",
+    "decoration": "gradient",
     "color": {
 "light": "#C23F3F"
 }
