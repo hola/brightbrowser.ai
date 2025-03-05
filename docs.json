@@ -18,9 +18,9 @@
   "background": {
     "decoration": "grid" 
     "colors": {
-    "primary": "#2E7558",
-    "light": "#2E7558",
-    "dark": "#2E7558"
+    "primary": "#E4ECF1",
+    "light": "#E4ECF1",
+    "dark": "#39596A"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
