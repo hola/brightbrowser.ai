@@ -9,18 +9,14 @@
   },
   "fonts": {
   "heading": {
-    "family": "Inter"
+    "family": "poppins"
   },
   "body": {
     "family": "Inter"
   }
 },
   "background": {
-    "decoration": "grid" ,
-    "colors": {
-    "primary": "#D9FF95",
-    "light": "#D9FF95",
-    "dark": "#39596A"
+    "decoration": "grid"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
