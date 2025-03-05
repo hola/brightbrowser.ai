@@ -16,7 +16,7 @@
   }
 },
   "background": {
-    "decoration": "grid" 
+    "decoration": "grid" ,
     "colors": {
     "primary": "#D9FF95",
     "light": "#D9FF95",
