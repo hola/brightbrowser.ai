@@ -5,7 +5,7 @@
   "colors": {
     "primary": "#2E7558",
     "light": "#2E7558",
-    "dark": "#2E7558"
+    "dark": "#FFE7E6"
   },
   "fonts": {
   "heading": {
@@ -17,7 +17,6 @@
 },
   "background": {
     "decoration": "grid"
-    "color": "#CDFD50"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
