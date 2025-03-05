@@ -3,7 +3,7 @@
   "name": "BrightBrowser Documentation",
   "theme": "maple",
   "colors": {
-    "primary": "#2E7558",
+    "primary": "#A1DE02",
     "light": "#CDFD50",
     "dark": "#FFE7E6"
   },
@@ -17,7 +17,7 @@
 },
 "background": {
     "image": {
-    "light": "/logo/light.svg",
+    "light": "/logo/light2.svg",
     "dark":"/logo/dark.svg"
   }
 },
