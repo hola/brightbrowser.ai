@@ -18,8 +18,8 @@
   "background": {
     "decoration": "grid" 
     "colors": {
-    "primary": "#E4ECF1",
-    "light": "#E4ECF1",
+    "primary": "#D9FF95",
+    "light": "#D9FF95",
     "dark": "#39596A"
   },
   "search": {
