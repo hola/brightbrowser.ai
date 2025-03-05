@@ -3,9 +3,9 @@
   "name": "BrightBrowser Documentation",
   "theme": "maple",
   "colors": {
-    "primary": "#225641",
+    "primary": "#2E7558",
     "light": "#2E7558",
-    "dark": "#225641"
+    "dark": "#2E7558"
   },
   "fonts": {
   "heading": {
