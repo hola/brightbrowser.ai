@@ -15,11 +15,12 @@
     "family": "Inter"
   }
 },
-  "background": {
+"background": {
     "decoration": "grid",
-    "color": {
-"light": "#F8FAFB"
-}
+    "image": {
+    "dark": "/logo/background.svg",
+    "light": "/logo/background.svg"
+  }
 },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
