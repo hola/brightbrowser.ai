@@ -16,9 +16,9 @@
   }
 },
   "background": {
-    "decoration": "gradient",
+    "decoration": "grid",
     "color": {
-"light": "#C23F3F"
+"light": "#D7E3EA"
 }
 },
   "search": {
