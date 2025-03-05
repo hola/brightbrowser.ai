@@ -16,7 +16,11 @@
   }
 },
   "background": {
-    "decoration": "grid"
+    "decoration": "grid" 
+    "colors": {
+    "primary": "#2E7558",
+    "light": "#2E7558",
+    "dark": "#2E7558"
   },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
