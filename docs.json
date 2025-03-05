@@ -18,8 +18,8 @@
 "background": {
     "decoration": "grid",
     "image": {
-    "dark": "/logo/background.svg",
-    "light": "/logo/background.svg"
+    "dark": "/logo/desktop.svg",
+    "light": "/logo/desktop.svg"
   }
 },
   "search": {
