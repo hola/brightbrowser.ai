@@ -34,7 +34,7 @@ Call the `Proxy.setLocation` function before navigating to the target site to en
 
 **How to run examples**
 
-You need to get BrightBrowser.ai credentials in the control panel.
+You need to get infraBrowser.ai credentials in the control panel.
 Pass it in format `USER:PASS` as environment variable `AUTH`
 
 <CodeGroup>
@@ -76,7 +76,7 @@ Set the proxy location prior to scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
+          throw new Error(`Provide infraBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
@@ -132,7 +132,7 @@ Set the proxy location prior to scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
+          throw new Error(`Provide infraBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
@@ -201,7 +201,7 @@ Set the proxy location prior to scraping
 
   async function scrape(url = TARGET_URL, location = LOCATION) {
       if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide BrightBrowser.ai credentials in AUTH`
+          throw new Error(`Provide infraBrowser.ai credentials in AUTH`
               + ` environment variable or update the script.`);
       }
       if (!LOCATIONS[location]) {
