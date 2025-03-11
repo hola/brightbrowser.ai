@@ -58,7 +58,7 @@
   "logo": {
     "dark": "/logo/logo.svg",
     "light": "/logo/logo.svg",
-    "href": "https://brightbrowser.ai/"
+    "href": "https://infrabrowser.ai/"
   },
   "navbar": {
     "links": [
@@ -70,7 +70,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://brightbrowser.ai/"
+      "href": "https://infrabrowser.ai/"
     }
   },
   "footer": {
