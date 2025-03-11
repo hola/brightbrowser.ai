@@ -1,8 +1,7 @@
 ---
-title: "BrightBrowser.AI Code Snippets"
-description: "Explore real-world code examples to integrate BrightBrowser.AI with Playwright, Puppeteer, and Selenium."
+title: "infraBrowser.AI Code Snippets"
+description: "Explore real-world code examples to integrate infraBrowser.AI with Playwright, Puppeteer, and Selenium."
 sidebarTitle: Code Snippets
-
 ---
 
 <Warning>
@@ -26,7 +25,7 @@ sidebarTitle: Code Snippets
           if (AUTH === 'USER:PASS') {
               throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
           }
-          console.log(`🚀 Connecting to BrightBrowser.AI...`);
+          console.log(`🚀 Connecting to infraBrowser.ai...`);
           
           const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
           const browser = await playwright.chromium.connectOverCDP(endpointURL);
@@ -57,7 +56,7 @@ sidebarTitle: Code Snippets
           if (AUTH === 'USER:PASS') {
               throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
           }
-          console.log(`🚀 Connecting to BrightBrowser.AI...`);
+          console.log(`🚀 Connecting to infraBrowser.ai...`);
 
           const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
           const browser = await puppeteer.connect({ browserWSEndpoint });
@@ -93,7 +92,7 @@ sidebarTitle: Code Snippets
           if AUTH == "USER:PASS":
               raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
 
-          print("🚀 Connecting to BrightBrowser.AI...")
+          print("🚀 Connecting to infraBrowser.ai...")
           endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
 
           with sync_playwright() as p:
@@ -129,7 +128,7 @@ sidebarTitle: Code Snippets
                   throw new Exception("🔑 Missing credentials! Update the AUTH environment variable.");
               }
 
-              Console.WriteLine("🚀 Connecting to BrightBrowser.AI...");
+              Console.WriteLine("🚀 Connecting to infraBrowser.ai...");
               var browser = await Puppeteer.ConnectAsync(new ConnectOptions {
                   BrowserWSEndpoint = $"wss://{AUTH}@brd.superproxy.io:9222"
               });
@@ -156,7 +155,7 @@ sidebarTitle: Code Snippets
 
 ## Debugging & Inspecting Your Session
 
-Want to **see** what's happening inside your BrightBrowser.AI session? Open DevTools automatically:
+Want to **see** what's happening inside your infraBrowser.ai session? Open DevTools automatically:
 
 <Tabs>
   <Tab title="Node.js">
@@ -168,7 +167,7 @@ Want to **see** what's happening inside your BrightBrowser.AI session? Open DevT
       const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
 
       (async () => {
-          console.log("🚀 Connecting to BrightBrowser.AI...");
+          console.log("🚀 Connecting to infraBrowser.ai...");
           const browser = await puppeteer.connect({ browserWSEndpoint });
           const page = await browser.newPage();
           
@@ -195,7 +194,7 @@ Want to **see** what's happening inside your BrightBrowser.AI session? Open DevT
           if AUTH == "USER:PASS":
               raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
 
-          print("🚀 Connecting to BrightBrowser.AI...")
+          print("🚀 Connecting to infraBrowser.ai...")
           endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
 
           with sync_playwright() as p:
@@ -215,7 +214,7 @@ Want to **see** what's happening inside your BrightBrowser.AI session? Open DevT
 
 ## Handling CAPTCHAs
 
-BrightBrowser.AI can **automatically detect and solve CAPTCHAs** in real time:
+infraBrowser.ai can **automatically detect and solve CAPTCHAs** in real time:
 
 <Tabs>
   <Tab title="Node.js">
@@ -243,4 +242,4 @@ BrightBrowser.AI can **automatically detect and solve CAPTCHAs** in real time:
   </Tab>
 </Tabs>
 
-🚀 **BrightBrowser.AI makes web scraping easy, scalable, and unblockable.** Get started today!
+🚀 **infraBrowser.ai makes web scraping easy, scalable, and unblockable.** Get started today!

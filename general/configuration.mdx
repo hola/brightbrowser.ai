@@ -1,12 +1,12 @@
 ---
-title: "Configuring BrightBrowser.AI"
-description: "Set up BrightBrowser.AI for web automation. Get your credentials, run sample scripts, and inspect live sessions effortlessly."
+title: "Configuring infraBrowser.ai"
+description: "Set up infraBrowser.ai for web automation. Get your credentials, run sample scripts, and inspect live sessions effortlessly."
 sidebarTitle: "Preferences"
 ---
 
-## Setting Up BrightBrowser.AI
+## Setting Up infraBrowser.ai
 
-Before diving into automation, let's **grab your credentials**. You’ll need your **Username and Password**, which you can find in the **Overview** tab of your BrightBrowser.AI zone.
+Before diving into automation, let's **grab your credentials**. You’ll need your **Username and Password**, which you can find in the **Overview** tab of your infraBrowser.ai zone.
 
 <Warning>
   Make sure you have **Puppeteer, Playwright, or Selenium installed** before proceeding.
@@ -14,7 +14,7 @@ Before diving into automation, let's **grab your credentials**. You’ll need yo
 
 ## Test Your Setup
 
-Run the sample code below to confirm that **BrightBrowser.AI is connected and working**.
+Run the sample code below to confirm that **infraBrowser.ai is connected and working**.
 **Remember:** Replace `USER:PASS` with your actual credentials.
 
 <Tabs>
@@ -27,7 +27,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
 
       async function main() {  
-      console.log('Connecting to BrightBrowser.AI...');  
+      console.log('Connecting to infraBrowser.ai...');  
       const browser = await puppeteer.connect({  
         browserWSEndpoint: SBR_WS_ENDPOINT,  
       });  
@@ -38,7 +38,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
         await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
         console.log('Taking screenshot to page.png');  
         await page.screenshot({ path: './page.png', fullPage: true });  
-      console.log('Navigated! BrightBrowser.AI...');  
+      console.log('Navigated! infraBrowser.ai...');  
       const html = await page.content();  
       console.log(html)  
       } finally {  
@@ -62,7 +62,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
         
       async function main() {  
-          console.log('Connecting to BrightBrowser.AI...');  
+          console.log('Connecting to infraBrowser.ai...');  
           const browser = await puppeteer.connect({  
               browserWSEndpoint: SBR_WS_ENDPOINT,  
          });  
@@ -73,7 +73,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
               await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
               console.log('Taking screenshot to page.png');  
               await page.screenshot({ path: './page.png', fullPage: true });  
-         console.log('Navigated! BrightBrowser.AI content...');  
+         console.log('Navigated! infraBrowser.ai content...');  
        const html = await page.content();  
        console.log(html)   
           } finally {  
@@ -97,7 +97,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       const BBAI_WEBDRIVER = `https://${AUTH}@brd.superproxy.io:9515`;
 
       (async () => {
-          console.log('Connecting to BrightBrowser.AI...');
+          console.log('Connecting to infraBrowser.ai...');
           const driver = await new Builder().forBrowser(Browser.CHROME).usingServer(BBAI_WEBDRIVER).build();
           
           try {
@@ -136,7 +136,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       BBAI_WS_CDP = f'wss://{AUTH}@brd.superproxy.io:9222'
 
       async def run(playwright):
-          print("Connecting to BrightBrowser.AI...")
+          print("Connecting to infraBrowser.ai...")
           browser = await playwright.chromium.connect_over_cdp(BBAI_WS_CDP)
           try:
               print("Connected! Navigating...")
@@ -169,7 +169,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
 
       def main():
-          print("Connecting to BrightBrowser.AI...")
+          print("Connecting to infraBrowser.ai...")
           sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
           
           with Remote(sbr_connection, options=ChromeOptions()) as driver:
@@ -214,7 +214,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
           }
       });
 
-      Console.WriteLine("Connecting to BrightBrowser.AI...");  
+      Console.WriteLine("Connecting to infraBrowser.ai...");  
       using var browser = await Connect(SBR_WS_ENDPOINT);  
       Console.WriteLine("Connected! Navigating...");  
       var page = await browser.NewPageAsync();  
@@ -236,7 +236,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       var AUTH = "USER:PASS";  
       var SBR_CDP = $"wss://{AUTH}@brd.superproxy.io:9222";  
 
-      Console.WriteLine("Connecting to BrightBrowser.AI...");  
+      Console.WriteLine("Connecting to infraBrowser.ai...");  
       using var pw = await Playwright.CreateAsync();  
       await using var browser = await pw.Chromium.ConnectOverCDPAsync(SBR_CDP);  
       Console.WriteLine("Connected! Navigating...");  
@@ -251,7 +251,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       Path = "./page.png",  
       FullPage = true,  
       });  
-      Console.WriteLine("Navigated! BrightBrowser.AI content...");   
+      Console.WriteLine("Navigated! infraBrowser.ai content...");   
       var html = await page.ContentAsync();   
       Console.WriteLine(html);  
 
@@ -264,7 +264,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       var AUTH = "USER:PASS";  
       var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
 
-      Console.WriteLine("Connecting to  BrightBrowser.AI...");  
+      Console.WriteLine("Connecting to infraBrowser.ai...");  
       var options = new ChromeOptions();  
       using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
       Console.WriteLine("Connected! Navigating to https://example.com...");  
@@ -274,7 +274,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
       var screenshot = driver.GetScreenshot();  
       screenshot.SaveAsFile("./page.png");  
 
-      Console.WriteLine("Navigated!  BrightBrowser.AIcontent...");  
+      Console.WriteLine("Navigated! infraBrowser.ai content...");  
       var html = driver.PageSource;  
       Console.WriteLine(html);
 
@@ -285,7 +285,7 @@ Run the sample code below to confirm that **BrightBrowser.AI is connected and wo
 
 ## Live Debugging with DevTools
 
-Want a **real-time view** of your BrightBrowser.AI session?
+Want a **real-time view** of your infraBrowser.ai session?
 Run the snippet below to **auto-launch Chrome DevTools** every time you start a session.
 
 ```js Puppeteer
@@ -335,5 +335,5 @@ await page.goto('http://example.com');
 
 ## Final Thoughts
 
-BrightBrowser.AI is built for **serious automation** — **no CAPTCHAs, no blocks, no rate limits**.
+infraBrowser.ai is built for **serious automation** — **no CAPTCHAs, no blocks, no rate limits**.
 Whether you're scraping at scale or automating workflows, **this is the browser you actually need.** 🚀
