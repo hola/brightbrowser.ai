@@ -1,19 +1,19 @@
 ---
 title: "Custom CDP Functions"
 sidebarTitle: "Custom"
-description: "infraBrowser.ai enhances standard CDP functions with custom functions for better control, stealth, and efficiency in web automation. Developers can bypass anti-bot systems, optimize scraping, and fine-tune browser behavior with ease."
+description: "browser.ai enhances standard CDP functions with custom functions for better control, stealth, and efficiency in web automation. Developers can bypass anti-bot systems, optimize scraping, and fine-tune browser behavior with ease."
 ---
 
 ## Captcha Solver
 
-infraBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
+browser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
 
 <Note>
   If you would like to disable CAPTCHA solver entirely through the Control Panel see our feature for [Disable Captcha Solver](/scraping-automation/scraping-browser/features/captcha-solver)
 </Note>
 
 <Note>
-  Once a CAPTCHA is solved, infraBrowser.ai automatically submits the form if required.
+  Once a CAPTCHA is solved, browser.ai automatically submits the form if required.
 </Note>
 
 ## CAPTCHA Solver - Automatic Solve
@@ -95,10 +95,10 @@ infraBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs
 
     |                         |                                                                     |
     | ----------------------- | ------------------------------------------------------------------- |
-    | `Captcha.detected`      | infraBrowser.ai has encountered a CAPTCHA and has begun to solve it |
-    | `Captcha.solveFinished` | infraBrowser.ai successfully solved the CAPTCHA                     |
-    | `Captcha.solveFailed`   | infraBrowser.ai failed in solving the CAPTCHA                       |
-    | `Captcha.waitForSolve`  | infraBrowser.ai waits for CAPTCHA solver to finish                  |
+    | `Captcha.detected`      | browser.ai has encountered a CAPTCHA and has begun to solve it |
+    | `Captcha.solveFinished` | browser.ai successfully solved the CAPTCHA                     |
+    | `Captcha.solveFailed`   | browser.ai failed in solving the CAPTCHA                       |
+    | `Captcha.waitForSolve`  | browser.ai waits for CAPTCHA solver to finish                  |
 
     **Examples**
 
@@ -138,7 +138,7 @@ infraBrowser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs
           Selenium doesn't support asynchronous server-driven events like Puppeteer and Playwright.
         </Warning>
 
-        The `Captcha.waitForSolve` command waits for infraBrowser.ai's CAPTCHA solver to finish.
+        The `Captcha.waitForSolve` command waits for browser.ai's CAPTCHA solver to finish.
 
         ```python Python - Selenium
         # Python Selenium - Waiting for Captcha to auto-solve after navigate  
@@ -407,7 +407,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
   </Accordion>
 
   <Accordion title="Code examples">
-    * Replace placeholder values `USER:PASS` with your valid infraBrowser.ai credentials.
+    * Replace placeholder values `USER:PASS` with your valid browser.ai credentials.
 
     * Replace `client.pfx` with the actual path to your certificate file. This file should be a valid SSL/TLS client certificate in .pfx format.
 
@@ -426,7 +426,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
 
             async function scrape(url = TARGET_URL, file = CERT_FILE, pass = CERT_PASS) {
               if (AUTH == 'USER:PASS') {
-                throw new Error(`Provide infraBrowser.ai credentials in AUTH`
+                throw new Error(`Provide browser.ai credentials in AUTH`
                     + ` environment variable or update the script.`);
               }
               console.log(`Connecting to Browser...`);
@@ -464,7 +464,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
 
             def scrape(url=TARGET_URL, file=CERT_FILE, pswd=CERT_PASS):
                 if AUTH == 'USER:PASS':
-                raise Exception('Provide infraBrowser.ai credentials in AUTH '
+                raise Exception('Provide browser.ai credentials in AUTH '
                                 'environment variable or update the script.')
                 print('Connecting to Browser...')
                 server_addr = f'https://{AUTH}@brd.superproxy.io:9515'
