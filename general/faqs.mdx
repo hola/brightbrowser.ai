@@ -23,7 +23,7 @@ sidebarTitle: "Need help?"
     Use `-country-eu` to dynamically select an EU-based IP.
 
     <Tip>
-      **Heads-up:** For **bot-heavy** websites, manually selecting a country may actually decrease success rates. Let infraBrowser.ai handle it automatically when possible!
+      **Heads-up:** For **bot-heavy** websites, manually selecting a country may actually decrease success rates. Let browser.ai handle it automatically when possible!
     </Tip>
   </Accordion>
 
@@ -156,7 +156,7 @@ sidebarTitle: "Need help?"
       const openDevtools = async (page, client) => {
       // Get current frameId  
       const frameId = page.mainFrame()._id;
-      // Get DevTools URL from infraBrowser.ai
+      // Get DevTools URL from browser.ai
       const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
       // Open DevTools URL in local Chrome
       exec(`"${chromeExecutable}" "${inspectUrl}"`, error => {
