@@ -1,6 +1,6 @@
 ---
-title: "infraBrowser.AI Code Snippets"
-description: "Explore real-world code examples to integrate infraBrowser.AI with Playwright, Puppeteer, and Selenium."
+title: "browser.AI Code Snippets"
+description: "Explore real-world code examples to integrate browser.AI with Playwright, Puppeteer, and Selenium."
 sidebarTitle: Code Snippets
 ---
 
@@ -25,7 +25,7 @@ sidebarTitle: Code Snippets
           if (AUTH === 'USER:PASS') {
               throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
           }
-          console.log(`🚀 Connecting to infraBrowser.ai...`);
+          console.log(`🚀 Connecting to browser.ai...`);
           
           const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
           const browser = await playwright.chromium.connectOverCDP(endpointURL);
@@ -56,7 +56,7 @@ sidebarTitle: Code Snippets
           if (AUTH === 'USER:PASS') {
               throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
           }
-          console.log(`🚀 Connecting to infraBrowser.ai...`);
+          console.log(`🚀 Connecting to browser.ai...`);
 
           const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
           const browser = await puppeteer.connect({ browserWSEndpoint });
@@ -92,7 +92,7 @@ sidebarTitle: Code Snippets
           if AUTH == "USER:PASS":
               raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
 
-          print("🚀 Connecting to infraBrowser.ai...")
+          print("🚀 Connecting to browser.ai...")
           endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
 
           with sync_playwright() as p:
@@ -128,7 +128,7 @@ sidebarTitle: Code Snippets
                   throw new Exception("🔑 Missing credentials! Update the AUTH environment variable.");
               }
 
-              Console.WriteLine("🚀 Connecting to infraBrowser.ai...");
+              Console.WriteLine("🚀 Connecting to browser.ai...");
               var browser = await Puppeteer.ConnectAsync(new ConnectOptions {
                   BrowserWSEndpoint = $"wss://{AUTH}@brd.superproxy.io:9222"
               });
@@ -155,7 +155,7 @@ sidebarTitle: Code Snippets
 
 ## Debugging & Inspecting Your Session
 
-Want to **see** what's happening inside your infraBrowser.ai session? Open DevTools automatically:
+Want to **see** what's happening inside your browser.ai session? Open DevTools automatically:
 
 <Tabs>
   <Tab title="Node.js">
@@ -167,7 +167,7 @@ Want to **see** what's happening inside your infraBrowser.ai session? Open DevTo
       const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
 
       (async () => {
-          console.log("🚀 Connecting to infraBrowser.ai...");
+          console.log("🚀 Connecting to browser.ai...");
           const browser = await puppeteer.connect({ browserWSEndpoint });
           const page = await browser.newPage();
           
@@ -194,7 +194,7 @@ Want to **see** what's happening inside your infraBrowser.ai session? Open DevTo
           if AUTH == "USER:PASS":
               raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
 
-          print("🚀 Connecting to infraBrowser.ai...")
+          print("🚀 Connecting to browser.ai...")
           endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
 
           with sync_playwright() as p:
@@ -214,7 +214,7 @@ Want to **see** what's happening inside your infraBrowser.ai session? Open DevTo
 
 ## Handling CAPTCHAs
 
-infraBrowser.ai can **automatically detect and solve CAPTCHAs** in real time:
+browser.ai can **automatically detect and solve CAPTCHAs** in real time:
 
 <Tabs>
   <Tab title="Node.js">
@@ -242,4 +242,4 @@ infraBrowser.ai can **automatically detect and solve CAPTCHAs** in real time:
   </Tab>
 </Tabs>
 
-🚀 **infraBrowser.ai makes web scraping easy, scalable, and unblockable.** Get started today!
+🚀 **browser.ai makes web scraping easy, scalable, and unblockable.** Get started today!
