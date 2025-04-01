@@ -26,32 +26,41 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Welcome & Configuration",
-        "pages": [
-          "general/intro",
-          "general/start",
-          "general/configuration",
-          "general/faqs",
-          "general/code-snippets"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Welcome & Configuration",
+            "pages": [
+              "general/intro",
+              "general/start",
+              "general/configuration",
+              "general/faqs",
+              "general/code-snippets"
+            ]
+          },
+          {
+            "group": "CDP Core Functions",
+            "pages": [
+              "cdp-func/standard",
+              "cdp-func/custom"
+            ]
+          },
+          {
+            "group": "Tools & Troubleshooting",
+            "pages": [
+              "features/captcha-solver",
+              "features/proxy-location",
+              "features/premium-domains",
+              "features/troubleshooting"
+            ]
+          }
         ]
       },
       {
-        "group": "CDP Core Functions",
-        "pages": [
-          "cdp-func/standard",
-          "cdp-func/custom"
-        ]
-      },
-      {
-        "group": "Tools & Troubleshooting",
-        "pages": [
-          "features/captcha-solver",
-          "features/proxy-location",
-          "features/premium-domains",
-          "features/troubleshooting"
-        ]
+        "tab": "API References",
+        "groups": []
       }
     ]
   },
