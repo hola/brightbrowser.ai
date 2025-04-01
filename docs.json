@@ -60,7 +60,9 @@
       },
       {
         "tab": "API References",
-        "groups": []
+        "openapi": [
+          "api-reference/openapi3_0"
+        ]
       }
     ]
   },
