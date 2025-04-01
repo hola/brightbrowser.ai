@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "BrightBrowser Documentation",
+  "name": "Browser.ai Documentation",
   "theme": "maple",
   "colors": {
     "primary": "#A1DE02",
@@ -58,7 +58,7 @@
   "logo": {
     "dark": "/logo/logo.svg",
     "light": "/logo/logo.svg",
-    "href": "https://infrabrowser.ai/"
+    "href": "https://browser.ai/"
   },
   "navbar": {
     "links": [
@@ -70,7 +70,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://infrabrowser.ai/"
+      "href": "https://browser.ai/"
     }
   },
   "footer": {
