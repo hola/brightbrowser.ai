@@ -1,0 +1,266 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "browser.ai Standard CDP Functions",
+    "version": "1.0.0",
+    "description": "Unlock the full potential of browser.ai with CDP integration, enabling seamless control over browser automation. These pseudo-endpoints represent common Puppeteer/Playwright functions supported by browser.ai.\n"
+  },
+  "servers": [
+    {
+      "url": "https://brd.superproxy.io"
+    }
+  ],
+  "paths": {
+    "/cdp/functions/get-html": {
+      "get": {
+        "summary": "Get HTML Page",
+        "description": "Uses Puppeteer to navigate to a page and retrieve the full HTML content.\n",
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "const page = await browser.newPage();  \nawait page.goto('https://example.com');  \nconst html = await page.content();\n"
+          }
+        ],
+        "externalDocs": {
+          "description": "Puppeteer Page Content API",
+          "url": "https://pptr.dev/api/puppeteer.page.content"
+        },
+        "responses": {
+          "200": {
+            "description": "HTML content returned",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cdp/functions/click-element": {
+      "post": {
+        "summary": "Click on Element",
+        "description": "Simulates a click on a DOM element using Puppeteer.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "selector": {
+                    "type": "string",
+                    "example": "a[href]"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "const page = await browser.newPage();  \nawait page.goto('https://example.com');  \nawait page.click('a[href]');\n"
+          }
+        ],
+        "externalDocs": {
+          "description": "Puppeteer Click API",
+          "url": "https://pptr.dev/api/puppeteer.page.click"
+        },
+        "responses": {
+          "200": {
+            "description": "Element clicked successfully"
+          }
+        }
+      }
+    },
+    "/cdp/functions/screenshot": {
+      "post": {
+        "summary": "Take Screenshot",
+        "description": "Captures a screenshot of the current page using Puppeteer or Playwright.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "example": "screenshot.png"
+                  },
+                  "fullPage": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "await page.screenshot({ path: 'screenshot.png', fullPage: true });\n"
+          },
+          {
+            "lang": "Python",
+            "label": "Python (Playwright)",
+            "source": "await page.screenshot(path='screenshot.png', full_page=True)\n"
+          },
+          {
+            "lang": "C#",
+            "label": "C# (PuppeteerSharp)",
+            "source": "await page.ScreenshotAsync(\"screenshot.png\", new () { FullPage = true });\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Screenshot saved"
+          }
+        }
+      }
+    },
+    "/cdp/functions/scroll-bottom": {
+      "post": {
+        "summary": "Scroll to Bottom",
+        "description": "Scrolls the page to the bottom, useful for triggering infinite scroll.\n",
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "const page = await browser.newPage();  \nawait page.goto('https://example.com');  \nawait page.evaluate(() => window.scrollBy(0, window.innerHeight));\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page scrolled"
+          }
+        }
+      }
+    },
+    "/cdp/functions/block-endpoints": {
+      "post": {
+        "summary": "Block Network Endpoints",
+        "description": "Blocks specific network requests using Chrome DevTools Protocol.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "blockedUrls": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "*doubleclick.net*"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "const blockedUrls = ['*doubleclick.net*'];\nconst page = await browser.newPage();\nconst client = await page.target().createCDPSession();\nawait client.send('Network.enable');\nawait client.send('Network.setBlockedURLs', { urls: blockedUrls });\nawait page.goto('https://washingtonpost.com');\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Endpoints blocked"
+          }
+        }
+      }
+    },
+    "/cdp/functions/set-cookie": {
+      "post": {
+        "summary": "Set Cookie",
+        "description": "Sets a cookie before navigating to a page. Requires KYC verification.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cookie"
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Node.js (Puppeteer)",
+            "source": "const page = await browser.newPage();  \nawait page.setCookie({ name: 'LANG', value: 'en-US', domain: 'example.com' });  \nawait page.goto('https://example.com');\n"
+          }
+        ],
+        "externalDocs": {
+          "description": "Puppeteer Set Cookie API",
+          "url": "https://pptr.dev/api/puppeteer.page.setcookie"
+        },
+        "responses": {
+          "200": {
+            "description": "Cookie set successfully"
+          }
+        }
+      }
+    },
+    "/cdp/functions/country-routing": {
+      "get": {
+        "summary": "Country Routing via Proxy",
+        "description": "Route traffic through a specific country using the -country flag in the proxy endpoint.\n",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "us"
+            },
+            "description": "2-letter ISO country code (e.g., us, eu)"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "Proxy Endpoint Example",
+            "source": "const SBR_WS_ENDPOINT = `wss://${USER-country-us:PASS}@brd.superproxy.io:9222`;\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proxy routing configured"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cookie": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "LANG"
+          },
+          "value": {
+            "type": "string",
+            "example": "en-US"
+          },
+          "domain": {
+            "type": "string",
+            "example": "example.com"
+          }
+        }
+      }
+    }
+  }
+}
