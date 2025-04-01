@@ -8,24 +8,23 @@
     "dark": "#FFE7E6"
   },
   "fonts": {
-  "heading": {
-    "family": "Inter"
+    "heading": {
+      "family": "Inter"
+    },
+    "body": {
+      "family": "Inter"
+    }
   },
-  "body": {
-    "family": "Inter"
-  }
-},
-"background": {
+  "background": {
     "image": {
-    "light": "/logo/light3.svg",
-    "dark":"/logo/dark.svg"
-  }
-},
+      "light": "/logo/light3.svg",
+      "dark": "/logo/dark.svg"
+    }
+  },
   "search": {
     "prompt": "Type a keyword to find setup guides..."
   },
   "favicon": "/favicon.svg",
-  {
   "navigation": {
     "tabs": [
       {
@@ -61,8 +60,7 @@
         ]
       }
     ]
-  }
-},
+  },
   "logo": {
     "dark": "/logo/logo.svg",
     "light": "/logo/logo.svg",
@@ -82,7 +80,6 @@
     }
   },
   "footer": {
-    "socials": {
-    }
+    "socials": {}
   }
 }
