@@ -1,0 +1,81 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "browser.ai API",
+    "version": "1.0.0",
+    "description": "Simulated API reference for browser.ai CDP commands and automation tools."
+  },
+  "paths": {
+    "/captcha/solve": {
+      "post": {
+        "summary": "Solve CAPTCHA",
+        "tags": ["CAPTCHA"],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "detectTimeout": {
+                    "type": "integer",
+                    "description": "Timeout in milliseconds"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "CAPTCHA solve result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": ["not_detected", "solve_finished", "solve_failed", "invalid"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proxy/location": {
+      "post": {
+        "summary": "Set Proxy Location",
+        "tags": ["Proxy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": { "type": "number" },
+                  "lon": { "type": "number" },
+                  "distance": { "type": "number" },
+                  "strict": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Location set successfully"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "CAPTCHA", "description": "CAPTCHA solving commands" },
+    { "name": "Proxy", "description": "Proxy location control" }
+  ]
+}
