@@ -61,7 +61,7 @@
       {
         "tab": "API References",
         "openapi": [
-          "api-reference/openapi3_0"
+          "api-reference/configuration"
         ]
       }
     ]
