@@ -53,8 +53,7 @@
           "features/troubleshooting"
         ]
       }
-    ],
-    "dropdowns": []
+    ]
   },
   "logo": {
     "dark": "/logo/logo.svg",
