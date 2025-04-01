@@ -25,42 +25,44 @@
     "prompt": "Type a keyword to find setup guides..."
   },
   "favicon": "/favicon.svg",
+  {
   "navigation": {
     "tabs": [
-    {
+      {
         "tab": "API Reference",
         "openapi": "https://petstore3.swagger.io/api/v3/openapi.json"
-    }
-  ]
-        "groups": [
-          {            
-            "group": "Welcome & Configuration",
-            "pages": [
-              "general/intro",
-              "general/start",
-              "general/configuration",
-              "general/faqs",
-              "general/code-snippets"
-            ]
-          },
-          {
-            "group": "CDP Core Functions",
-            "pages": [
-              "cdp-func/standard",
-              "cdp-func/custom"
-            ]
-          },
-          {
-            "group": "Tools & Troubleshooting",
-            "pages": [
-              "features/captcha-solver",
-              "features/proxy-location",
-              "features/premium-domains",
-              "features/troubleshooting"
-            ]
-          }
+      }
+    ],
+    "groups": [
+      {
+        "group": "Welcome & Configuration",
+        "pages": [
+          "general/intro",
+          "general/start",
+          "general/configuration",
+          "general/faqs",
+          "general/code-snippets"
         ]
-  },
+      },
+      {
+        "group": "CDP Core Functions",
+        "pages": [
+          "cdp-func/standard",
+          "cdp-func/custom"
+        ]
+      },
+      {
+        "group": "Tools & Troubleshooting",
+        "pages": [
+          "features/captcha-solver",
+          "features/proxy-location",
+          "features/premium-domains",
+          "features/troubleshooting"
+        ]
+      }
+    ]
+  }
+},
   "logo": {
     "dark": "/logo/logo.svg",
     "light": "/logo/logo.svg",
