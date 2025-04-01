@@ -11,7 +11,6 @@
         "summary": "Solve CAPTCHA",
         "tags": ["CAPTCHA"],
         "requestBody": {
-          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -37,11 +36,46 @@
                     "status": {
                       "type": "string",
                       "enum": ["not_detected", "solve_finished", "solve_failed", "invalid"]
+                    },
+                    "type": { "type": "string" },
+                    "error": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/captcha/set-auto": {
+      "post": {
+        "summary": "Enable or disable CAPTCHA auto-solver",
+        "tags": ["CAPTCHA"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "autoSolve": { "type": "boolean" },
+                  "options": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": { "type": "string" },
+                        "disabled": { "type": "boolean" }
+                      }
                     }
                   }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Auto-solver settings updated"
           }
         }
       }
@@ -72,10 +106,88 @@
           }
         }
       }
+    },
+    "/emulation/devices": {
+      "get": {
+        "summary": "Get Supported Devices",
+        "tags": ["Emulation"],
+        "responses": {
+          "200": {
+            "description": "List of emulatable devices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/emulation/set-device": {
+      "post": {
+        "summary": "Set Emulated Device",
+        "tags": ["Emulation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Device emulation applied"
+          }
+        }
+      }
+    },
+    "/browser/certificate": {
+      "post": {
+        "summary": "Add SSL/TLS Certificate",
+        "tags": ["Browser"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cert": {
+                    "type": "string",
+                    "description": "Base64-encoded certificate"
+                  },
+                  "pass": {
+                    "type": "string",
+                    "description": "Password for the certificate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Certificate installed"
+          }
+        }
+      }
     }
   },
   "tags": [
-    { "name": "CAPTCHA", "description": "CAPTCHA solving commands" },
-    { "name": "Proxy", "description": "Proxy location control" }
+    { "name": "CAPTCHA", "description": "CAPTCHA solving and configuration" },
+    { "name": "Proxy", "description": "Proxy location and geo-targeting" },
+    { "name": "Emulation", "description": "Device emulation and viewport control" },
+    { "name": "Browser", "description": "Browser session configuration" }
   ]
 }

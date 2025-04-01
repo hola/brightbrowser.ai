@@ -60,9 +60,7 @@
       },
       {
         "tab": "API References",
-        "openapi": [
-          "api-reference/configuration"
-        ]
+        "openapi": "api-reference/openapi.json"
       }
     ]
   },
