@@ -81,13 +81,11 @@ sidebarTitle: "Need help?"
 
         <CodeGroup>
           ```js Puppeteer - Node.js
-                    const page = await browser.newPage();  
-                    const client = await page.target().createCDPSession();  
-                    const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
-                    const {url: inspectUrl} = await client.send('Page.inspect', {  
-                        frameId: frame.id,  
-                    });  
-                    console.log(`Inspect session at ${inspectUrl}`);
+          const page = await browser.newPage();  
+          const client = await page.target().createCDPSession();  
+          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
+          const {url: inspectUrl} = await client.send('Page.inspect', {frameId: frame.id,});  
+          console.log(`Inspect session at ${inspectUrl}`);
           ```
 
           ```js Playwright - Node.js
