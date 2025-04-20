@@ -260,8 +260,7 @@
   "content": {
     "application/json": {
       "example": {
-        "error": "Unauthorized",
-        "message": "Missing or invalid API key"
+        "error": "Unauthorized"
       }
     }
   }
