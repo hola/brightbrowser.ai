@@ -1,93 +1,97 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "name": "Browser.ai Documentation",
-  "theme": "maple",
-  "colors": {
-    "primary": "#A1DE02",
-    "light": "#CDFD50",
-    "dark": "#FFE7E6"
-  },
-  "fonts": {
-    "heading": {
-      "family": "Inter"
+    "$schema": "https://mintlify.com/docs.json",
+    "name": "Browser.ai Documentation",
+    "theme": "maple",
+    "colors": {
+        "primary": "#A1DE02",
+        "light": "#CDFD50",
+        "dark": "#FFE7E6"
     },
-    "body": {
-      "family": "Inter"
-    }
-  },
-  "background": {
-    "image": {
-      "light": "/logo/light3.svg",
-      "dark": "/logo/dark.svg"
-    }
-  },
-  "search": {
-    "prompt": "Type a keyword to find setup guides..."
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Welcome & Configuration",
-            "pages": [
-              "general/intro",
-              "general/start",
-              "general/configuration",
-              "general/faqs",
-              "general/code-snippets"
-            ]
-          },
-          {
-            "group": "CDP Core Functions",
-            "pages": [
-              "cdp-func/standard",
-              "cdp-func/custom"
-            ]
-          },
-          {
-            "group": "Tools & Troubleshooting",
-            "pages": [
-              "features/captcha-solver",
-              "features/proxy-location",
-              "features/premium-domains",
-              "features/troubleshooting"
-            ]
-          }
+    "fonts": {
+        "heading": {
+            "family": "Inter"
+        },
+        "body": {
+            "family": "Inter"
+        }
+    },
+    "background": {
+        "image": {
+            "light": "/logo/light3.svg",
+            "dark": "/logo/dark.svg"
+        }
+    },
+    "search": {
+        "prompt": "Type a keyword to find setup guides..."
+    },
+    "favicon": "/favicon.svg",
+    "navigation": {
+        "tabs": [
+            {
+                "tab": "Documentation",
+                "groups": [
+                    {
+                        "group": "Welcome & Configuration",
+                        "pages": [
+                            "general/intro",
+                            "general/start",
+                            "general/configuration",
+                            "general/faqs",
+                            "general/code-snippets"
+                        ]
+                    },
+                    {
+                        "group": "CDP Core Functions",
+                        "pages": [
+                            "cdp-func/standard",
+                            "cdp-func/custom"
+                        ]
+                    },
+                    {
+                        "group": "Tools & Troubleshooting",
+                        "pages": [
+                            "features/captcha-solver",
+                            "features/proxy-location",
+                            "features/premium-domains",
+                            "features/troubleshooting"
+                        ]
+                    }
+                ]
+            },
+            {
+                "tab": "API Reference",
+                "openapi": "api-reference/openapi.json",
+                "groups": [
+                    {
+                        "group": "API Overview",
+                        "pages": [
+                            "api-reference/intro",
+                            "api-reference/api-token"
+                        ]
+                    }
+                ]
+            }
         ]
-      },
-      {
-        "tab": "API Reference",
-        "openapi": "api-reference/openapi.json",
-        "group": "API Overview",
-            "pages": [
-              "api-reference/intro",
-              "api-reference/api-token"
-            ]
-      }
-    ]
-  },
-  "logo": {
-    "dark": "/logo/logo.svg",
-    "light": "/logo/logo.svg",
-    "href": "https://browser.ai/"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://browser.ai/"
+    },
+    "logo": {
+        "dark": "/logo/logo.svg",
+        "light": "/logo/logo.svg",
+        "href": "https://browser.ai/"
+    },
+    "navbar": {
+        "links": [
+            {
+                "label": "Support",
+                "href": "mailto:hi@mintlify.com"
+            }
+        ],
+        "primary": {
+            "type": "button",
+            "label": "Dashboard",
+            "href": "https://browser.ai/"
+        }
+    },
+    "footer": {
+        "socials": {}
     }
-  },
-  "footer": {
-    "socials": {}
-  }
 }
