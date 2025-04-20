@@ -256,8 +256,16 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized"
-                    },
+  "description": "Unauthorized",
+  "content": {
+    "application/json": {
+      "example": {
+        "error": "Unauthorized",
+        "message": "Missing or invalid API key"
+      }
+    }
+  }
+},
                     "404": {
                         "description": "Task not found"
                     },
