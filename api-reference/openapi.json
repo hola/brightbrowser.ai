@@ -264,7 +264,7 @@
                         "name": "session_id",
                         "in": "path",
                         "required": true,
-                        "description": "Insert your task’s `session ID` located in your Projects dashboard",
+                        "description": "Insert your task’s `session ID` located in your Projects dashboard.",
                         "schema": {
                             "type": "string"
                         }
@@ -327,7 +327,7 @@
                         "name": "session_id",
                         "in": "path",
                         "required": true,
-                        "description": "Insert your task’s `session ID` located in your Projects dashboard",
+                        "description": "Insert your task’s `session ID` located in your Projects dashboard.",
                         "schema": {
                             "type": "string"
                         }
