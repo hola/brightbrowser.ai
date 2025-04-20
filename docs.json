@@ -61,15 +61,11 @@
       {
         "tab": "API Reference",
         "openapi": "api-reference/openapi.json",
-        "groups":[
-          {
-            "group": "API Overview",
+        "group": "API Overview",
             "pages": [
               "api-reference/intro",
               "api-reference/api-token"
             ]
-          }
-        ]
       }
     ]
   },
