@@ -16,7 +16,7 @@
         "type": "apiKey",
         "in": "header",
         "name": "Authorization",
-        "description": "API key authentication. Use the format: `apikey <your-token>`"
+        "description": "Insert API token, use the format: `apikey <API-TOKEN>`"
       }
     },
     "schemas": {
