@@ -1,267 +1,378 @@
 {
-  "openapi": "3.0.3",
-  "info": {
-    "title": "BrowserAI Task API",
-    "version": "1.0.0",
-    "description": "API for creating and retrieving browser automation tasks and their results."
-  },
-  "servers": [
-    {
-      "url": "https://browser.ai/api/v1"
-    }
-  ],
-  "components": {
-    "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "Authorization",
-        "description": "Insert API token, use the format: `apikey <API-TOKEN>`"
-      }
+    "openapi": "3.0.3",
+    "info": {
+        "title": "BrowserAI Task API",
+        "version": "1.0.0",
+        "description": "API for creating and retrieving browser automation tasks and their results."
     },
-    "schemas": {
-      "GeoLocation": {
-        "type": "object",
-        "required": ["country"],
-        "properties": {
-          "country": { "type": "string" },
-          "city": { "type": "string" },
-          "zipcode": { "type": "string" }
+    "servers": [
+        {
+            "url": "https://browser.ai/api/v1"
         }
-      },
-      "CreateTaskRequest": {
-        "type": "object",
-        "required": ["task", "geoLocation", "project"],
-        "properties": {
-          "task": { "type": "string" },
-          "geoLocation": { "$ref": "#/components/schemas/GeoLocation" },
-          "project": { "type": "string" }
-        }
-      },
-      "CreateTaskResponse": {
-        "type": "object",
-        "properties": {
-          "executionId": { "type": "string" },
-          "scriptType": { "type": "string" },
-          "status": { "type": "string" },
-          "geoLocation": { "$ref": "#/components/schemas/GeoLocation" },
-          "started": { "type": "string", "format": "date-time", "nullable": true },
-          "estimatedCompletion": { "type": "string", "format": "date-time", "nullable": true }
-        }
-      },
-      "TaskProgress": {
-        "type": "object",
-        "properties": {
-          "status": { "type": "string" },
-          "logs": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
-        }
-      },
-      "GetTaskResponse": {
-        "type": "object",
-        "properties": {
-          "executionId": { "type": "string" },
-          "scriptId": { "type": "string" },
-          "scriptType": { "type": "string" },
-          "status": { "type": "string" },
-          "progress": { "$ref": "#/components/schemas/TaskProgress" },
-          "started": { "type": "string", "format": "date-time" },
-          "estimatedCompletion": { "type": "string", "format": "date-time" }
-        }
-      },
-      "TaskResult": {
-        "type": "object",
-        "properties": {
-          "model_output": { "type": "string" },
-          "result": { "type": "string" },
-          "state": { "type": "string" },
-          "metadata": { "type": "object" },
-          "history_index": { "type": "integer" },
-          "screenshot_url": { "type": "string" },
-          "html_url": { "type": "string" },
-          "console_url": { "type": "string" },
-          "insert_ts": { "type": "string", "format": "date-time" }
-        }
-      },
-      "GetResultsResponse": {
-        "type": "object",
-        "properties": {
-          "executionId": { "type": "string" },
-          "status": { "type": "string" },
-          "started": { "type": "string", "format": "date-time" },
-          "completed": { "type": "string", "format": "date-time" },
-          "results": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/TaskResult" }
-          }
-        }
-      }
-    }
-  },
-  "paths": {
-    "/tasks": {
-      "post": {
-        "summary": "Create a new task",
-        "security": [{ "ApiKeyAuth": [] }],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateTaskRequest" }
+    ],
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization",
+                "description": "Insert API token, use the format: `apikey <API-TOKEN>`"
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "Task created successfully",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/CreateTaskResponse" }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid input or project not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Invalid input or project not found"
+        "schemas": {
+            "GeoLocation": {
+                "type": "object",
+                "required": [
+                    "country"
+                ],
+                "properties": {
+                    "country": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "zipcode": {
+                        "type": "string"
+                    }
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Unauthorized"
+            },
+            "CreateTaskRequest": {
+                "type": "object",
+                "required": [
+                    "task",
+                    "geoLocation",
+                    "project"
+                ],
+                "properties": {
+                    "task": {
+                        "type": "string"
+                    },
+                    "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                    },
+                    "project": {
+                        "type": "string"
+                    }
                 }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Internal server error"
+            },
+            "CreateTaskResponse": {
+                "type": "object",
+                "properties": {
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "scriptType": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "estimatedCompletion": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
                 }
-              }
+            },
+            "TaskProgress": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    },
+                    "logs": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "GetTaskResponse": {
+                "type": "object",
+                "properties": {
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "scriptId": {
+                        "type": "string"
+                    },
+                    "scriptType": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "progress": {
+                        "$ref": "#/components/schemas/TaskProgress"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "estimatedCompletion": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "TaskResult": {
+                "type": "object",
+                "properties": {
+                    "model_output": {
+                        "type": "string"
+                    },
+                    "result": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "type": "object"
+                    },
+                    "history_index": {
+                        "type": "integer"
+                    },
+                    "screenshot_url": {
+                        "type": "string"
+                    },
+                    "html_url": {
+                        "type": "string"
+                    },
+                    "console_url": {
+                        "type": "string"
+                    },
+                    "insert_ts": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "GetResultsResponse": {
+                "type": "object",
+                "properties": {
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "completed": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TaskResult"
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     },
-    "/tasks/{task_id}": {
-      "get": {
-        "summary": "Get task metadata",
-        "security": [{ "ApiKeyAuth": [] }],
-        "parameters": [
-          {
-            "name": "task_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Task details",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/GetTaskResponse" }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Unauthorized"
+    "paths": {
+        "/tasks": {
+            "post": {
+                "summary": "Create a new task",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                  "description": "Insert your task’s `session ID` located in your Projects dashboard.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input or project not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid input or project not found"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          },
-          "404": {
-            "description": "Task not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Task not found"
+        },
+        "/tasks/{session_id}": {
+            "get": {
+                "summary": "Get task metadata",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true,
+                      "description": "Insert your task’s `session ID` located in your Projects dashboard.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Internal server error"
+        },
+        "/results/{session_id}": {
+            "get": {
+                "summary": "Get task results",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "session_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetResultsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
-    },
-    "/results/{task_id}": {
-      "get": {
-        "summary": "Get task results",
-        "security": [{ "ApiKeyAuth": [] }],
-        "parameters": [
-          {
-            "name": "task_id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Task results",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/GetResultsResponse" }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Unauthorized"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Task not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Task not found"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "Internal server error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
-  }
 }
