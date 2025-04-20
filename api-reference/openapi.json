@@ -13,9 +13,10 @@
   "components": {
     "securitySchemes": {
       "ApiKeyAuth": {
-        "type": "http",
-        "scheme": "apikey",
-        "description": "Enter your API key. It will be sent as: Authorization: apikey <your-token>"
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "API key authentication. Use the format: `apikey <your-token>`"
       }
     },
     "schemas": {
