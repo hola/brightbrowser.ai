@@ -68,6 +68,14 @@
                             "api-reference/intro",
                             "api-reference/api-token"
                         ]
+                    },
+                  {
+                        "group": "API Endpoints",
+                        "pages": [
+                            "api-reference/endpoint/tasks",
+                            "api-reference/endpoint/taskMetadata",
+                            "api-reference/endpoint/results"
+                        ]
                     }
                 ]
             }
