@@ -215,35 +215,35 @@
                         }
                     },
                     "400": {
-  "description": "Invalid input or project not found",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Invalid input or project not found"
-      }
-    }
-  }
-},
+                        "description": "Invalid input or project not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid input or project not found"
+                                }
+                            }
+                        }
+                    },
                     "401": {
-  "description": "Unauthorized",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Unauthorized"
-      }
-    }
-  }
-},
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
                     "500": {
-  "description": "Internal server error",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Internal server error"
-      }
-    }
-  }
-}
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -277,35 +277,35 @@
                         }
                     },
                     "401": {
-  "description": "Unauthorized",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Unauthorized"
-      }
-    }
-  }
-},
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
                     "404": {
-  "description": "Task not found",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Task not found"
-      }
-    }
-  }
-},
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
                     "500": {
-  "description": "Internal server error",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Internal server error"
-      }
-    }
-  }
-}
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -339,35 +339,35 @@
                         }
                     },
                     "401": {
-  "description": "Unauthorized",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Unauthorized"
-      }
-    }
-  }
-},
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
                     "404": {
-  "description": "Task not found",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Task not found"
-      }
-    }
-  }
-},
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
                     "500": {
-  "description": "Internal server error",
-  "content": {
-    "application/json": {
-      "example": {
-        "error": "Internal server error"
-      }
-    }
-  }
-}
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
