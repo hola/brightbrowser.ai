@@ -1,193 +1,312 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "browser.ai API",
-    "version": "1.0.0",
-    "description": "Simulated API reference for browser.ai CDP commands and automation tools."
-  },
-  "paths": {
-    "/captcha/solve": {
-      "post": {
-        "summary": "Solve CAPTCHA",
-        "tags": ["CAPTCHA"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "detectTimeout": {
-                    "type": "integer",
-                    "description": "Timeout in milliseconds"
-                  }
-                }
-              }
+    "openapi": "3.0.3",
+    "info": {
+        "title": "BrowserAI Task API",
+        "version": "1.0.0",
+        "description": "API for creating and retrieving browser automation tasks and their results."
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization"
             }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "CAPTCHA solve result",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "enum": ["not_detected", "solve_finished", "solve_failed", "invalid"]
+        "schemas": {
+            "GeoLocation": {
+                "type": "object",
+                "required": [
+                    "country"
+                ],
+                "properties": {
+                    "country": {
+                        "type": "string"
                     },
-                    "type": { "type": "string" },
-                    "error": { "type": "string" }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/captcha/set-auto": {
-      "post": {
-        "summary": "Enable or disable CAPTCHA auto-solver",
-        "tags": ["CAPTCHA"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "autoSolve": { "type": "boolean" },
-                  "options": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "type": { "type": "string" },
-                        "disabled": { "type": "boolean" }
-                      }
+                    "city": {
+                        "type": "string"
+                    },
+                    "zipcode": {
+                        "type": "string"
                     }
-                  }
                 }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Auto-solver settings updated"
-          }
-        }
-      }
-    },
-    "/proxy/location": {
-      "post": {
-        "summary": "Set Proxy Location",
-        "tags": ["Proxy"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
+            },
+            "CreateTaskRequest": {
+                "type": "object",
+                "required": [
+                    "task",
+                    "geoLocation",
+                    "project"
+                ],
+                "properties": {
+                    "task": {
+                        "type": "string"
+                    },
+                    "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                    },
+                    "project": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CreateTaskResponse": {
                 "type": "object",
                 "properties": {
-                  "lat": { "type": "number" },
-                  "lon": { "type": "number" },
-                  "distance": { "type": "number" },
-                  "strict": { "type": "boolean" }
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "scriptType": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "estimatedCompletion": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
                 }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Location set successfully"
-          }
-        }
-      }
-    },
-    "/emulation/devices": {
-      "get": {
-        "summary": "Get Supported Devices",
-        "tags": ["Emulation"],
-        "responses": {
-          "200": {
-            "description": "List of emulatable devices",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/emulation/set-device": {
-      "post": {
-        "summary": "Set Emulated Device",
-        "tags": ["Emulation"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
+            },
+            "TaskProgress": {
                 "type": "object",
                 "properties": {
-                  "device": { "type": "string" }
+                    "status": {
+                        "type": "string"
+                    },
+                    "logs": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Device emulation applied"
-          }
-        }
-      }
-    },
-    "/browser/certificate": {
-      "post": {
-        "summary": "Add SSL/TLS Certificate",
-        "tags": ["Browser"],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
+            },
+            "GetTaskResponse": {
                 "type": "object",
                 "properties": {
-                  "cert": {
-                    "type": "string",
-                    "description": "Base64-encoded certificate"
-                  },
-                  "pass": {
-                    "type": "string",
-                    "description": "Password for the certificate"
-                  }
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "scriptId": {
+                        "type": "string"
+                    },
+                    "scriptType": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "progress": {
+                        "$ref": "#/components/schemas/TaskProgress"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "estimatedCompletion": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
                 }
-              }
+            },
+            "TaskResult": {
+                "type": "object",
+                "properties": {
+                    "model_output": {
+                        "type": "string"
+                    },
+                    "result": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "type": "object"
+                    },
+                    "history_index": {
+                        "type": "integer"
+                    },
+                    "screenshot_url": {
+                        "type": "string"
+                    },
+                    "html_url": {
+                        "type": "string"
+                    },
+                    "console_url": {
+                        "type": "string"
+                    },
+                    "insert_ts": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "GetResultsResponse": {
+                "type": "object",
+                "properties": {
+                    "executionId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "started": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "completed": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TaskResult"
+                        }
+                    }
+                }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Certificate installed"
-          }
         }
-      }
+    },
+    "paths": {
+        "/tasks": {
+            "post": {
+                "summary": "Create a new task",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input or project not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/tasks/{task_id}": {
+            "get": {
+                "summary": "Get task metadata",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/results/{task_id}": {
+            "get": {
+                "summary": "Get task results",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetResultsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
     }
-  },
-  "tags": [
-    { "name": "CAPTCHA", "description": "CAPTCHA solving and configuration" },
-    { "name": "Proxy", "description": "Proxy location and geo-targeting" },
-    { "name": "Emulation", "description": "Device emulation and viewport control" },
-    { "name": "Browser", "description": "Browser session configuration" }
-  ]
 }
