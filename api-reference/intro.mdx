@@ -1,0 +1,27 @@
+---
+title: 'browser.ai Task API'
+sidebarTitle: "API Introduction"
+---
+
+The **browser.ai** Task API enables developers to programmatically create, manage, and retrieve results from browser-based automation tasks powered by AI. This API is designed to help you automate web interactions, extract data, scrape, and run scripts in our cloud-based browser environment with customizable geographic targeting.
+
+Whether you're building a data extraction pipeline, automating web testing, or integrating browser automation into your product, this API provides a secure and scalable interface to manage your automation workflows.
+
+## Getting Started:
+1. Obtain your **API key** from the Projects Dashboard.
+2. Create a **task** by sending a POST request to /tasks with your prompt and geo settings.
+3. **Track** the task using the `session ID` returned.
+4. **Fetch results** once the task is completed!
+
+## Authentication:
+All endpoints are secured using an API key. You must include your API key in the Authorization header using the following format:
+```javascript
+Authorization: apikey <API-TOKEN>
+```
+
+## Available Endpoints:
+| **Method** | **Endpoint**                  | **Description**                          |
+|--------|---------------------------|--------------------------------------|
+| [POST](https://docs.browser.ai/api-reference/create-a-new-task)   | `/tasks`                  | Create a new task. |
+| [GET](https://docs.browser.ai/api-reference/get-task-metadata)    | `/tasks/{session_id}`     | Get metadata, progress and status of a task.  |
+| [GET](https://docs.browser.ai/api-reference/get-task-results)    | `/results/{session_id}`   | Retrieve the results of a task.       |
