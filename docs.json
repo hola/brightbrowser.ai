@@ -65,7 +65,8 @@
           {
             "group": "API Overview",
             "pages": [
-              "api-reference/intro"
+              "api-reference/intro",
+              "api-reference/api-token"
             ]
           }
         ]
