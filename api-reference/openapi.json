@@ -27,7 +27,8 @@
                 ],
                 "properties": {
                     "country": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "2-letter country code, for example: es for Spain."
                     },
                     "city": {
                         "type": "string"
@@ -46,13 +47,15 @@
                 ],
                 "properties": {
                     "task": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Your prompt."
                     },
                     "geoLocation": {
                         "$ref": "#/components/schemas/GeoLocation"
                     },
                     "project": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Your project's name."
                     }
                 }
             },
@@ -196,7 +199,6 @@
                 ],
                 "requestBody": {
                     "required": true,
-                  "description": "Insert your task’s `session ID` located in your Projects dashboard.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -262,7 +264,6 @@
                         "name": "session_id",
                         "in": "path",
                         "required": true,
-                      "description": "Insert your task’s `session ID` located in your Projects dashboard.",
                         "schema": {
                             "type": "string"
                         }
