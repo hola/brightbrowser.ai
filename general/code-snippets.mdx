@@ -1,7 +1,7 @@
 ---
 title: "browser.ai Code Snippets"
 description: "Explore real-world code examples to integrate browser.ai with Playwright, Puppeteer, and Selenium."
-sidebarTitle: Code Snippets
+sidebarTitle: "Code Snippets"
 ---
 
 <Warning>
@@ -15,143 +15,148 @@ sidebarTitle: Code Snippets
 <Tabs>
   <Tab title="Node.js">
     <CodeGroup>
-      ```js Playwright
-      const playwright = require('playwright');
 
-      const AUTH = process.env.AUTH || 'USER:PASS';
-      const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
+    ```js Playwright
+    const playwright = require('playwright');
+    
+    const AUTH = process.env.AUTH || 'USER:PASS';
+    const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
+    
+    async function scrape(url = TARGET_URL) {
+        if (AUTH === 'USER:PASS') {
+            throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
+        }
+        console.log(`🚀 Connecting to browser.ai...`);
+        
+        const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
+        const browser = await playwright.chromium.connectOverCDP(endpointURL);
+    
+        try {
+            console.log(`🌎 Navigating to ${url}...`);
+            const page = await browser.newPage();
+            await page.goto(url, { timeout: 120000 });
+    
+            console.log(`📄 Extracting page content...`);
+            const data = await page.content();
+            console.log(`✅ Data scraped:`, data);
+        } finally {
+            await browser.close();
+        }
+    }
+    
+    scrape().catch(err => console.error(`❌ Error:`, err));
+    ```
 
-      async function scrape(url = TARGET_URL) {
-          if (AUTH === 'USER:PASS') {
-              throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
-          }
-          console.log(`🚀 Connecting to browser.ai...`);
-          
-          const endpointURL = `wss://${AUTH}@brd.superproxy.io:9222`;
-          const browser = await playwright.chromium.connectOverCDP(endpointURL);
+    
+    ```js Puppeteer
+    const puppeteer = require('puppeteer-core');
+    
+    const AUTH = process.env.AUTH || 'USER:PASS';
+    const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
+    
+    async function scrape(url = TARGET_URL) {
+        if (AUTH === 'USER:PASS') {
+            throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
+        }
+        console.log(`🚀 Connecting to browser.ai...`);
+    
+        const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
+        const browser = await puppeteer.connect({ browserWSEndpoint });
+    
+        try {
+            console.log(`🌎 Navigating to ${url}...`);
+            const page = await browser.newPage();
+            await page.goto(url, { timeout: 120000 });
+    
+            console.log(`📄 Extracting page content...`);
+            const data = await page.content();
+            console.log(`✅ Data scraped:`, data);
+        } finally {
+            await browser.close();
+        }
+    }
+    
+    scrape().catch(err => console.error(`❌ Error:`, err));
+    ```
 
-          try {
-              console.log(`🌎 Navigating to ${url}...`);
-              const page = await browser.newPage();
-              await page.goto(url, { timeout: 120000 });
-
-              console.log(`📄 Extracting page content...`);
-              const data = await page.content();
-              console.log(`✅ Data scraped:`, data);
-          } finally {
-              await browser.close();
-          }
-      }
-
-      scrape().catch(err => console.error(`❌ Error:`, err));
-      ```
-
-      ```js Puppeteer
-      const puppeteer = require('puppeteer-core');
-
-      const AUTH = process.env.AUTH || 'USER:PASS';
-      const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
-
-      async function scrape(url = TARGET_URL) {
-          if (AUTH === 'USER:PASS') {
-              throw new Error('🔑 Missing credentials! Update the AUTH environment variable.');
-          }
-          console.log(`🚀 Connecting to browser.ai...`);
-
-          const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
-          const browser = await puppeteer.connect({ browserWSEndpoint });
-
-          try {
-              console.log(`🌎 Navigating to ${url}...`);
-              const page = await browser.newPage();
-              await page.goto(url, { timeout: 120000 });
-
-              console.log(`📄 Extracting page content...`);
-              const data = await page.content();
-              console.log(`✅ Data scraped:`, data);
-          } finally {
-              await browser.close();
-          }
-      }
-
-      scrape().catch(err => console.error(`❌ Error:`, err));
-      ```
     </CodeGroup>
   </Tab>
-
   <Tab title="Python">
     <CodeGroup>
-      ```python Playwright
-      from playwright.sync_api import sync_playwright
-      import os
 
-      AUTH = os.getenv("AUTH", "USER:PASS")
-      TARGET_URL = os.getenv("TARGET_URL", "https://example.com")
+    ```python Playwright
+    from playwright.sync_api import sync_playwright
+    import os
+    
+    AUTH = os.getenv("AUTH", "USER:PASS")
+    TARGET_URL = os.getenv("TARGET_URL", "https://example.com")
+    
+    def scrape(url=TARGET_URL):
+        if AUTH == "USER:PASS":
+            raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
+    
+        print("🚀 Connecting to browser.ai...")
+        endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
+    
+        with sync_playwright() as p:
+            browser = p.chromium.connect_over_cdp(endpoint_url)
+            try:
+                print(f"🌎 Navigating to {url}...")
+                page = browser.new_page()
+                page.goto(url, timeout=120000)
+    
+                print("📄 Extracting page content...")
+                data = page.content()
+                print(f"✅ Data scraped: {data}")
+            finally:
+                browser.close()
+    
+    scrape()
+    ```
 
-      def scrape(url=TARGET_URL):
-          if AUTH == "USER:PASS":
-              raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
-
-          print("🚀 Connecting to browser.ai...")
-          endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
-
-          with sync_playwright() as p:
-              browser = p.chromium.connect_over_cdp(endpoint_url)
-              try:
-                  print(f"🌎 Navigating to {url}...")
-                  page = browser.new_page()
-                  page.goto(url, timeout=120000)
-
-                  print("📄 Extracting page content...")
-                  data = page.content()
-                  print(f"✅ Data scraped: {data}")
-              finally:
-                  browser.close()
-
-      scrape()
-      ```
     </CodeGroup>
   </Tab>
-
   <Tab title="C#">
     <CodeGroup>
-      ```cs PuppeteerSharp
-      using PuppeteerSharp;
-      using System;
 
-      class Program {
-          private static string AUTH = Environment.GetEnvironmentVariable("AUTH") ?? "USER:PASS";
-          private static string TARGET_URL = Environment.GetEnvironmentVariable("TARGET_URL") ?? "https://example.com";
+    ```cs PuppeteerSharp
+    using PuppeteerSharp;
+    using System;
+    
+    class Program {
+        private static string AUTH = Environment.GetEnvironmentVariable("AUTH") ?? "USER:PASS";
+        private static string TARGET_URL = Environment.GetEnvironmentVariable("TARGET_URL") ?? "https://example.com";
+    
+        static async Task Main() {
+            if (AUTH == "USER:PASS") {
+                throw new Exception("🔑 Missing credentials! Update the AUTH environment variable.");
+            }
+    
+            Console.WriteLine("🚀 Connecting to browser.ai...");
+            var browser = await Puppeteer.ConnectAsync(new ConnectOptions {
+                BrowserWSEndpoint = $"wss://{AUTH}@brd.superproxy.io:9222"
+            });
+    
+            try {
+                Console.WriteLine($"🌎 Navigating to {TARGET_URL}...");
+                var page = await browser.NewPageAsync();
+                await page.GoToAsync(TARGET_URL, new NavigationOptions { Timeout = 120000 });
+    
+                Console.WriteLine("📄 Extracting page content...");
+                var data = await page.GetContentAsync();
+                Console.WriteLine($"✅ Data scraped: {data}");
+            } finally {
+                await browser.CloseAsync();
+            }
+        }
+    }
+    ```
 
-          static async Task Main() {
-              if (AUTH == "USER:PASS") {
-                  throw new Exception("🔑 Missing credentials! Update the AUTH environment variable.");
-              }
-
-              Console.WriteLine("🚀 Connecting to browser.ai...");
-              var browser = await Puppeteer.ConnectAsync(new ConnectOptions {
-                  BrowserWSEndpoint = $"wss://{AUTH}@brd.superproxy.io:9222"
-              });
-
-              try {
-                  Console.WriteLine($"🌎 Navigating to {TARGET_URL}...");
-                  var page = await browser.NewPageAsync();
-                  await page.GoToAsync(TARGET_URL, new NavigationOptions { Timeout = 120000 });
-
-                  Console.WriteLine("📄 Extracting page content...");
-                  var data = await page.GetContentAsync();
-                  Console.WriteLine($"✅ Data scraped: {data}");
-              } finally {
-                  await browser.CloseAsync();
-              }
-          }
-      }
-      ```
     </CodeGroup>
   </Tab>
 </Tabs>
 
-***
+---
 
 ## Debugging & Inspecting Your Session
 
@@ -160,54 +165,57 @@ Want to **see** what's happening inside your browser.ai session? Open DevTools a
 <Tabs>
   <Tab title="Node.js">
     <CodeGroup>
-      ```js Puppeteer
-      const { exec } = require('child_process');
 
-      const AUTH = process.env.AUTH || 'USER:PASS';
-      const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
+    ```js Puppeteer
+    const { exec } = require('child_process');
+    
+    const AUTH = process.env.AUTH || 'USER:PASS';
+    const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
+    
+    (async () => {
+        console.log("🚀 Connecting to browser.ai...");
+        const browser = await puppeteer.connect({ browserWSEndpoint });
+        const page = await browser.newPage();
+        
+        const client = await page.target().createCDPSession();
+        const { url: inspectUrl } = await client.send('Page.inspect');
+        
+        console.log(`🛠 Open DevTools: ${inspectUrl}`);
+        exec(`google-chrome "${inspectUrl}"`);
+    })();
+    ```
 
-      (async () => {
-          console.log("🚀 Connecting to browser.ai...");
-          const browser = await puppeteer.connect({ browserWSEndpoint });
-          const page = await browser.newPage();
-          
-          const client = await page.target().createCDPSession();
-          const { url: inspectUrl } = await client.send('Page.inspect');
-          
-          console.log(`🛠 Open DevTools: ${inspectUrl}`);
-          exec(`google-chrome "${inspectUrl}"`);
-      })();
-      ```
     </CodeGroup>
   </Tab>
-
   <Tab title="Python">
     <CodeGroup>
-      ```python Playwright
-      from playwright.sync_api import sync_playwright
-      import os, subprocess
 
-      AUTH = os.getenv("AUTH", "USER:PASS")
-      TARGET_URL = os.getenv("TARGET_URL", "https://example.com")
+    ```python Playwright
+    from playwright.sync_api import sync_playwright
+    import os, subprocess
+    
+    AUTH = os.getenv("AUTH", "USER:PASS")
+    TARGET_URL = os.getenv("TARGET_URL", "https://example.com")
+    
+    def open_devtools():
+        if AUTH == "USER:PASS":
+            raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
+    
+        print("🚀 Connecting to browser.ai...")
+        endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
+    
+        with sync_playwright() as p:
+            browser = p.chromium.connect_over_cdp(endpoint_url)
+            page = browser.new_page()
+            client = page.context.new_cdp_session(page)
+    
+            inspect_url = client.send("Page.inspect")["url"]
+            print(f"🛠 Open DevTools: {inspect_url}")
+            subprocess.run(["google-chrome", inspect_url])
+    
+    open_devtools()
+    ```
 
-      def open_devtools():
-          if AUTH == "USER:PASS":
-              raise ValueError("🔑 Missing credentials! Update the AUTH environment variable.")
-
-          print("🚀 Connecting to browser.ai...")
-          endpoint_url = f"wss://{AUTH}@brd.superproxy.io:9222"
-
-          with sync_playwright() as p:
-              browser = p.chromium.connect_over_cdp(endpoint_url)
-              page = browser.new_page()
-              client = page.context.new_cdp_session(page)
-
-              inspect_url = client.send("Page.inspect")["url"]
-              print(f"🛠 Open DevTools: {inspect_url}")
-              subprocess.run(["google-chrome", inspect_url])
-
-      open_devtools()
-      ```
     </CodeGroup>
   </Tab>
 </Tabs>
@@ -219,27 +227,29 @@ browser.ai can **automatically detect and solve CAPTCHAs** in real time:
 <Tabs>
   <Tab title="Node.js">
     <CodeGroup>
-      ```js Puppeteer
-      const puppeteer = require('puppeteer-core');
 
-      const AUTH = process.env.AUTH || 'USER:PASS';
-      const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
+    ```js Puppeteer
+    const puppeteer = require('puppeteer-core');
+    
+    const AUTH = process.env.AUTH || 'USER:PASS';
+    const TARGET_URL = process.env.TARGET_URL || 'https://example.com';
+    
+    (async () => {
+        const browser = await puppeteer.connect({ browserWSEndpoint: `wss://${AUTH}@brd.superproxy.io:9222` });
+        const page = await browser.newPage();
+        
+        await page.goto(TARGET_URL, { timeout: 120000 });
+    
+        console.log("🔎 Checking for CAPTCHA...");
+        const client = await page.target().createCDPSession();
+        const { status } = await client.send("Captcha.solve", { detectTimeout: 30000 });
+    
+        console.log(`🛠 CAPTCHA status: ${status}`);
+    })();
+    ```
 
-      (async () => {
-          const browser = await puppeteer.connect({ browserWSEndpoint: `wss://${AUTH}@brd.superproxy.io:9222` });
-          const page = await browser.newPage();
-          
-          await page.goto(TARGET_URL, { timeout: 120000 });
-
-          console.log("🔎 Checking for CAPTCHA...");
-          const client = await page.target().createCDPSession();
-          const { status } = await client.send("Captcha.solve", { detectTimeout: 30000 });
-
-          console.log(`🛠 CAPTCHA status: ${status}`);
-      })();
-      ```
     </CodeGroup>
   </Tab>
 </Tabs>
 
-🚀 **browser.ai makes web scraping easy, scalable, and unblockable.** Get started today!
+**browser.ai makes web scraping easy, scalable, and unblockable.** Get started today\!

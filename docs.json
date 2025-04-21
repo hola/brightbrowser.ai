@@ -38,6 +38,12 @@
                             "general/faqs"
                         ]
                     },
+                  {
+                        "group": "API",
+                        "pages": [
+                            "general/api-intro"
+                        ]
+                    },
                     {
                         "group": "Headless Browser",
                         "pages": [
@@ -46,12 +52,6 @@
                             "features/geolocation",
                             "cdp-func/standard",
                             "general/code-snippets"
-                        ]
-                    },
-                    {
-                        "group": "Troubleshooting",
-                        "pages": [
-                            "features/troubleshooting"
                         ]
                     }
                 ]
