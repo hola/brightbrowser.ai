@@ -6,10 +6,6 @@ sidebarTitle: "Onboarding"
 
 This guide will walk you through setting up **browser.ai** in just a few stepsâ€”so you can start automating browser interactions at scale **without dealing with anti-bot measures**.
 
-<Tip>
-  Haven't joined the revolution yet? <a href="https://brightdata.com/" target="_blank">Sign up for free</a> and get **$5 in credit** when you add a payment method. Perfect for your first browser.ai test run.
-</Tip>
-
 <Steps>
   <Step title="Sign up">
     [Sign up](browser.ai) to browser.ai .
@@ -35,7 +31,7 @@ This guide will walk you through setting up **browser.ai** in just a few stepsâ€
 curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/json" --data "{\"task\":\"{YOUR-PROMPT}\", \"geoLocation\":{\"country\":\"{2-LETTER-CODE}\"}, \"project\":\"{PROJECT-NAME}\"}" -X POST https://browser.ai/api/v1/tasks
 ```
     1. task - the prompt itself.
-    2. country - the geolocation of the task.
+    2. country - the geolocation of the task, use <Tooltip tip="For example: NO for Norway"><Tooltip tip="This is a tooltip!">Hover over me</Tooltip></Tooltip>.
     <Frame>
   ![](img/start3.png)
 </Frame>
@@ -45,5 +41,14 @@ curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/j
     <Frame>
   ![](img/start4.png)
 </Frame>
+  </Step>
+  <Step title="See results">
+    Once the session reaches a **Finalized** status, you can dive in to review the **results** and trace the steps taken by the AI agent.
+    <Frame>
+  ![](img/start5.png)
+</Frame>
+  </Step>
+  <Step title="Use our API">
+    Feel free to explore our **API** for quick [task creation](https://docs.browser.ai/api-reference/endpoint/tasks), [metadata retrieval](https://docs.browser.ai/api-reference/endpoint/taskMetadata), and seamless [access to task results](https://docs.browser.ai/api-reference/endpoint/results).
   </Step>
 </Steps>

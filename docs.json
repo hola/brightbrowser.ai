@@ -35,8 +35,7 @@
                         "pages": [
                             "general/intro",
                             "general/start",
-                            "general/faqs",
-                            "general/code-snippets"
+                            "general/faqs"
                         ]
                     },
                     {
@@ -44,8 +43,9 @@
                         "pages": [
                             "general/configuration",
                             "features/captcha-solver",
-                            "features/proxy-location",
-                            "cdp-func/standard"
+                            "features/geolocation",
+                            "cdp-func/standard",
+                            "general/code-snippets"
                         ]
                     },
                     {
