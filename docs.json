@@ -58,9 +58,6 @@
                     {
                         "group": "Troubleshooting",
                         "pages": [
-                            "features/captcha-solver",
-                            "features/proxy-location",
-                            "features/premium-domains",
                             "features/troubleshooting"
                         ]
                     }
