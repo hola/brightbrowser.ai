@@ -35,7 +35,6 @@
                         "pages": [
                             "general/intro",
                             "general/start",
-                            "general/configuration",
                             "general/faqs",
                             "general/code-snippets"
                         ]
@@ -43,6 +42,7 @@
                     {
                         "group": "Headless Browser",
                         "pages": [
+                            "general/configuration",
                             "features/captcha-solver",
                             "features/proxy-location",
                             "cdp-func/standard",
