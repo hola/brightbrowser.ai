@@ -10,19 +10,40 @@ This guide will walk you through setting up **browser.ai** in just a few stepsâ€
   Haven't joined the revolution yet? <a href="https://brightdata.com/" target="_blank">Sign up for free</a> and get **$5 in credit** when you add a payment method. Perfect for your first browser.ai test run.
 </Tip>
 
-### 1. Sign In & Create Your Project
-
 <Steps>
   <Step title="Sign up">
     [Sign up](browser.ai) to browser.ai .
   </Step>
 
   <Step title="Go to Projects">
+    Navigate to the **Projects** section on the left sidebar and add a new project.
+    <Frame>
+  ![](img/start1.png)
+</Frame>
   </Step>
 
   <Step title="Name Your Project">
+    Inside the project, you can **rename** it to whatever suits your workflow.
+    <Frame>
+  ![](img/start2.png)
+</Frame>
   </Step>
 
   <Step title="Send you first task">
+    Your **API token** and a ready-to-use **cURL command** are available in the right sidebar. Here you can sustomize:
+    ```javascript
+curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/json" --data "{\"task\":\"{YOUR-PROMPT}\", \"geoLocation\":{\"country\":\"{2-LETTER-CODE}\"}, \"project\":\"{PROJECT-NAME}\"}" -X POST https://browser.ai/api/v1/tasks
+```
+    1. task - the prompt itself.
+    2. country - the geolocation of the task.
+    <Frame>
+  ![](img/start3.png)
+</Frame>
+  </Step>
+  <Step title="Session dashboard">
+    Once you run the cURL command in your terminal, a new session will appear in your **activity dashboard**.
+    <Frame>
+  ![](img/start4.png)
+</Frame>
   </Step>
 </Steps>
