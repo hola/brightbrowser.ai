@@ -31,7 +31,7 @@
                 "tab": "Documentation",
                 "groups": [
                     {
-                        "group": "Welcome & Configuration",
+                        "group": "Welcome",
                         "pages": [
                             "general/intro",
                             "general/start",
