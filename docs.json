@@ -48,7 +48,15 @@
                         ]
                     },
                     {
-                        "group": "Tools & Troubleshooting",
+                        "group": "Headless Browser",
+                        "pages": [
+                            "features/captcha-solver",
+                            "features/proxy-location",
+                            "features/premium-domains"
+                        ]
+                    },
+                    {
+                        "group": "Troubleshooting",
                         "pages": [
                             "features/captcha-solver",
                             "features/proxy-location",
@@ -68,7 +76,7 @@
                             "api-reference/token"
                         ]
                     },
-                  {
+                    {
                         "group": "API Endpoints",
                         "pages": [
                             "api-reference/endpoint/tasks",
