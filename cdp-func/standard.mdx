@@ -1,10 +1,12 @@
 ---
-title: "Standard CDP Functions"
+title: "CDP Functions"
 description: "Unlock the full potential of browser.ai with CDP integration, enabling seamless control over browser automation. From cookie management to precise geo-targeting, browser.ai empowers developers to optimize web scraping workflows using familiar Puppeteer and Playwright commands."
-sidebarTitle: Standard CDP Functions
+sidebarTitle: "CDP Functions"
 ---
 
-browser.ai is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the [official Puppeteer documentation](https://pptr.dev/). But we didn’t stop there—**we’ve added** [exclusive browser.ai CDP functions](https://docs.brightbrowser.ai/cdp-func/custom), fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
+## Standard Functions
+
+browser.ai is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the [official Puppeteer docs](https://pptr.dev/). But we didn’t stop there—**we’ve added** [custom browser.ai CDP functions](https://docs.browser.ai/cdp-func/custom), fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
 
 The following are a few common browser navigation functions to get you started.
 
@@ -18,7 +20,6 @@ The following are a few common browser navigation functions to get you started.
 
     **More info:** [Puppeteer Page Content API](https://pptr.dev/api/puppeteer.page.content)
   </Accordion>
-
   <Accordion title="Click on Element">
     ```js NodeJS - Puppeteer
     const page = await browser.newPage();  
@@ -28,7 +29,6 @@ The following are a few common browser navigation functions to get you started.
 
     **More info:** [Puppeteer Click API](https://pptr.dev/api/puppeteer.page.click)
   </Accordion>
-
   <Accordion title="Screenshot">
     <Tabs>
       <Tab title="Node.js">
@@ -36,25 +36,21 @@ The following are a few common browser navigation functions to get you started.
           await page.screenshot({ path: 'screenshot.png', fullPage: true });
         ```
       </Tab>
-
       <Tab title="Python">
         ```python Playwright
           await page.screenshot(path='screenshot.png', full_page=True)
         ```
       </Tab>
-
       <Tab title="C#">
         ```cs PuppeteerSharp
           await page.ScreenshotAsync("screenshot.png", new () { FullPage = true });
         ```
       </Tab>
     </Tabs>
-
     <Note>
       The example scripts above will save the screenshot as **screenshot.png** in your files.
     </Note>
   </Accordion>
-
   <Accordion title="Scroll to Bottom">
     You might need to scroll the viewport to the bottom at times, such as when activating 'infinite scroll'. Here's how:
 
@@ -64,7 +60,6 @@ The following are a few common browser navigation functions to get you started.
     await page.evaluate(() => window.scrollBy(0, window.innerHeight));
     ```
   </Accordion>
-
   <Accordion title="Block Endpoints">
     It is possible to block endpoints that are not required to save bandwidth. See an example of this below:
 
@@ -77,7 +72,6 @@ The following are a few common browser navigation functions to get you started.
     await page.goto('https://washingtonpost.com');
     ```
   </Accordion>
-
   <Accordion title="Setting Cookies">
     Please note that this is supported only for customers who completed the **KYC verification process**.
 
@@ -89,7 +83,6 @@ The following are a few common browser navigation functions to get you started.
 
     **More info:** [Puppeteer Set Cookie API](https://pptr.dev/api/puppeteer.page.setcookie)
   </Accordion>
-
   <Accordion title="Country Routing">
     When using the Scraping Browser, the same **country-targeting** parameter is available to use as in our other proxy products.
     When setting up your script, add the `-country` flag, **after** your "USER" credentials within the Bright Data endpoint, followed by the 2-letter [ISO code](https://www.nationsonline.org/oneworld/country_code_list.htm) for that country.
@@ -112,5 +105,512 @@ The following are a few common browser navigation functions to get you started.
     <Note>
       The allocation of a country within the EU is **random**.
     </Note>
+  </Accordion>
+</AccordionGroup>
+
+## Custome Functions
+
+### Captcha Solver
+
+browser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
+
+<Note>
+  If you would like to disable CAPTCHA solver entirely through the Control Panel see our feature for [Disable Captcha Solver](/scraping-automation/scraping-browser/features/captcha-solver)
+</Note>
+
+<Note>
+  Once a CAPTCHA is solved, browser.ai automatically submits the form if required.
+</Note>
+
+### CAPTCHA Solver - Automatic Solve
+
+<AccordionGroup>
+  <Accordion title="Captcha.solve">
+    Use this command to return the status after the captcha was solved, failed, or not detected.
+
+    <CodeGroup>
+
+    ```js Captcha.solve
+    Captcha.solve({
+        detectTimeout?: number // Detect timeout in millisecond for solver to detect captcha  
+        options?: CaptchaOptions[] // Configuration options for captcha solving  
+    }) : SolveResult
+    ```
+
+    
+    ```js SolveResult
+    SolveResult : {  
+      status: SolveStatus // Detect and solve status  
+      type?: string // Detected captcha type  
+      error?: string // Error if captcha was not solved  
+    }
+    ```
+
+    
+    ```js SolveStatus
+    SolveStatus : string enum {  
+      "not_detected" // Captcha was not detected  
+      "solve_finished" // Captcha successfully solved  
+      "solve_failed" // Captcha detected, but was not solved  
+      "invalid" // Something goes wrong  
+    }
+    ```
+
+    </CodeGroup>
+
+    **Examples**
+
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+
+        ```js Puppeteer
+        const page = await browser.newPage();
+        const client = await page.target().createCDPSession();
+        await page.goto('[https://site-with-captcha.com](https://site-with-captcha.com/)');  
+        
+        // Note 1: If no captcha was found it will return not_detected status after detectTimeout   
+        // Note 2: Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default   
+        
+        const client = await page.target().createCDPSession();  
+        const {status} = await client.send('Captcha.solve', {detectTimeout: 30*1000});   
+        console.log(`Captcha solve status: ${status}`)
+        ```
+
+        </CodeGroup>
+      </Tab>
+      <Tab title="Python">
+        <CodeGroup>
+
+        ```python Playwright
+        page = await browser.new_page()   
+        client = await page.context.new_cdp_session(page)   
+        await page.goto('[https://site-with-captcha.com](https://site-with-captcha.com/)')  
+        # Note 1: If no captcha was found it will return not_detected status after detectTimeout   
+        # Note 2: Once a CAPTCHA is solved, if there is a form to submit, it will be submitted by default  
+        client = await page.context.new_cdp_session(page)  
+        solve_result = await client.send('Captcha.solve', { 'detectTimeout': 30*1000 })   
+        status = solve_result['status']   
+        print(f'Captcha solve status: {status}') 
+        ```
+
+        </CodeGroup>
+      </Tab>
+    </Tabs>
+    <Note>
+      If CAPTCHA-solving fails, retry the process. If the issue persists, submit a support request with details of the problem for further assistance.
+    </Note>
+  </Accordion>
+  <Accordion title="Custom functions for CAPTCHA status">
+    Use the following functions to identify specific stages in the CAPTCHA-solving process and debug more effectively.:
+
+    |                         |                                                                |
+    | ----------------------- | -------------------------------------------------------------- |
+    | `Captcha.detected`      | browser.ai has encountered a CAPTCHA and has begun to solve it |
+    | `Captcha.solveFinished` | browser.ai successfully solved the CAPTCHA                     |
+    | `Captcha.solveFailed`   | browser.ai failed in solving the CAPTCHA                       |
+    | `Captcha.waitForSolve`  | browser.ai waits for CAPTCHA solver to finish                  |
+
+    **Examples**
+
+    <Tabs>
+      <Tab title="Asynchronous">
+        The following code sets up a CDP session, listens for CAPTCHA events, and handles timeouts:
+
+        <Tabs>
+          <Tab title="Node.js">
+            <CodeGroup>
+
+            ```js Puppeteer
+            // Node.js - Puppeteer - waiting for CAPTCHA solving events  
+            const client = await page.target().createCDPSession();   
+            await new Promise((resolve, reject)=>{client.on('Captcha.solveFinished', resolve);   
+            client.on('Captcha.solveFailed', ()=>reject(new Error('Captcha failed')));   
+            setTimeout(reject, 5 * 60 * 1000, new Error('Captcha solve timeout'));});
+            ```
+
+            </CodeGroup>
+          </Tab>
+          <Tab title="Python">
+            <CodeGroup>
+
+            ```python Playwright
+            # Python - Playwright - waiting for CAPTCHA solving events  
+            client = await page.context.new_cdp_session(page)  
+            client.on('Captcha.detected', lambda c: print('Captcha detected', c))   
+            client.on('Captcha.solveFinished', lambda _: print('Captcha solved!'))   
+            client.on('Captcha.solveFailed', lambda _: print('Captcha failed!'))
+            ```
+
+            </CodeGroup>
+          </Tab>
+        </Tabs>
+      </Tab>
+      <Tab title="Synchronous">
+        <Warning>
+          Selenium doesn't support asynchronous server-driven events like Puppeteer and Playwright.
+        </Warning>
+        The `Captcha.waitForSolve` command waits for browser.ai's CAPTCHA solver to finish.
+
+        ```python Python - Selenium
+        # Python Selenium - Waiting for Captcha to auto-solve after navigate  
+        driver.execute('executeCdpCommand', {  
+            'cmd': 'Captcha.waitForSolve',  
+            'params': {},  
+        })
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+</AccordionGroup>
+
+### CAPTCHA Solver - Manual Control
+
+To manually configure or disable the default CAPTCHA solver—allowing you to call it manually or handle solving yourself—use the following CDP commands and settings.
+
+<AccordionGroup>
+  <Accordion title="Captcha.setAutoSolve">
+    This command is used to control the auto-solving of a CAPTCHA. You can disable auto-solve or configure algorithms for different CAPTCHA types and manually trigger this:
+
+    <CodeGroup>
+
+    ```js Captcha.setAutoSolve
+    Captcha.setAutoSolve({  
+      autoSolve: boolean // Whether to automatically solve captcha after navigate  
+      options?: CaptchaOptions[] // Configuration options for captcha auto-solving  
+    }) : void
+    ```
+
+    
+    ```js CaptchaOptions
+    CaptchaOptions : {  
+      type: string // Captcha type  
+      disabled?: boolean // Disable detect and solve for specified captcha  
+      ... // additinal options related to captcha type  
+    }
+    ```
+
+    </CodeGroup>
+
+    Examples of CDP commands to disable auto-solver **completely** within the session:
+
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+
+        ```js Puppeteer
+        // Node.js Puppeteer - Disable Captcha auto-solver completely  
+        const page = await browser.newPage();  
+        const client = await page.target().createCDPSession();  
+        await client.send('Captcha.setAutoSolve', { autoSolve: false });
+        ```
+
+        </CodeGroup>
+      </Tab>
+      <Tab title="Python">
+        <CodeGroup>
+
+        ```python Playwright
+        # Python Playwright - Disable Captcha auto-solver completely  
+        page = await browser.new_page()  
+        client = await page.context.new_cdp_session(page)  
+        await client.send('Captcha.setAutoSolve', {'autoSolve': False})
+        ```
+
+        
+        ```python Selenium
+        # Python Selenium - Disable Captcha auto-solver completely  
+        driver.execute('executeCdpCommand', {  
+            'cmd': 'Captcha.setAutoSolve',  
+            'params': {'autoSolve': False},  
+        })
+        ```
+
+        </CodeGroup>
+      </Tab>
+    </Tabs>
+  </Accordion>
+  <Accordion title="Disable auto-solver for a specific CAPTCHA type only - Examples">
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+
+        ```js Puppeteer
+        // Node.js Puppeteer - Disable Captcha auto-solver for ReCaptcha only  
+        const page = await browser.newPage();  
+        const client = await page.target().createCDPSession();  
+        await client.send('Captcha.setAutoSolve', {  
+            autoSolve: true,  
+            options: [{  
+                type: 'usercaptcha',  
+                disabled: true,  
+            }],  
+        });
+        ```
+
+        </CodeGroup>
+      </Tab>
+      <Tab title="Python">
+        <CodeGroup>
+
+        ```python Playwright
+        # Python Playwright - Disable Captcha auto-solver for ReCaptcha only  
+        page = await browser.new_page()  
+        client = await page.context.new_cdp_session(page)  
+        await client.send('Captcha.setAutoSolve', {  
+            'autoSolve': True,  
+            'options': [{  
+                'type': 'usercaptcha',  
+                'disabled': True,  
+            }],  
+        })
+        ```
+
+        </CodeGroup>
+      </Tab>
+    </Tabs>
+  </Accordion>
+  <Accordion title="Manually solving CAPTCHAs - Examples">
+    <Tabs>
+      <Tab title="Node.js">
+        <CodeGroup>
+
+        ```js Puppeteer
+        // Node.js Puppeteer - manually solving CAPTCHA after navigation  
+        const page = await browser.newPage();  
+        const client = await page.target().createCDPSession();  
+        await client.send('Captcha.setAutoSolve', { autoSolve: false });  
+        await page.goto('https://site-with-captcha.com', { timeout: 2*60*1000 });  
+        const {status} = await client.send('Captcha.solve', { detectTimeout: 30*1000 });  
+        console.log('Captcha solve status:', status);
+        ```
+
+        </CodeGroup>
+      </Tab>
+      <Tab title="Python">
+        <CodeGroup>
+
+        ```python Playwright
+        # Python Playwright - manually solving CAPTCHA after navigation  
+        page = await browser.new_page()  
+        client = await page.context.new_cdp_session(page)  
+        await client.send('Captcha.setAutoSolve', {'autoSolve': False})  
+        await page.goto('https://site-with-captcha.com', timeout=2*60_000)  
+        solve_result = await client.send('Captcha.solve', {'detectTimeout': 30_000})  
+        print('Captcha solve status:', solve_result['status'])
+        ```
+
+        
+        ```python Selenium
+        # Python Selenium - manually solving CAPTCHA after navigation  
+        driver.execute('executeCdpCommand', {  
+            'cmd': 'Captcha.setAutoSolve',  
+            'params': {'autoSolve': False},  
+        })  
+        driver.get('https://site-with-captcha.com')  
+        solve_result = driver.execute('executeCdpCommand', {  
+            'cmd': 'Captcha.solve',  
+            'params': {'detectTimeout': 30_000},  
+        })  
+        print('Captcha solve status:', solve_result['value']['status'])
+        ```
+
+        </CodeGroup>
+      </Tab>
+    </Tabs>
+  </Accordion>
+  <Accordion title="CaptchaOptions for other Captcha types">
+    For the following three CAPTCHA types we support the following additional options to control and configure our auto-solving algorithm.
+
+    <Tabs>
+      <Tab title="CF Challenge">
+        ```js CF Challenge
+        timeout: 40000  
+        selector: '#challenge-body-text, .challenge-form'  
+        check_timeout: 300  
+        error_selector: '#challenge-error-title'  
+        success_selector: '#challenge-success[style*=inline]'  
+        check_success_timeout: 300  
+        btn_selector: '#challenge-stage input[type=button]'  
+        cloudflare_checkbox_frame_selector: '#turnstile-wrapper iframe'  
+        checkbox_area_selector: '.ctp-checkbox-label .mark'  
+        wait_timeout_after_solve: 500  
+        wait_networkidle: {timeout: 500}
+        ```
+      </Tab>
+      <Tab title="HCaptcha">
+        ```js HCaptcha
+        detect_selector:  
+          '#cf-hcaptcha-container, #challenge-hcaptcha-wrapper .hcaptcha-box, .h-captcha'  
+        pass_proxy: true  
+        submit_form: true  
+        submit_selector: '#challenge-form body > form[action*="internalcaptcha/captchasubmit"]  
+        value_selector: '.h-captcha textarea[id^="h-captcha-response"]'  
+          
+        ```
+      </Tab>
+      <Tab title="usercaptcha (reCAPTCHA)">
+        ```js UserCaptcha (reCAPTCHA)
+        { // configuration keys and default values for reCAPTCHA (type=usercaptcha)  
+          type: 'usercaptcha',  
+          // selector to retrieve sitekey and/or action  
+          selector: '.g-recaptcha, .recaptcha',  
+          // attributes to search for sitekey  
+          sitekey_attributes: ['data-sitekey', 'data-key'],  
+          // attributes to search for action  
+          action_attributes: ['data-action'],  
+          // detect selectors  
+          detect_selector: `  
+            .g-recaptcha[data-sitekey] > *,  
+            .recaptcha > *,  
+            iframe[src*="[www.google.com/recaptcha/api2](http://www.google.com/recaptcha/api2)"],  
+            iframe[src*="[www.recaptcha.net/recaptcha/api2](http://www.recaptcha.net/recaptcha/api2)"],  
+            iframe[src*="[www.google.com/recaptcha/enterprise](http://www.google.com/recaptcha/enterprise)"]`,  
+          // element to type response code into  
+          reponse_selector: '#g-recaptcha-response, .g-recaptcha-response',  
+          // should solver submit form automatically after captcha solved  
+          submit_form: true,  
+          // selector for submit button  
+          submit_selector: '[type=submit]',  
+        }
+        ```
+      </Tab>
+    </Tabs>
+  </Accordion>
+</AccordionGroup>
+
+### Emulation Functions
+
+<AccordionGroup>
+  <Accordion title="Emulation.getSupportedDevices">
+    Use this command to get a list of all possible devices that can be emulated. This function returns an array of device options that can be used with the setDevice command.
+
+    ```js Example
+    Emulation.getSupportedDevices().then(devices => { console.log(devices);});
+    ```
+  </Accordion>
+  <Accordion title="Emulation.setDevice">
+    After retrieving the list of supported devices, you can emulate a specific device using the Emulation.setDevice command. This adjusts the screen width, height, userAgent, and devicePixelRatio to match the selected device.
+
+    <CodeGroup>
+
+    ```js Usage
+    Emulation.setDevice({device: '[device_name]'});
+    ```
+
+    
+    ```js Example
+    Emulation.setDevice({device: 'iPhone X'});
+    ```
+
+    </CodeGroup>
+
+    ## Landscape mode
+
+    If you wish to change the orientation to landscape (for devices that support it), add the string `landscape` after the `device_name`.
+
+    ```js Example
+    Emulation.setDevice({device: 'iPhone X landscape'});
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Custom Client SSL/TLS Certificates
+
+Use this command to **install custom client SSL/TLS certificates** for domain authentication when required. These certificates remain active for the **current Scraping Browser session** and are automatically removed when the session ends.
+
+<AccordionGroup>
+  <Accordion title="Browser.addCertificate">
+    ```javascript
+    Browser.addCertificate(params: {
+      cert: string // base64 encoded certificate file
+      pass: string // password for the certificate
+    }) : void
+    ```
+  </Accordion>
+  <Accordion title="Code examples">
+    - Replace placeholder values `USER:PASS` with your valid browser.ai credentials.
+    - Replace `client.pfx` with the actual path to your certificate file. This file should be a valid SSL/TLS client certificate in .pfx format.
+    - Replace `secret` with the actual password for the certificate.
+
+      <CodeGroup>
+
+      ```js NodeJS - Puppeteer
+      const puppeteer = require('puppeteer-core');
+      const fs = require('fs/promises');
+      const {
+        AUTH = 'USER:PASS',
+        TARGET_URL = 'https://example.com',
+        CERT_FILE = 'client.pfx',
+        CERT_PASS = 'secret',
+      } = process.env;
+      
+      async function scrape(url = TARGET_URL, file = CERT_FILE, pass = CERT_PASS) {
+        if (AUTH == 'USER:PASS') {
+          throw new Error(`Provide browser.ai credentials in AUTH`
+              + ` environment variable or update the script.`);
+        }
+        console.log(`Connecting to Browser...`);
+        const browserWSEndpoint = `wss://${AUTH}@brd.superproxy.io:9222`;
+        const browser = await puppeteer.connect({ browserWSEndpoint });
+        try {
+          console.log(`Connected! Installing ${file} certificate...`);
+          const page = await browser.newPage();
+          const client = await page.createCDPSession();
+          const cert = (await fs.readFile(CERT_FILE)).toString('base64');
+          await client.send('Browser.addCertificate', { cert, pass });
+          console.log(`Installed! Navigating to ${url}...`);
+          await page.goto(url, { timeout: 2 * 60 * 1000 });
+          console.log(`Navigated! Scraping page content...`);
+          const data = await page.content();
+          console.log(`Scraped! Data: ${data}`);
+        } finally {
+          await browser.close();
+        }
+      }
+      
+      scrape();
+      ```
+
+      
+      ```python Python - Selenium
+      from os import environ
+      from base64 import standard_b64encode
+      from selenium.webdriver import Remote, ChromeOptions as Options
+      from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection as Connection
+      
+      AUTH = environ.get('AUTH', default='USER:PASS')
+      TARGET_URL = environ.get('TARGET_URL', default='https://example.com')
+      CERT_FILE = environ.get('CERT_FILE', default='client.pfx')
+      CERT_PASS = environ.get('CERT_PASS', default='secret')
+      
+      def scrape(url=TARGET_URL, file=CERT_FILE, pswd=CERT_PASS):
+          if AUTH == 'USER:PASS':
+          raise Exception('Provide browser.ai credentials in AUTH '
+                          'environment variable or update the script.')
+          print('Connecting to Browser...')
+          server_addr = f'https://{AUTH}@brd.superproxy.io:9515'
+          connection = Connection(server_addr, 'goog', 'chrome')
+          driver = Remote(connection, options=Options())
+          try:
+              print(f'Connected! Installing {file} certificate...')
+              with open(file, 'rb') as f:
+                  cert = standard_b64encode(f.read()).decode()
+              driver.execute('executeCdpCommand', {
+                  'cmd': 'Browser.addCertificate',
+                  'params': {'cert': cert, 'pass': pswd},
+              })
+              print(f'Installed! Navigating to {url}...')
+              driver.get(url)
+              print('Navigated! Scraping page content...')
+              data = driver.page_source
+              print(f'Scraped! Data: {data}')
+          finally:
+              driver.quit()
+      
+      scrape()
+      ```
+
+      </CodeGroup>
   </Accordion>
 </AccordionGroup>

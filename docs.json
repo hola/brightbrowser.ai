@@ -45,8 +45,7 @@
                             "general/configuration",
                             "features/captcha-solver",
                             "features/proxy-location",
-                            "cdp-func/standard",
-                            "cdp-func/custom"
+                            "cdp-func/standard"
                         ]
                     },
                     {
