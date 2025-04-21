@@ -41,17 +41,12 @@
                         ]
                     },
                     {
-                        "group": "CDP Core Functions",
-                        "pages": [
-                            "cdp-func/standard",
-                            "cdp-func/custom"
-                        ]
-                    },
-                    {
                         "group": "Headless Browser",
                         "pages": [
                             "features/captcha-solver",
-                            "features/proxy-location"
+                            "features/proxy-location",
+                            "cdp-func/standard",
+                            "cdp-func/custom"
                         ]
                     },
                     {
