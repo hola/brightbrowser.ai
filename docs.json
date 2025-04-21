@@ -47,9 +47,9 @@
                     {
                         "group": "Headless Browser",
                         "pages": [
-                            "general/configuration",
                             "features/captcha-solver",
                             "features/geolocation",
+                            "general/configuration",
                             "cdp-func/standard",
                             "general/code-snippets"
                         ]
