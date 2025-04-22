@@ -79,8 +79,8 @@
         ]
     },
     "logo": {
-        "dark": "/logo/color=brand.svg",
-        "light": "/logo/color=brand.svg",
+        "dark": "/logo/color=light, size=m.svg",
+        "light": "/logo/color=mix, size=m.svg",
         "href": "https://browser.ai/"
     },
     "navbar": {
