@@ -41,7 +41,8 @@
                   {
                         "group": "API",
                         "pages": [
-                            "api-token/api-intro"
+                            "api-token/api-intro",
+                            "api-token/api-geolocation"
                         ]
                     },
                     {
