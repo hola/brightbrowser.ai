@@ -48,10 +48,10 @@
                     {
                         "group": "Headless Browser",
                         "pages": [
-                            "features/captcha-solver",
-                            "features/geolocation",
+                            "headless-browser/captcha-solver",
+                            "headless-browser/geolocation",
                             "general/configuration",
-                            "cdp-func/cdp-func",
+                            "headless-browser/cdp-func",
                             "general/code-snippets"
                         ]
                     }
