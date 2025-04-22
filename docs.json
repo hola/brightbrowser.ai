@@ -41,7 +41,7 @@
                   {
                         "group": "API",
                         "pages": [
-                            "general/api-intro"
+                            "api-token/api-intro"
                         ]
                     },
                     {
