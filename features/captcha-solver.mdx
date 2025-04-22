@@ -1,6 +1,6 @@
 ---
 title: "Custom Captcha Handling"
-description: "By default, browser.ai automatically solves CAPTCHAs as part of its proxy unblocking system, ensuring seamless requests."
+description: "By default, BrowserAI automatically solves CAPTCHAs as part of its proxy unblocking system, ensuring seamless requests."
 sidebarTitle: "Captcha Handler"
 ---
 
@@ -8,21 +8,22 @@ The CAPTCHA solver automatically detects and solves CAPTCHA challenges during sc
 
 Best for:
 
-* Scraping data without getting blocked.
-
-* Emulating real-user behavior for stealthy automation.
-
-* Teams without an unblocking system that want to skip automatic CAPTCHA solving.
+- Scraping data without getting blocked.
+- Emulating real-user behavior for stealthy automation.
+- Teams without an unblocking system that want to skip automatic CAPTCHA solving.
 
 ## How to enable Captcha Handler
-To enable Captcha Handler in your browser.ai project:
+
+To enable Captcha Handler in your BrowserAI project:
+
 1. Go to your [project](https://browser.ai/dashboard/page/projects).
 2. Head to **Headless Browser** tab on the right toolbar.
-3. Scroll down to Configuration -> Basic settings -> **Captcha Handler**.
+3. Scroll down to Configuration -\> Basic settings -\> **Captcha Handler**.
+
 <Frame>
   ![](img/captcha-solver.png)
 </Frame>
 
 <Note>
-  To manually configure the default CAPTCHA solver using CDP commands, refer to the [**custom CDP functions**](https://docs.brightbrowser.ai/cdp-func/custom) for full control over the solving process
+  To manually configure the default CAPTCHA solver using CDP commands, refer to the [**CDP functions**](https://docs.browser.ai/cdp-func/standard) for full control over the solving process.
 </Note>

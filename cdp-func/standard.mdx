@@ -1,12 +1,12 @@
 ---
 title: "CDP Functions"
-description: "Unlock the full potential of browser.ai with CDP integration, enabling seamless control over browser automation. From cookie management to precise geo-targeting, browser.ai empowers developers to optimize web scraping workflows using familiar Puppeteer and Playwright commands."
+description: "Unlock the full potential of browser.ai with CDP integration, enabling seamless control over browser automation. From cookie management to precise geo-targeting, BrowserAI empowers developers to optimize web scraping workflows using familiar Puppeteer and Playwright commands."
 sidebarTitle: "CDP Functions"
 ---
 
 ## Standard Functions
 
-browser.ai is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the [official Puppeteer docs](https://pptr.dev/). But we didn’t stop there—**we’ve added** [custom browser.ai CDP functions](https://docs.browser.ai/cdp-func/custom), fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
+BrowserAI is fully **CDP-compatible**, meaning every **Puppeteer function and feature** works right out of the box. You can explore the complete Puppeteer API in the [official Puppeteer docs](https://pptr.dev/). But we didn’t stop there—we’ve added **custom CDP functions**, fine-tuned for high-performance scraping and stealth browsing. Take full control of your automation stack and push the limits of what’s possible.
 
 The following are a few common browser navigation functions to get you started.
 
@@ -84,14 +84,12 @@ The following are a few common browser navigation functions to get you started.
     **More info:** [Puppeteer Set Cookie API](https://pptr.dev/api/puppeteer.page.setcookie)
   </Accordion>
   <Accordion title="Country Routing">
-    When using the Scraping Browser, the same **country-targeting** parameter is available to use as in our other proxy products.
-    When setting up your script, add the `-country` flag, **after** your "USER" credentials within the Bright Data endpoint, followed by the 2-letter [ISO code](https://www.nationsonline.org/oneworld/country_code_list.htm) for that country.
+    When using the BrowserAI, the same **country-targeting** parameter is available to use as in our other proxy products.
+    When setting up your script, add the `-country` flag, **after** your "USER" credentials, followed by the 2-letter [ISO code](https://www.nationsonline.org/oneworld/country_code_list.htm) for that country.
 
     ```js
     const SBR_WS_ENDPOINT = `wss://${USER-country-us:PASS}@brd.superproxy.io:9222`;
     ```
-
-    In the example above, we added `-country-us` to the Bright Data endpoint within our script, so our request will originate from the United States ("us").
 
     #### **EU Region**
 
@@ -112,14 +110,14 @@ The following are a few common browser navigation functions to get you started.
 
 ### Captcha Solver
 
-browser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
+BrowserAI’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, keeping your automation uninterrupted. Use custom CDP functions to monitor and fine-tune the solving process directly in your code.
 
 <Note>
-  If you would like to disable CAPTCHA solver entirely through the Control Panel see our feature for [Disable Captcha Solver](/scraping-automation/scraping-browser/features/captcha-solver)
+  If you would like to disable CAPTCHA solver entirely through the Control Panel see our feature for [Disable Captcha Solver](/scraping-automation/scraping-browser/features/captcha-solver).
 </Note>
 
 <Note>
-  Once a CAPTCHA is solved, browser.ai automatically submits the form if required.
+  Once a CAPTCHA is solved, BrowserAI automatically submits the form if required.
 </Note>
 
 ### CAPTCHA Solver - Automatic Solve
@@ -250,7 +248,7 @@ browser.ai’s **built-in CAPTCHA solver automatically handles all CAPTCHAs**, k
         <Warning>
           Selenium doesn't support asynchronous server-driven events like Puppeteer and Playwright.
         </Warning>
-        The `Captcha.waitForSolve` command waits for browser.ai's CAPTCHA solver to finish.
+        The `Captcha.waitForSolve` command waits for BrowserAI's CAPTCHA solver to finish.
 
         ```python Python - Selenium
         # Python Selenium - Waiting for Captcha to auto-solve after navigate  
@@ -517,7 +515,7 @@ To manually configure or disable the default CAPTCHA solver—allowing you to ca
 
 ### Custom Client SSL/TLS Certificates
 
-Use this command to **install custom client SSL/TLS certificates** for domain authentication when required. These certificates remain active for the **current Scraping Browser session** and are automatically removed when the session ends.
+Use this command to **install custom client SSL/TLS certificates** for domain authentication when required. These certificates remain active for the **current BrowserAI session** and are automatically removed when the session ends.
 
 <AccordionGroup>
   <Accordion title="Browser.addCertificate">
@@ -529,7 +527,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
     ```
   </Accordion>
   <Accordion title="Code examples">
-    - Replace placeholder values `USER:PASS` with your valid browser.ai credentials.
+    - Replace placeholder values `USER:PASS` with your valid BrowserAI credentials.
     - Replace `client.pfx` with the actual path to your certificate file. This file should be a valid SSL/TLS client certificate in .pfx format.
     - Replace `secret` with the actual password for the certificate.
 
@@ -547,7 +545,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
       
       async function scrape(url = TARGET_URL, file = CERT_FILE, pass = CERT_PASS) {
         if (AUTH == 'USER:PASS') {
-          throw new Error(`Provide browser.ai credentials in AUTH`
+          throw new Error(`Provide BrowserAI credentials in AUTH`
               + ` environment variable or update the script.`);
         }
         console.log(`Connecting to Browser...`);
@@ -586,7 +584,7 @@ Use this command to **install custom client SSL/TLS certificates** for domain au
       
       def scrape(url=TARGET_URL, file=CERT_FILE, pswd=CERT_PASS):
           if AUTH == 'USER:PASS':
-          raise Exception('Provide browser.ai credentials in AUTH '
+          raise Exception('Provide BrowserAI credentials in AUTH '
                           'environment variable or update the script.')
           print('Connecting to Browser...')
           server_addr = f'https://{AUTH}@brd.superproxy.io:9515'
