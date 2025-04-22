@@ -10,7 +10,13 @@ Ideal for **building data pipelines, automating testing processes, or embedding 
 ### API Workflow
 
 1. Start by retrieving your **API key** from the Project Dashboard.
+<Frame>
+  ![](img/copy-api-token.png)
+</Frame>
 2. Create a task by either running the provided **cURL command in CMD** or sending a request to the `/tasks` endpoint with your prompt and location settings.
+<Frame>
+  ![](img/copy-curl.png)
+</Frame>
 3. If you used the **API endpoint**, you can track the task using the returned `session ID`.
 4. You can fetch task **metadata** by calling `/tasks/{session_id}` method and view the response structure similar to this:
 
