@@ -24,7 +24,7 @@
     "search": {
         "prompt": "Type a keyword to find setup guides..."
     },
-    "favicon": "/logo/color=brand.png",
+    "favicon": "/logo/color=brand.svg",
     "navigation": {
         "tabs": [
             {
@@ -79,8 +79,8 @@
         ]
     },
     "logo": {
-        "dark": "/logo/color=brand.png",
-        "light": "/logo/color=brand.png",
+        "dark": "/logo/color=brand.svg",
+        "light": "/logo/color=brand.svg",
         "href": "https://browser.ai/"
     },
     "navbar": {
