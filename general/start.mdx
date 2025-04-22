@@ -27,12 +27,13 @@ This guide will walk you through setting up **browser.ai** in just a few stepsâ€
   </Step>
 
   <Step title="Send you first task">
-    Your **API token** and a ready-to-use **cURL command** are available in the right sidebar. Here you can sustomize:
+    Your **API token** and a ready-to-use **cURL command** are available in the right sidebar. Here you can customize:
     ```javascript
 curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/json" --data "{\"task\":\"{YOUR-PROMPT}\", \"geoLocation\":{\"country\":\"{2-LETTER-CODE}\"}, \"project\":\"{PROJECT-NAME}\"}" -X POST https://browser.ai/api/v1/tasks
 ```
-    1. task - the prompt itself.
-    2. country - the geolocation of the task, use <Tooltip tip="For example: NO for Norway"><Tooltip tip="This is a tooltip!">Hover over me</Tooltip></Tooltip>.
+    1. _apikey_ - Your personal API Token
+    2. _task_ - the prompt itself.
+    3. _country_ - the geolocation of the task, use <Tooltip tip="For example: NO for Norway"><Tooltip tip="This is a tooltip!">Hover over me</Tooltip></Tooltip>.
     <Frame>
   ![](img/start3.png)
 </Frame>
