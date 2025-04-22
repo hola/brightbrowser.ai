@@ -24,7 +24,7 @@
     "search": {
         "prompt": "Type a keyword to find setup guides..."
     },
-    "favicon": "/favicon.svg",
+    "favicon": "/logo/color=brand.png",
     "navigation": {
         "tabs": [
             {
