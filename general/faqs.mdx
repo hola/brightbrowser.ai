@@ -1,40 +1,45 @@
 ---
 title: "browser.ai FAQ"
-description: "Find answers to common questions about browser.ai, including supported languages, debugging techniques, and best practices."
+description: "Whether you're just getting started with browser.ai or diving into advanced features, this FAQ covers everything from session handling and country targeting to performance tips, error codes, pricing, and more. Explore solutions, best practices, and helpful insights to make the most of your browser.ai experience."
 sidebarTitle: "Need help?"
 ---
 
 <AccordionGroup>
+  <Accordion title="Can I navigate to multiple pages in one session?">
+    **Nope\!** browser.ai is designed for **single-page navigation per session**.
+
+    **What this means:**
+
+    - You can **navigate within a page** (clicks, scrolling, interactions).
+    - But **you can't load a second domain** within the same session.
+
+    **Solution?** If you need to load multiple pages, **spawn a new session** for each URL.
+  </Accordion>
+  <Accordion title="How long can my session stay active?">
+    - **Idle sessions** (no interaction) **auto-close after 5 minutes**.
+    - **Max session duration:** 30 minutes. After that, your session will time out.
+  </Accordion>
   <Accordion title="Can I force browser.ai to use a specific country?">
-    browser.ai **automatically** optimizes IP routing for the best performance. However, if you need to scrape from a specific country, you can manually set the location.
+    The **Change Location** feature lets you adjust your browser.ai’s geographic location for accurate geo-targeted scraping and content testing. You can change the location by:
 
-    **How?**\
-    Just append `-country-XX` to your **authentication string**, where `XX` is the **ISO 3166-1 alpha-2 country code**.
+    1. Updating the `{"country":"XX"}` field in the **API Token** tab.
+    2. Replacing `country-us` in the **Headless Browser** tab with your desired country code.
 
-    **Example: Targeting the US in Puppeteer**
-
-    <CodeGroup>
-      ```js Puppeteer
-      const BBAI_WS_ENDPOINT = `wss://${USERNAME}-country-us:PASSWORD@brd.superproxy.io:9222`;
-      ```
-    </CodeGroup>
+    <br />
 
     **Want all of Europe?**\
     Use `-country-eu` to dynamically select an EU-based IP.
 
     <Tip>
-      **Heads-up:** For **bot-heavy** websites, manually selecting a country may actually decrease success rates. Let browser.ai handle it automatically when possible!
+      **Heads-up:** For **bot-heavy** websites, manually selecting a country may actually decrease success rates. Let browser.ai handle it automatically when possible\!
     </Tip>
   </Accordion>
-
   <Accordion title="Which languages and automation tools does browser.ai support?">
     browser.ai is **battle-tested** for web automation and supports:
 
-    * **Puppeteer (Node.js)**
-
-    * **Playwright (Node.js, Python, C#)**
-
-    * **Selenium (Java, Python, C#, Node.js, Go, Ruby)**
+    - **Puppeteer (Node.js)**
+    - **Playwright (Node.js, Python, C#)**
+    - **Selenium (Java, Python, C#, Node.js, Go, Ruby)**
 
     **Supported environments:**
 
@@ -47,134 +52,6 @@ sidebarTitle: "Need help?"
     | **Go**      | ❌                | ✅ Playwright-Go   | ✅ WebDriver-Go   |
     | **Ruby**    | ✅ Puppeteer-Ruby | ✅ Playwright-Ruby | ✅ WebDriver-Ruby |
   </Accordion>
-
-  <Accordion title="How do I debug my browser.ai session?">
-    Seeing **what your browser is doing in real time** is critical for debugging. browser.ai integrates seamlessly with **Chrome DevTools** for full visibility.
-
-    **Two ways to debug:**
-
-    * **Control Panel:** Open the debugger in Bright Data’s dashboard.
-
-    * **Remote Code:** Attach DevTools from your script.
-
-    **Example: Open DevTools from your Puppeteer script**
-
-    <CodeGroup>
-      ```js Puppeteer
-      const page = await browser.newPage();
-      const client = await page.target().createCDPSession();
-      await client.send('Page.inspect', { frameId: page.mainFrame()._id });
-      ```
-    </CodeGroup>
-  </Accordion>
-
-  <Accordion title="How do I access the browser.ai Debugger?">
-    **Two ways:**
-
-    <Tabs>
-      <Tab title="Through the Control Panel">
-        Open **Bright Data Dashboard** → **My Zones** → Select **browser.ai** → Click **"Chrome DevTools Debugger"**.
-      </Tab>
-
-      <Tab title="Via Code (Remote)">
-        Use the **CDP API** to open a **DevTools debugging session** from your script:
-
-        <CodeGroup>
-          ```js Puppeteer - Node.js
-          const page = await browser.newPage();  
-          const client = await page.target().createCDPSession();  
-          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
-          const {url: inspectUrl} = await client.send('Page.inspect', {frameId: frame.id,});  
-          console.log(`Inspect session at ${inspectUrl}`);
-          ```
-
-          ```js Playwright - Node.js
-          const page = await browser.newPage();  
-          const client = await page.context().newCDPSession(page);  
-          const {frameTree: {frame}} = await client.send('Page.getFrameTree', {});  
-          const {url: inspectUrl} = await client.send('Page.inspect', {  
-              frameId: frame.id,  
-          });  
-          console.log(`Inspect session at ${inspectUrl}`);
-          ```
-
-          ```Python Playwright - Python
-          # Python Playwright - Inspect page using devtools  
-          page = await browser.new_page()  
-          client = await page.context.new_cdp_session(page)  
-          frame_tree = await client.send('Page.getFrameTree', {})  
-          frame_id = frame_tree['frameTree']['frame']['id']  
-          inspect = await client.send('Page.inspect', {'frameId': frame_id})  
-          inspect_url = inspect['url']  
-          print('Inspect session at', inspect_url)
-          ```
-
-          ```cs Playwright - C#
-          var page = await browser.NewPageAsync();  
-          var client = await page.Context.NewCDPSessionAsync(page);  
-          var frameTree = await client.SendAsync("Page.getFrameTree");  
-          var frameId = frameTree.Value  
-              .GetProperty("frameTree")  
-              .GetProperty("frame")  
-              .GetProperty("id")  
-              .GetString()!;  
-          var inspect = await client.SendAsync("Page.inspect", new ()  
-          {  
-              { "frameId", frameId },  
-          });  
-          var inspectUrl = inspect.Value  
-              .GetProperty("url")  
-              .GetString()!;  
-          Console.WriteLine($"Inspect session at {inspectUrl}");
-          ```
-
-          ```cs PuppeteerSharp
-          var page = await browser.NewPageAsync();  
-          var client = await page.Target.CreateCDPSessionAsync();  
-          var frameTree = await client.SendAsync("Page.getFrameTree");  
-          var frameId = frameTree!["frameTree"]!["frame"]!["id"]!;  
-          var inspect = await client.SendAsync("Page.inspect", new { frameId = frameId });  
-          var inspectUrl = inspect["url"]!;  
-          Console.WriteLine($"Inspect session at {inspectUrl}");
-          ```
-        </CodeGroup>
-      </Tab>
-    </Tabs>
-  </Accordion>
-
-  <Accordion title="How do I automatically open DevTools for every session?">
-    If you want DevTools to open automatically every time a session starts, you can integrate the following snippet into your script:
-
-    <CodeGroup>
-      ```js NodeJS - Puppeteer
-      const { exec } = require('child_process');
-      const chromeExecutable = 'google-chrome';
-
-      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-      const openDevtools = async (page, client) => {
-      // Get current frameId  
-      const frameId = page.mainFrame()._id;
-      // Get DevTools URL from browser.ai
-      const { url: inspectUrl } = await client.send('Page.inspect', { frameId });
-      // Open DevTools URL in local Chrome
-      exec(`"${chromeExecutable}" "${inspectUrl}"`, error => {
-        if (error)
-            throw new Error('Unable to open DevTools: ' + error);
-      });
-      // Wait for DevTools UI to load
-      await delay(5000);
-      };
-
-      const page = await browser.newPage();
-      const client = await page.target().createCDPSession();
-      await openDevtools(page, client);
-      await page.goto('http://example.com');
-      ```
-    </CodeGroup>
-
-    Now, every time you run your script, DevTools will open instantly, allowing you to inspect network traffic, debug JavaScript, and analyze performance.
-  </Accordion>
-
   <Accordion title="How can I take a screenshot of my session?">
     Need **visual proof** of what's happening in your session? Capture a **screenshot** at any time:
 
@@ -184,7 +61,6 @@ sidebarTitle: "Need help?"
         await page.screenshot({ path: 'screenshot.png', fullPage: true });
         ```
       </Tab>
-
       <Tab title="Python">
         ```python Playwright
         await page.screenshot(path='screenshot.png', full_page=True)
@@ -192,55 +68,39 @@ sidebarTitle: "Need help?"
       </Tab>
     </Tabs>
   </Accordion>
-
   <Accordion title="Why does my page take longer to load than expected?">
     Some websites have **complex anti-bot measures**, which require extra processing to **bypass protections**.
 
     **To ensure smooth navigation, increase the timeout threshold:**
 
     <CodeGroup>
-      ```js Puppeteer
-      // Navigate to site with 2 min timeout  
-      page.goto('<https://example.com>', { timeout: 2*60*1000 });  
-      ```
 
-      ```python Playwright
-      #  Navigate to site with 2 min timeout   
-      page.goto('<https://example.com>', timeout=2*60*1000)  
-      ```
+    ```js Puppeteer
+    // Navigate to site with 2 min timeout  
+    page.goto('<https://example.com>', { timeout: 2*60*1000 });  
+    ```
 
-      ```cs PuppeteerSharp
-      //  Navigate to site with 2 min timeout   
-      await page.GoToAsync("https://example.com", new NavigationOptions()  
-      {  
-          Timeout = 2*60*1000,  
-      });
-      ```
+    
+    ```python Playwright
+    #  Navigate to site with 2 min timeout   
+    page.goto('<https://example.com>', timeout=2*60*1000)  
+    ```
+
+    
+    ```cs PuppeteerSharp
+    //  Navigate to site with 2 min timeout   
+    await page.GoToAsync("https://example.com", new NavigationOptions()  
+    {  
+        Timeout = 2*60*1000,  
+    });
+    ```
+
     </CodeGroup>
 
     <Tip>
-      Always set a **higher timeout (2+ minutes)** for bot-protected websites.
+      Always set a **higher timeout (2\+ minutes)** for bot-protected websites.
     </Tip>
   </Accordion>
-
-  <Accordion title="Can I navigate to multiple pages in one session?">
-    **Nope!** browser.ai is designed for **single-page navigation per session**.
-
-    **What this means:**
-
-    * You can **navigate within a page** (clicks, scrolling, interactions).
-
-    * But **you can't load a second domain** within the same session.
-
-    **Solution?** If you need to load multiple pages, **spawn a new session** for each URL.
-  </Accordion>
-
-  <Accordion title="How long can my session stay active?">
-    * **Idle sessions** (no interaction) **auto-close after 5 minutes**.
-
-    * **Max session duration:** 30 minutes. After that, your session will time out.
-  </Accordion>
-
   <Accordion title="How do I verify my connection?">
     If you're getting **connection issues**, run the following **cURL test**:
 
@@ -249,11 +109,10 @@ sidebarTitle: "Need help?"
     ```
 
     **If you get JSON in response:**
-    ✅ **You're successfully connected!**\
+    ✅ **You're successfully connected\!**\
     **If no JSON appears:**
     ❌ **Check your credentials & network settings.**
   </Accordion>
-
   <Accordion title="What are the most common error codes?">
     | Error Code | Meaning                  | How to Fix                                   |
     | ---------- | ------------------------ | -------------------------------------------- |
@@ -261,15 +120,12 @@ sidebarTitle: "Need help?"
     | **407**    | Proxy connection failure | Verify proxy settings & remote browser port. |
     | **503**    | Service unavailable      | Try again in 1-2 minutes.                    |
   </Accordion>
-
   <Accordion title="How does browser.ai pricing work?">
     Simple: **You pay per GB of data transferred**.
 
-    * **No per-instance fees**
-
-    * **No hourly costs**
-
-    * **No extra charges for specific countries**
+    - **No per-instance fees**
+    - **No hourly costs**
+    - **No extra charges for specific countries**
 
     However, certain **"Premium Domains"** may have additional costs due to **extra unblocking measures**.
   </Accordion>

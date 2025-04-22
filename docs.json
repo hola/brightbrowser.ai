@@ -34,7 +34,8 @@
                         "group": "Welcome",
                         "pages": [
                             "general/intro",
-                            "general/start"
+                            "general/start",
+                            "general/faqs"
                         ]
                     },
                   {
