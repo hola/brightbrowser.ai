@@ -1,13 +1,14 @@
 ---
-title: 'browser.ai task API'
+title: "BrowserAI task API"
 sidebarTitle: "Task API Token"
 ---
 
-The **browser.ai** API offers developers a powerful interface to launch, control, and collect output from AI-driven browser automation tasks. Built for flexibility, it allows you to automate web actions, gather content, perform scraping, and execute scripts within a cloud-hosted browser—complete with customizable location targeting.
+The **BrowserAI** API offers developers a powerful interface to launch, control, and collect output from AI-driven browser automation tasks. Built for flexibility, it allows you to automate web actions, gather content, perform scraping, and execute scripts within a cloud-hosted browser—complete with customizable location targeting.
 
 Ideal for **building data pipelines, automating testing processes, or embedding browser automation into your own applications**, this API delivers a robust, secure, and scalable solution for managing complex web-based workflows with ease.
 
 ### API Workflow
+
 1. Start by retrieving your **API key** from the Project Dashboard.
 2. Create a task by either running the provided **cURL command** or sending a request to the `/tasks` endpoint with your prompt and location settings.
 3. If you used the **API endpoint**, you can track the task using the returned `session ID`.
@@ -30,7 +31,7 @@ Ideal for **building data pipelines, automating testing processes, or embedding 
 }
 ```
 
-5. Once completed, retrieve the **final output** by sending a request to the `/results/{session_id}` method and recieve this output:
+1. Once completed, retrieve the **final output** by sending a request to the `/results/{session_id}` method and recieve this output:
 
 ```
 {
@@ -53,4 +54,7 @@ Ideal for **building data pipelines, automating testing processes, or embedding 
   ]
 }
 ```
-<Tip>Explore more in-depth information about our API [here](https://docs.browser.ai/api-reference/intro)!</Tip>
+
+<Tip>
+  Explore more in-depth information about our API [here](https://docs.browser.ai/api-reference/intro)\!
+</Tip>

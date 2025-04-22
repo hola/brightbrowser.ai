@@ -1,10 +1,10 @@
 ---
-title: "Configuring browser.ai"
-description: "Set up browser.ai for web automation. Get your credentials, run sample scripts, and inspect live sessions effortlessly."
+title: "Configuring BrowserAI"
+description: "Set up BrowserAI for web automation. Get your credentials, run sample scripts, and inspect live sessions effortlessly."
 sidebarTitle: "Configuration"
 ---
 
-## Setting Up browser.ai
+## Setting Up BrowserAI
 
 Before diving into automation, let's **grab your credentials**. You’ll need your **API Token**, which you can find inside of your browser.ai project.
 
@@ -14,271 +14,280 @@ Before diving into automation, let's **grab your credentials**. You’ll need yo
 
 ## Test Your Setup
 
-Run the sample code below to confirm that **browser.ai is connected and working**.
+Run the sample code below to confirm that **BrowserAI is connected and working**.
 **Remember:** Replace `USER:PASS` with your actual credentials.
 
 <Tabs>
   <Tab title="Node.js">
     <CodeGroup>
-      ```js Puppeteer
-      const puppeteer = require('puppeteer-core');  
-      // Enter your zone name and password below
-      const AUTH = 'USER:PASS';  
-      const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
 
-      async function main() {  
-      console.log('Connecting to browser.ai...');  
-      const browser = await puppeteer.connect({  
-        browserWSEndpoint: SBR_WS_ENDPOINT,  
-      });  
-      try {  
-        console.log('Connected! Navigating...');  
-        const page = await browser.newPage();  
-        // Enter your test URL below
-        await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
-        console.log('Taking screenshot to page.png');  
-        await page.screenshot({ path: './page.png', fullPage: true });  
-      console.log('Navigated! browser.ai...');  
-      const html = await page.content();  
-      console.log(html)  
-      } finally {  
-        await browser.close();  
-      }  
-      }  
+    ```js Puppeteer
+    const puppeteer = require('puppeteer-core');  
+    // Enter your zone name and password below
+    const AUTH = 'USER:PASS';  
+    const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
+    
+    async function main() {  
+    console.log('Connecting to browser.ai...');  
+    const browser = await puppeteer.connect({  
+      browserWSEndpoint: SBR_WS_ENDPOINT,  
+    });  
+    try {  
+      console.log('Connected! Navigating...');  
+      const page = await browser.newPage();  
+      // Enter your test URL below
+      await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
+      console.log('Taking screenshot to page.png');  
+      await page.screenshot({ path: './page.png', fullPage: true });  
+    console.log('Navigated! browser.ai...');  
+    const html = await page.content();  
+    console.log(html)  
+    } finally {  
+      await browser.close();  
+    }  
+    }  
+    
+    if (require.main === module) {  
+    main().catch(err => {  
+      console.error(err.stack || err);  
+      process.exit(1);  
+    });  
+    }
+    
+    ```
 
-      if (require.main === module) {  
-      main().catch(err => {  
-        console.error(err.stack || err);  
-        process.exit(1);  
-      });  
-      }
+    
+    ```js Playwright
+    const puppeteer = require('puppeteer-core');  
+    // Enter your zone name and password below
+    const AUTH = 'USER:PASS';  
+    const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
+      
+    async function main() {  
+        console.log('Connecting to browser.ai...');  
+        const browser = await puppeteer.connect({  
+            browserWSEndpoint: SBR_WS_ENDPOINT,  
+       });  
+        try {  
+            console.log('Connected! Navigating...');  
+            const page = await browser.newPage();  
+            // Enter your test URL below
+            await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
+            console.log('Taking screenshot to page.png');  
+            await page.screenshot({ path: './page.png', fullPage: true });  
+       console.log('Navigated! browser.ai content...');  
+     const html = await page.content();  
+     console.log(html)   
+        } finally {  
+            await browser.close();  
+       }  
+    }  
+      
+    if (require.main === module) {  
+        main().catch(err => {  
+            console.error(err.stack || err);  
+            process.exit(1);  
+       });  
+    }
+    ```
 
-      ```
-
-      ```js Playwright
-      const puppeteer = require('puppeteer-core');  
-      // Enter your zone name and password below
-      const AUTH = 'USER:PASS';  
-      const BBAI_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
+    
+    ```js Selenium
+    const { Builder, Browser } = require('selenium-webdriver');
+    const fs = require('fs/promises');
+    
+    const AUTH = 'USER:PASS';
+    const BBAI_WEBDRIVER = `https://${AUTH}@brd.superproxy.io:9515`;
+    
+    (async () => {
+        console.log('Connecting to browser.ai...');
+        const driver = await new Builder().forBrowser(Browser.CHROME).usingServer(BBAI_WEBDRIVER).build();
         
-      async function main() {  
-          console.log('Connecting to browser.ai...');  
-          const browser = await puppeteer.connect({  
-              browserWSEndpoint: SBR_WS_ENDPOINT,  
-         });  
-          try {  
-              console.log('Connected! Navigating...');  
-              const page = await browser.newPage();  
-              // Enter your test URL below
-              await page.goto('https://example.com', { timeout: 2 * 60 * 1000 });  
-              console.log('Taking screenshot to page.png');  
-              await page.screenshot({ path: './page.png', fullPage: true });  
-         console.log('Navigated! browser.ai content...');  
-       const html = await page.content();  
-       console.log(html)   
-          } finally {  
-              await browser.close();  
-         }  
-      }  
-        
-      if (require.main === module) {  
-          main().catch(err => {  
-              console.error(err.stack || err);  
-              process.exit(1);  
-         });  
-      }
-      ```
+        try {
+            console.log('Navigating...');
+            await driver.get('https://example.com');
+            
+            console.log('Taking screenshot...');
+            const screenshot = await driver.takeScreenshot();
+            await fs.writeFile('./page.png', Buffer.from(screenshot, 'base64'));
+    
+            console.log('Extracting page content...');
+            const html = await driver.getPageSource();
+            console.log(html);           
+    } finally {  
+     driver.quit();  
+    }  
+    }  
+    
+    if (require.main == module) {  
+    main().catch(err => {  
+     console.error(err.stack || err);  
+     process.exit(1);  
+    });  
+    }
+    ```
 
-      ```js Selenium
-      const { Builder, Browser } = require('selenium-webdriver');
-      const fs = require('fs/promises');
-
-      const AUTH = 'USER:PASS';
-      const BBAI_WEBDRIVER = `https://${AUTH}@brd.superproxy.io:9515`;
-
-      (async () => {
-          console.log('Connecting to browser.ai...');
-          const driver = await new Builder().forBrowser(Browser.CHROME).usingServer(BBAI_WEBDRIVER).build();
-          
-          try {
-              console.log('Navigating...');
-              await driver.get('https://example.com');
-              
-              console.log('Taking screenshot...');
-              const screenshot = await driver.takeScreenshot();
-              await fs.writeFile('./page.png', Buffer.from(screenshot, 'base64'));
-
-              console.log('Extracting page content...');
-              const html = await driver.getPageSource();
-              console.log(html);           
-      } finally {  
-       driver.quit();  
-      }  
-      }  
-
-      if (require.main == module) {  
-      main().catch(err => {  
-       console.error(err.stack || err);  
-       process.exit(1);  
-      });  
-      }
-      ```
     </CodeGroup>
   </Tab>
-
   <Tab title="Python">
     <CodeGroup>
-      ```python Playwright
-      import asyncio
-      from playwright.async_api import async_playwright
 
-      AUTH = 'USER:PASS'
-      BBAI_WS_CDP = f'wss://{AUTH}@brd.superproxy.io:9222'
+    ```python Playwright
+    import asyncio
+    from playwright.async_api import async_playwright
+    
+    AUTH = 'USER:PASS'
+    BBAI_WS_CDP = f'wss://{AUTH}@brd.superproxy.io:9222'
+    
+    async def run(playwright):
+        print("Connecting to browser.ai...")
+        browser = await playwright.chromium.connect_over_cdp(BBAI_WS_CDP)
+        try:
+            print("Connected! Navigating...")
+            page = await browser.new_page()
+            await page.goto('https://example.com', timeout=120000)
+    
+            print("Taking screenshot...")
+            await page.screenshot(path='./page.png', full_page=True)
+    
+            print("Extracting page content...")
+            html = await page.content()
+            print(html)
+    
+        finally:
+            await browser.close()
+    
+    async def main():
+        async with async_playwright() as playwright:
+            await run(playwright)
+    
+    if __name__ == '__main__':
+        asyncio.run(main())
+    ```
 
-      async def run(playwright):
-          print("Connecting to browser.ai...")
-          browser = await playwright.chromium.connect_over_cdp(BBAI_WS_CDP)
-          try:
-              print("Connected! Navigating...")
-              page = await browser.new_page()
-              await page.goto('https://example.com', timeout=120000)
+    
+    ```python Selenium
+    from selenium.webdriver import Remote, ChromeOptions
+    from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
+    
+    AUTH = 'USER:PASS'
+    BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
+    
+    def main():
+        print("Connecting to browser.ai...")
+        sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
+        
+        with Remote(sbr_connection, options=ChromeOptions()) as driver:
+            print("Connected! Navigating...")
+            driver.get('https://example.com')
+    
+            print("Taking screenshot...")
+            driver.get_screenshot_as_file('./page.png')
+    
+            print("Extracting page content...")
+            html = driver.page_source
+            print(html)
+    
+    if __name__ == '__main__':
+        main()
+    ```
 
-              print("Taking screenshot...")
-              await page.screenshot(path='./page.png', full_page=True)
-
-              print("Extracting page content...")
-              html = await page.content()
-              print(html)
-
-          finally:
-              await browser.close()
-
-      async def main():
-          async with async_playwright() as playwright:
-              await run(playwright)
-
-      if __name__ == '__main__':
-          asyncio.run(main())
-      ```
-
-      ```python Selenium
-      from selenium.webdriver import Remote, ChromeOptions
-      from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
-
-      AUTH = 'USER:PASS'
-      BBAI_WEBDRIVER = f'https://{AUTH}@brd.superproxy.io:9515'
-
-      def main():
-          print("Connecting to browser.ai...")
-          sbr_connection = ChromiumRemoteConnection(BBAI_WEBDRIVER, 'goog', 'chrome')
-          
-          with Remote(sbr_connection, options=ChromeOptions()) as driver:
-              print("Connected! Navigating...")
-              driver.get('https://example.com')
-
-              print("Taking screenshot...")
-              driver.get_screenshot_as_file('./page.png')
-
-              print("Extracting page content...")
-              html = driver.page_source
-              print(html)
-
-      if __name__ == '__main__':
-          main()
-      ```
     </CodeGroup>
   </Tab>
-
   <Tab title="C#">
     <CodeGroup>
-      ```cs PuppeteerSharp
-      using PuppeteerSharp;
-      using System.Net.WebSockets;
-      using System.Text;
 
-      var AUTH = "USER:PASS";
-      var BBAI_WS_ENDPOINT = $"wss://{AUTH}@brd.superproxy.io:9222";
+    ```cs PuppeteerSharp
+    using PuppeteerSharp;
+    using System.Net.WebSockets;
+    using System.Text;
+    
+    var AUTH = "USER:PASS";
+    var BBAI_WS_ENDPOINT = $"wss://{AUTH}@brd.superproxy.io:9222";
+    
+    var browser = await Puppeteer.ConnectAsync(new ConnectOptions
+    {
+        BrowserWSEndpoint = BBAI_WS_ENDPOINT,
+        WebSocketFactory = async (uri, _, cToken) =>
+        {
+            var socket = new ClientWebSocket();
+            var authBytes = Encoding.UTF8.GetBytes(new Uri(BBAI_WS_ENDPOINT).UserInfo);
+            var authHeader = "Basic " + Convert.ToBase64String(authBytes);  
+            socket.Options.SetRequestHeader("Authorization", authHeader);
+            socket.Options.KeepAliveInterval = TimeSpan.Zero;  
+            await socket.ConnectAsync(uri, cToken);
+            return socket;
+        }
+    });
+    
+    Console.WriteLine("Connecting to browser.ai...");  
+    using var browser = await Connect(SBR_WS_ENDPOINT);  
+    Console.WriteLine("Connected! Navigating...");  
+    var page = await browser.NewPageAsync();  
+    await page.GoToAsync("https://example.com", new NavigationOptions()  
+    {  
+    Timeout = 2 * 60 * 1000,  
+    });  
+    Console.WriteLine("Taking page screenshot to file page.png");  
+    await page.ScreenshotAsync("./page.png", new ()  
+    {  
+    FullPage = true,  
+    });  
+    Console.WriteLine("Navigated! Scraping page content...");  
+    var html = await page.GetContentAsync();   
+    Console.WriteLine(html);
+    ```
 
-      var browser = await Puppeteer.ConnectAsync(new ConnectOptions
-      {
-          BrowserWSEndpoint = BBAI_WS_ENDPOINT,
-          WebSocketFactory = async (uri, _, cToken) =>
-          {
-              var socket = new ClientWebSocket();
-              var authBytes = Encoding.UTF8.GetBytes(new Uri(BBAI_WS_ENDPOINT).UserInfo);
-              var authHeader = "Basic " + Convert.ToBase64String(authBytes);  
-              socket.Options.SetRequestHeader("Authorization", authHeader);
-              socket.Options.KeepAliveInterval = TimeSpan.Zero;  
-              await socket.ConnectAsync(uri, cToken);
-              return socket;
-          }
-      });
+    
+    ```cs Playwright
+    var AUTH = "USER:PASS";  
+    var SBR_CDP = $"wss://{AUTH}@brd.superproxy.io:9222";  
+    
+    Console.WriteLine("Connecting to browser.ai...");  
+    using var pw = await Playwright.CreateAsync();  
+    await using var browser = await pw.Chromium.ConnectOverCDPAsync(SBR_CDP);  
+    Console.WriteLine("Connected! Navigating...");  
+    var page = await browser.NewPageAsync();  
+    await page.GotoAsync("https://example.com", new()  
+    {  
+    Timeout = 2 * 60 * 1000,  
+    });  
+    Console.WriteLine("Taking page screenshot to file page.png");  
+    await page.ScreenshotAsync(new ()  
+    {  
+    Path = "./page.png",  
+    FullPage = true,  
+    });  
+    Console.WriteLine("Navigated! browser.ai content...");   
+    var html = await page.ContentAsync();   
+    Console.WriteLine(html);  
+    
+    ```
 
-      Console.WriteLine("Connecting to browser.ai...");  
-      using var browser = await Connect(SBR_WS_ENDPOINT);  
-      Console.WriteLine("Connected! Navigating...");  
-      var page = await browser.NewPageAsync();  
-      await page.GoToAsync("https://example.com", new NavigationOptions()  
-      {  
-      Timeout = 2 * 60 * 1000,  
-      });  
-      Console.WriteLine("Taking page screenshot to file page.png");  
-      await page.ScreenshotAsync("./page.png", new ()  
-      {  
-      FullPage = true,  
-      });  
-      Console.WriteLine("Navigated! Scraping page content...");  
-      var html = await page.GetContentAsync();   
-      Console.WriteLine(html);
-      ```
+    
+    ```cs Selenium
+    using OpenQA.Selenium;  
+    using OpenQA.Selenium.Chrome;  
+    using OpenQA.Selenium.Remote;  
+    var AUTH = "USER:PASS";  
+    var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
+    
+    Console.WriteLine("Connecting to browser.ai...");  
+    var options = new ChromeOptions();  
+    using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
+    Console.WriteLine("Connected! Navigating to https://example.com...");  
+    driver.Navigate().GoToUrl("https://example.com");  
+    
+    Console.WriteLine("Taking page screenshot to file page.png");  
+    var screenshot = driver.GetScreenshot();  
+    screenshot.SaveAsFile("./page.png");  
+    
+    Console.WriteLine("Navigated! browser.ai content...");  
+    var html = driver.PageSource;  
+    Console.WriteLine(html);
+    
+    ```
 
-      ```cs Playwright
-      var AUTH = "USER:PASS";  
-      var SBR_CDP = $"wss://{AUTH}@brd.superproxy.io:9222";  
-
-      Console.WriteLine("Connecting to browser.ai...");  
-      using var pw = await Playwright.CreateAsync();  
-      await using var browser = await pw.Chromium.ConnectOverCDPAsync(SBR_CDP);  
-      Console.WriteLine("Connected! Navigating...");  
-      var page = await browser.NewPageAsync();  
-      await page.GotoAsync("https://example.com", new()  
-      {  
-      Timeout = 2 * 60 * 1000,  
-      });  
-      Console.WriteLine("Taking page screenshot to file page.png");  
-      await page.ScreenshotAsync(new ()  
-      {  
-      Path = "./page.png",  
-      FullPage = true,  
-      });  
-      Console.WriteLine("Navigated! browser.ai content...");   
-      var html = await page.ContentAsync();   
-      Console.WriteLine(html);  
-
-      ```
-
-      ```cs Selenium
-      using OpenQA.Selenium;  
-      using OpenQA.Selenium.Chrome;  
-      using OpenQA.Selenium.Remote;  
-      var AUTH = "USER:PASS";  
-      var SBR_WEBDRIVER = "https://{AUTH}@brd.superproxy.io:9515";  
-
-      Console.WriteLine("Connecting to browser.ai...");  
-      var options = new ChromeOptions();  
-      using var driver = new RemoteWebDriver(new Uri(SBR_WEBDRIVER), options);  
-      Console.WriteLine("Connected! Navigating to https://example.com...");  
-      driver.Navigate().GoToUrl("https://example.com");  
-
-      Console.WriteLine("Taking page screenshot to file page.png");  
-      var screenshot = driver.GetScreenshot();  
-      screenshot.SaveAsFile("./page.png");  
-
-      Console.WriteLine("Navigated! browser.ai content...");  
-      var html = driver.PageSource;  
-      Console.WriteLine(html);
-
-      ```
     </CodeGroup>
   </Tab>
 </Tabs>
@@ -311,11 +320,9 @@ await page.goto('http://example.com');
 
 ## Session Limits & Timeouts
 
-* **Single Navigation Per Session:** You can **load one site per session**. After that, interact freely via **clicks, scrolling, and JS execution**.
-
-* **Idle Timeout:** Sessions inactive for **5 minutes** auto-close.
-
-* **Max Session Length:** Sessions expire after **30 minutes** to prevent abuse.
+- **Single Navigation Per Session:** You can **load one site per session**. After that, interact freely via **clicks, scrolling, and JS execution**.
+- **Idle Timeout:** Sessions inactive for **5 minutes** auto-close.
+- **Max Session Length:** Sessions expire after **30 minutes** to prevent abuse.
 
 ## Run Your Script
 
@@ -325,7 +332,6 @@ await page.goto('http://example.com');
     node script.js
     ```
   </Tab>
-
   <Tab title="Python">
     ```sh
     python main.py
@@ -335,5 +341,5 @@ await page.goto('http://example.com');
 
 ## Final Thoughts
 
-browser.ai is built for **serious automation** — **no CAPTCHAs, no blocks, no rate limits**.
+BrowserAI is built for **serious automation** — **no CAPTCHAs, no blocks, no rate limits**.
 Whether you're scraping at scale or automating workflows, **this is the browser you actually need.**
