@@ -50,7 +50,7 @@
                             "features/captcha-solver",
                             "features/geolocation",
                             "general/configuration",
-                            "cdp-func/standard",
+                            "cdp-func/cdp-func",
                             "general/code-snippets"
                         ]
                     }

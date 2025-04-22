@@ -6,7 +6,7 @@ sidebarTitle: "Configuration"
 
 ## Setting Up BrowserAI
 
-Before diving into automation, let's **grab your credentials**. You’ll need your **API Token**, which you can find inside of your browser.ai project.
+Before diving into automation, let's **grab your credentials**. You’ll need your **API Token**, which you can find inside of your BrowserAI project.
 
 <Warning>
   Make sure you have **Puppeteer, Playwright, or Selenium installed** before proceeding.
@@ -28,7 +28,7 @@ Run the sample code below to confirm that **BrowserAI is connected and working**
     const SBR_WS_ENDPOINT = `wss://${AUTH}@brd.superproxy.io:9222`;  
     
     async function main() {  
-    console.log('Connecting to browser.ai...');  
+    console.log('Connecting to BrowserAI...');  
     const browser = await puppeteer.connect({  
       browserWSEndpoint: SBR_WS_ENDPOINT,  
     });  
