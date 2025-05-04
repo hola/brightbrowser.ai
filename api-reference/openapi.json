@@ -43,7 +43,8 @@
                 "required": [
                     "task",
                     "geoLocation",
-                    "project"
+                    "project",
+                    "inspect"
                 ],
                 "properties": {
                     "task": {
@@ -56,6 +57,10 @@
                     "project": {
                         "type": "string",
                         "description": "Your project's name."
+                    },
+                    "inspect": {
+                        "type": "boolean",
+                        "description": "Set to 'true' to enable inspection mode."
                     }
                 }
             },
