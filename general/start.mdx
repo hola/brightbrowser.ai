@@ -33,7 +33,7 @@ This guide will walk you through launching your first task in **BrowserAI** in j
     curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/json" --data "{\"task\":\"{YOUR-PROMPT}\", \"geoLocation\":{\"country\":\"{2-LETTER-CODE}\"}, \"project\":\"{PROJECT-NAME}\"}" -X POST https://browser.ai/api/v1/tasks
     ```
 
-    1. _apikey_ - Your personal API Token.
+    1. _authorization_ - apikey followed by your personal API Token.
     2. _task_ - the prompt itself.
     3. _country_ - the geolocation of the task, use <Tooltip tip="For example: NO for Norway">2-letter country code</Tooltip>.
 
