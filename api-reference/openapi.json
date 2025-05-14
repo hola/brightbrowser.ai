@@ -268,7 +268,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "task_id",
+                        "name": "session_id",
                         "in": "path",
                         "required": true,
                         "description": "Insert your task’s `session ID` located in your Projects dashboard",
