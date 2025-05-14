@@ -258,7 +258,11 @@
                                 "browser_use": {
                                     "summary": "Browser_use (natural language)",
                                     "value": {
-                                        "instructions": "Open amazon.com and search for AirPods",
+                                        "instructions": [
+                                          {
+                                                "action": "Open amazon.com and search for AirPods"
+                                          }
+                                        ]
                                         "geoLocation": {
                                             "country": "US"
                                         },
