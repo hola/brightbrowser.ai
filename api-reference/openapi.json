@@ -255,7 +255,7 @@
                                 "$ref": "#/components/schemas/CreateTaskRequest"
                             },
                             "examples": {
-                                "browserbase": {
+                                "browser_use": {
                                     "summary": "Browser_use (natural language)",
                                     "value": {
                                         "task": "Open amazon.com and search for AirPods",
