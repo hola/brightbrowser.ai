@@ -256,6 +256,101 @@
                 }
             }
         },
+        "/tasks/{task_id}/command": {
+            "post": {
+                "summary": "Send a command to a task (e.g., stop)",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of the task you want to control.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "command": {
+                                        "type": "string",
+                                        "enum": [
+                                            "stop"
+                                        ],
+                                        "description": "The command to send to the task. Currently only 'stop' is supported."
+                                    }
+                                },
+                                "required": [
+                                    "command"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Command accepted and processed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Task stopped successfully"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid command or task ID",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid command or task ID"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tasks/{session_id}": {
             "get": {
                 "summary": "Get task metadata",
