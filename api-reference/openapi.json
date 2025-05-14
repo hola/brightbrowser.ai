@@ -74,7 +74,7 @@
                         "properties": {
                             "instructions": {
                                 "type": "array",
-                                "description": "Your code instructions prompt",
+                                "description": "Your code instructions prompt (Stagehand)",
                                 "items": {
                                     "type": "object",
                                     "required": [
