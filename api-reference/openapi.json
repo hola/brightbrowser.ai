@@ -257,7 +257,7 @@
                 }
             }
         },
-        "/tasks/{task_id}/stop": {
+        "/tasks/{task_id}/command": {
             "post": {
                 "tags": ["Task"],
                 "summary": "Stop a running task any time.",
