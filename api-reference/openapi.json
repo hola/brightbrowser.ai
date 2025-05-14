@@ -42,7 +42,7 @@
   "oneOf": [
     {
       "type": "object",
-      "required": ["task", "geoLocation", "project", "engine"],
+      "required": ["task", "geoLocation", "project"],
       "properties": {
         "task": {
           "type": "string",
@@ -53,10 +53,6 @@
         },
         "project": {
           "type": "string"
-        },
-        "engine": {
-          "type": "string",
-          "enum": ["browserbase"]
         },
         "inspect": {
           "type": "boolean"
