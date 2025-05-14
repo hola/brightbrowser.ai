@@ -271,6 +271,9 @@
                                         "instructions": [
                                             {
                                                 "action": "await page.goto('https://amazon.com')"
+                                            },
+                                            {
+                                                "action": "await page.act('Click the search box')"
                                             }
                                         ],
                                         "geoLocation": {
@@ -532,7 +535,7 @@
                                 "example": {
                                     "error": "Unauthorized"
                                 }
-                            } 
+                            }
                         }
                     },
                     "404": {
