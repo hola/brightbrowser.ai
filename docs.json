@@ -71,6 +71,7 @@
                         "group": "API Endpoints",
                         "pages": [
                             "api-reference/endpoint/tasks",
+                            "api-reference/endpoint/forceStop",
                             "api-reference/endpoint/taskMetadata",
                             "api-reference/endpoint/results"
                         ]
