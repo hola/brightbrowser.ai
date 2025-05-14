@@ -49,7 +49,7 @@
                         ],
                         "properties": {
                             "instructions": {
-                                "type": "string",
+                                "type": "array",
                                 "description": "Your natural language prompt"
                             },
                             "geoLocation": {
