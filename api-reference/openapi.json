@@ -196,6 +196,7 @@
     "paths": {
         "/tasks": {
             "post": {
+                "tags": ["Task"],
                 "summary": "Create a new task",
                 "security": [
                     {
@@ -258,6 +259,7 @@
         },
         "/tasks/{task_id}/command": {
             "post": {
+                "tags": ["Task"],
                 "summary": "Stop a running task any time.",
                 "security": [
                     {
@@ -353,6 +355,7 @@
         },
         "/tasks/{session_id}": {
             "get": {
+                "tags": ["Result"],
                 "summary": "Get task metadata",
                 "security": [
                     {
@@ -416,6 +419,7 @@
         },
         "/results/{session_id}": {
             "get": {
+                "tags": ["Result"],
                 "summary": "Get task results",
                 "security": [
                     {
