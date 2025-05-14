@@ -51,7 +51,7 @@
                         "properties": {
                             "task": {
                                 "type": "string",
-                                "description": "Natural language prompt for browserbase engine"
+                                "description": "Your natural language prompt"
                             },
                             "geoLocation": {
                                 "$ref": "#/components/schemas/GeoLocation"
@@ -76,6 +76,7 @@
                         "properties": {
                             "instructions": {
                                 "type": "array",
+                                "description": "Your code instructions prompt"
                                 "items": {
                                     "type": "object",
                                     "required": [
