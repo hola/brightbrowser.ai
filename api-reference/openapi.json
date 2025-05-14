@@ -258,7 +258,7 @@
         },
         "/tasks/{task_id}/command": {
             "post": {
-                "summary": "Send a command to a task (e.g., stop)",
+                "summary": "Stop a running task any time.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -269,7 +269,7 @@
                         "name": "task_id",
                         "in": "path",
                         "required": true,
-                        "description": "The ID of the task you want to control.",
+                        "description": "Insert your task’s `session ID` located in your Projects dashboard",
                         "schema": {
                             "type": "string"
                         }
