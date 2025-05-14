@@ -50,7 +50,18 @@
                         "properties": {
                             "instructions": {
                                 "type": "array",
-                                "description": "Your natural language prompt"
+                                "description": "Your natural language prompt",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "action"
+                                    ],
+                                    "properties": {
+                                        "action": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
                             },
                             "geoLocation": {
                                 "$ref": "#/components/schemas/GeoLocation"
