@@ -256,7 +256,7 @@
                             },
                             "examples": {
                                 "browserbase": {
-                                    "summary": "Browserbase (natural language)",
+                                    "summary": "Browser_use (natural language)",
                                     "value": {
                                         "task": "Open amazon.com and search for AirPods",
                                         "geoLocation": {
