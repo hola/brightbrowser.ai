@@ -41,7 +41,6 @@
             "CreateTaskRequest": {
                 "oneOf": [
                     {
-                        "description": "Browserbase (natural language)",
                         "type": "object",
                         "required": [
                             "task",
@@ -65,7 +64,6 @@
                         }
                     },
                     {
-                        "description": "Stagehand (code instructions)",
                         "type": "object",
                         "required": [
                             "instructions",
