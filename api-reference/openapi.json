@@ -39,31 +39,63 @@
                 }
             },
             "CreateTaskRequest": {
-                "type": "object",
-                "required": [
-                    "task",
-                    "geoLocation",
-                    "project",
-                    "inspect"
-                ],
-                "properties": {
-                    "task": {
-                        "type": "string",
-                        "description": "Your prompt."
-                    },
-                    "geoLocation": {
-                        "$ref": "#/components/schemas/GeoLocation"
-                    },
-                    "project": {
-                        "type": "string",
-                        "description": "Your project's name."
-                    },
-                    "inspect": {
-                        "type": "boolean",
-                        "description": "Set to 'true' to enable inspection mode."
-                    }
-                }
-            },
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["task", "geoLocation", "project", "engine"],
+      "properties": {
+        "task": {
+          "type": "string",
+          "description": "Natural language prompt for browserbase engine"
+        },
+        "geoLocation": {
+          "$ref": "#/components/schemas/GeoLocation"
+        },
+        "project": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string",
+          "enum": ["browserbase"]
+        },
+        "inspect": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["instructions", "geoLocation", "project", "engine"],
+      "properties": {
+        "instructions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["action"],
+            "properties": {
+              "action": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "geoLocation": {
+          "$ref": "#/components/schemas/GeoLocation"
+        },
+        "project": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string",
+          "enum": ["stagehand"]
+        },
+        "inspect": {
+          "type": "boolean"
+        }
+      }
+    }
+  ]
+},
             "CreateTaskResponse": {
                 "type": "object",
                 "properties": {
@@ -195,70 +227,92 @@
     },
     "paths": {
         "/tasks": {
-            "post": {
-                "tags": [
-                    "Task"
+  "post": {
+    "tags": ["Task"],
+    "summary": "Create a new task",
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/CreateTaskRequest"
+          },
+          "examples": {
+            "browserbase": {
+              "summary": "Browserbase (natural language)",
+              "value": {
+                "task": "Open amazon.com and search for AirPods",
+                "geoLocation": { "country": "US" },
+                "project": "Project_1",
+                "engine": "browserbase"
+              }
+            },
+            "stagehand": {
+              "summary": "Stagehand (code instructions)",
+              "value": {
+                "instructions": [
+                  {
+                    "action": "await page.goto('https://amazon.com')"
+                  }
                 ],
-                "summary": "Create a new task",
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateTaskRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Task created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CreateTaskResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input or project not found",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": "Invalid input or project not found"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": "Unauthorized"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": "Internal server error"
-                                }
-                            }
-                        }
-                    }
-                }
+                "geoLocation": { "country": "US" },
+                "project": "Project_1",
+                "engine": "stagehand"
+              }
             }
-        },
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Task created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateTaskResponse"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid input or project not found",
+        "content": {
+          "application/json": {
+            "example": {
+              "error": "Invalid input or project not found"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "example": {
+              "error": "Unauthorized"
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "example": {
+              "error": "Internal server error"
+            }
+          }
+        }
+      }
+    }
+  }
+},
         "/tasks/{session_id}/command": {
             "post": {
                 "tags": [
