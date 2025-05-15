@@ -38,7 +38,7 @@
                             "general/faqs"
                         ]
                     },
-                  {
+                    {
                         "group": "API",
                         "pages": [
                             "api-token/api-intro",
