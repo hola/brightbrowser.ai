@@ -16,7 +16,7 @@
                 "type": "apiKey",
                 "in": "header",
                 "name": "Authorization",
-                "description": "Insert API token, use the format: `apikey <API-TOKEN>`"
+                "description": "Insert API token, use the format: `apikey <API-TOKEN>`."
             }
         },
         "schemas": {
@@ -58,7 +58,7 @@
                             "properties": {
                                 "action": {
                                     "type": "string",
-                                    "description": "Instruction to be executed by the agent"
+                                    "description": "Instruction to be executed by the agent."
                                 }
                             }
                         }
@@ -75,7 +75,7 @@
                             "browser_use",
                             "stagehand"
                         ],
-                        "description": "Execution engine: 'browser_use' for natural language, 'stagehand' for code"
+                        "description": "Execution engine: 'browser_use' for natural language, 'stagehand' for code."
                     },
                     "inspect": {
                         "type": "boolean"
@@ -328,7 +328,7 @@
                         "name": "session_id",
                         "in": "path",
                         "required": true,
-                        "description": "Insert your task’s `session ID` located in your Projects dashboard",
+                        "description": "Insert your task’s `session ID` located in your Projects dashboard.",
                         "schema": {
                             "type": "string"
                         }
