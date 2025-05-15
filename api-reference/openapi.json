@@ -40,11 +40,21 @@
             },
             "CreateTaskRequest": {
   "type": "object",
-  "required": ["task", "geoLocation", "project", "engine"],
+  "required": ["instructions", "geoLocation", "project", "engine"],
   "properties": {
-    "task": {
-      "type": "string",
-      "description": "Prompt for browser_use (natural language) or stagehand (TypeScript code)"
+    "instructions": {
+      "type": "array",
+      "description": "List of actions to perform. For 'browser_use', use natural language. For 'stagehand', use TypeScript code.",
+      "items": {
+        "type": "object",
+        "required": ["action"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Instruction to be executed by the agent"
+          }
+        }
+      }
     },
     "geoLocation": {
       "$ref": "#/components/schemas/GeoLocation"
@@ -214,7 +224,11 @@
   "browser_use": {
     "summary": "Browser_use (natural language)",
     "value": {
-      "task": "Open amazon.com and search for AirPods",
+      "instructions": [
+        {
+          "action": "Open amazon.com and search for AirPods"
+        }
+      ],
       "geoLocation": {
         "country": "US"
       },
@@ -223,9 +237,16 @@
     }
   },
   "stagehand": {
-    "summary": "Stagehand (code task)",
+    "summary": "Stagehand (code instructions)",
     "value": {
-      "task": "await page.goto('https://docs.stagehand.dev/reference/introduction')\nawait page.act('Click the search box')",
+      "instructions": [
+        {
+          "action": "await page.goto('https://docs.stagehand.dev/reference/introduction')"
+        },
+        {
+          "action": "await page.act('Click the search box')"
+        }
+      ],
       "geoLocation": {
         "country": "US"
       },
