@@ -39,84 +39,29 @@
                 }
             },
             "CreateTaskRequest": {
-                "oneOf": [
-                    {
-                        "type": "object",
-                        "required": [
-                            "instructions",
-                            "geoLocation",
-                            "project"
-                        ],
-                        "properties": {
-                            "instructions": {
-                                "type": "array",
-                                "description": "Your natural language prompt",
-                                "items": {
-                                    "type": "object",
-                                    "required": [
-                                        "action"
-                                    ],
-                                    "properties": {
-                                        "action": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            },
-                            "geoLocation": {
-                                "$ref": "#/components/schemas/GeoLocation"
-                            },
-                            "project": {
-                                "type": "string"
-                            },
-                            "inspect": {
-                                "type": "boolean"
-                            }
-                        }
-                    },
-                    {
-                        "type": "object",
-                        "required": [
-                            "instructions",
-                            "geoLocation",
-                            "project",
-                            "engine"
-                        ],
-                        "properties": {
-                            "instructions": {
-                                "type": "array",
-                                "description": "Your code instructions prompt (Stagehand)",
-                                "items": {
-                                    "type": "object",
-                                    "required": [
-                                        "action"
-                                    ],
-                                    "properties": {
-                                        "action": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            },
-                            "geoLocation": {
-                                "$ref": "#/components/schemas/GeoLocation"
-                            },
-                            "project": {
-                                "type": "string"
-                            },
-                            "engine": {
-                                "type": "string",
-                                "enum": [
-                                    "stagehand"
-                                ]
-                            },
-                            "inspect": {
-                                "type": "boolean"
-                            }
-                        }
-                    }
-                ]
-            },
+  "type": "object",
+  "required": ["task", "geoLocation", "project", "engine"],
+  "properties": {
+    "task": {
+      "type": "string",
+      "description": "Prompt for browser_use (natural language) or stagehand (TypeScript code)"
+    },
+    "geoLocation": {
+      "$ref": "#/components/schemas/GeoLocation"
+    },
+    "project": {
+      "type": "string"
+    },
+    "engine": {
+      "type": "string",
+      "enum": ["browser_use", "stagehand"],
+      "description": "Execution engine: 'browser_use' for natural language, 'stagehand' for code"
+    },
+    "inspect": {
+      "type": "boolean"
+    }
+  }
+},
             "CreateTaskResponse": {
                 "type": "object",
                 "properties": {
@@ -266,42 +211,29 @@
                                 "$ref": "#/components/schemas/CreateTaskRequest"
                             },
                             "examples": {
-                                "browser_use": {
-                                    "summary": "Browser_use (natural language)",
-                                    "value": {
-                                        "instructions": [
-                                          {
-                                                "action": "Open amazon.com and search for AirPods"
-                                          }
-                                        ],
-                                        "geoLocation": {
-                                            "country": "US"
-                                        },
-                                        "project": "Project_1"
-                                    }
-                                },
-                                "stagehand": {
-                                    "summary": "Stagehand (code instructions)",
-                                    "value": {
-                                        "instructions": [
-                                            {
-                                                "action": "await page.goto('https://amazon.com')"
-                                            },
-                                            {
-                                                "action": "await page.act('Click the search box')"
-                                            }
-                                        ],
-                                        "geoLocation": {
-                                            "country": "US"
-                                        },
-                                        "project": "Project_1",
-                                        "engine": "stagehand"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
+  "browser_use": {
+    "summary": "Browser_use (natural language)",
+    "value": {
+      "task": "Open amazon.com and search for AirPods",
+      "geoLocation": {
+        "country": "US"
+      },
+      "project": "Project_1",
+      "engine": "browser_use"
+    }
+  },
+  "stagehand": {
+    "summary": "Stagehand (code task)",
+    "value": {
+      "task": "await page.goto('https://docs.stagehand.dev/reference/introduction')\nawait page.act('Click the search box')",
+      "geoLocation": {
+        "country": "US"
+      },
+      "project": "Project_1",
+      "engine": "stagehand"
+    }
+  }
+},
                 "responses": {
                     "200": {
                         "description": "Task created successfully",
