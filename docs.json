@@ -42,7 +42,9 @@
                         "group": "API",
                         "pages": [
                             "api-token/api-intro",
-                            "api-token/api-geolocation"
+                            "api-token/api-geolocation",
+                            "api-token/browser-use",
+                            "api-token/stagehand"
                         ]
                     },
                     {
