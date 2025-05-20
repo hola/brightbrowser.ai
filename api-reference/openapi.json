@@ -666,6 +666,84 @@
                 }
             }
         },
+		"/saved_tasks": {
+      "get": {
+        "tags": ["Saved Task"],
+        "summary": "Get a list of saved tasks",
+        "description": "Retrieve all saved tasks for the authenticated user.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of saved tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "taskId": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "project": {
+                        "type": "string"
+                      },
+                      "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "cron_settings": {
+                        "type": "string"
+                      },
+                      "instructions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "action": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
         "/saved_tasks/name/{task_name}": {
             "get": {
                 "summary": "Get a saved task by name",
