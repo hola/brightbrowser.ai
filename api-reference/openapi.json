@@ -541,6 +541,130 @@
                     }
                 }
             }
+        },
+        "/saved_tasks": {
+            "post": {
+                "summary": "Create a saved task",
+                "description": "Create a reusable saved task with natural language instructions.",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "instructions",
+                                    "type",
+                                    "project",
+                                    "geoLocation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the saved task",
+                                        "example": "My Saved Task"
+                                    },
+                                    "instructions": {
+                                        "type": "array",
+                                        "description": "List of natural language actions",
+                                        "items": {
+                                            "type": "object",
+                                            "required": [
+                                                "action"
+                                            ],
+                                            "properties": {
+                                                "action": {
+                                                    "type": "string",
+                                                    "example": "Open amazon.com, search for AirPods Pro 2, and find the three best prices available"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "natural_language"
+                                        ],
+                                        "description": "Type of the task. Currently only `natural_language` is supported.",
+                                        "example": "natural_language"
+                                    },
+                                    "cron_settings": {
+                                        "type": "string",
+                                        "description": "Cron expression for scheduling (leave empty for now)",
+                                        "example": ""
+                                    },
+                                    "project": {
+                                        "type": "string",
+                                        "description": "Project name or ID",
+                                        "example": "Project_1"
+                                    },
+                                    "geoLocation": {
+                                        "$ref": "#/components/schemas/GeoLocation"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Saved task created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "taskId": {
+                                            "type": "string",
+                                            "description": "ID of the saved task"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Saved task created successfully"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid input"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

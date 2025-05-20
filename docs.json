@@ -75,7 +75,8 @@
                             "api-reference/endpoint/tasks",
                             "api-reference/endpoint/forceStop",
                             "api-reference/endpoint/taskMetadata",
-                            "api-reference/endpoint/results"
+                            "api-reference/endpoint/results",
+                            "api-reference/endpoint/createSavedTask"
                         ]
                     }
                 ]
