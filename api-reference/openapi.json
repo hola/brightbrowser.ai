@@ -665,6 +665,179 @@
                     }
                 }
             }
+        },
+		"/saved_tasks": {
+      "get": {
+        "summary": "Get a list of saved tasks",
+        "description": "Retrieve all saved tasks for the authenticated user.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of saved tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "taskId": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "project": {
+                        "type": "string"
+                      },
+                      "geoLocation": {
+                        "$ref": "#/components/schemas/GeoLocation"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "cron_settings": {
+                        "type": "string"
+                      },
+                      "instructions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "action": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
         }
+      }
+    },
+    "/saved_tasks/name/{task_name}": {
+      "get": {
+        "summary": "Get a saved task by name",
+        "description": "Retrieve a specific saved task by its name.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_name",
+            "in": "path",
+            "required": true,
+            "description": "The name of the saved task (URL-encoded if it contains spaces).",
+            "schema": {
+              "type": "string",
+              "example": "My%20Saved%20Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Saved task details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "project": {
+                      "type": "string"
+                    },
+                    "geoLocation": {
+                      "$ref": "#/components/schemas/GeoLocation"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "cron_settings": {
+                      "type": "string"
+                    },
+                    "instructions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "action": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Saved task not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Saved task not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     }
 }
