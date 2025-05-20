@@ -544,6 +544,8 @@
         },
         "/saved_tasks": {
             "post": {
+                "tags": ["Saved Task"],
+                "operationId": "createSavedTask",
                 "summary": "Create a saved task",
                 "description": "Create a reusable saved task with natural language instructions.",
                 "security": [
@@ -669,6 +671,7 @@
 		"/saved_tasks": {
       "get": {
         "tags": ["Saved Task"],
+        "operationId": "getSavedTaskList",
         "summary": "Get a list of saved tasks",
         "description": "Retrieve all saved tasks for the authenticated user.",
         "security": [
