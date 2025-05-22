@@ -218,6 +218,7 @@
                     "Task"
                 ],
                 "summary": "Create a new task.",
+                "description": "This endpoint allows you to create a new task using either natural language (Browser_use) or code instructions (Stagehand). You must specify the execution engine, project, location, and task steps.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -318,6 +319,7 @@
                     "Task"
                 ],
                 "summary": "Stop a running task any time.",
+                "description": "Use this endpoint to stop to an active task session.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -416,6 +418,7 @@
                     "Result"
                 ],
                 "summary": "Get task's metadata.",
+                "description": "Retrieve metadata and status information for a specific task using its session ID. This includes execution status, timestamps, and progress logs.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -482,6 +485,7 @@
                     "Result"
                 ],
                 "summary": "Get task's results.",
+                "description": "Fetch the final results of a completed task, including output, metadata, and console logs. Use the session ID to identify the task.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -549,7 +553,7 @@
                 ],
                 "operationId": "getSavedTaskList",
                 "summary": "Get a list of saved tasks",
-                "description": "Retrieve all saved tasks for the authenticated user.",
+                "description": "Returns a list of all saved tasks associated with the authenticated user. Each task includes its name, project, location, and instruction details.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -628,7 +632,7 @@
                 ],
                 "operationId": "createSavedTask",
                 "summary": "Create a saved task",
-                "description": "Create a reusable saved task with natural language instructions.",
+                "description": "Create a reusable saved task using natural language instructions. This is useful for automating recurring workflows with predefined settings.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -752,7 +756,7 @@
         "/saved_tasks/name/{task_name}": {
             "get": {
                 "summary": "Get a saved task by name",
-                "description": "Retrieve a specific saved task by its name.",
+                "description": "Retrieve a specific saved task by its name. This is helpful for accessing or reusing previously saved automation tasks.",
                 "security": [
                     {
                         "ApiKeyAuth": []
