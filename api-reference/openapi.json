@@ -655,7 +655,7 @@
                                     "name": {
                                         "type": "string",
                                         "description": "Name of the saved task",
-                                        "example": "My Saved Task"
+                                        "example": "MySavedTask"
                                     },
                                     "instructions": {
                                         "type": "array",
@@ -770,7 +770,7 @@
                         "description": "The name of the saved task (URL-encoded if it contains spaces).",
                         "schema": {
                             "type": "string",
-                            "example": "My%20Saved%20Task"
+                            "example": "MySavedTask"
                         }
                     }
                 ],
