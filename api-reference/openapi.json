@@ -49,7 +49,7 @@
                 "properties": {
                     "instructions": {
                         "type": "array",
-                        "description": "List of actions to perform. For 'browser_use', use natural language. For 'stagehand', use TypeScript code.",
+                        "description": "List of actions to perform. For 'crawler_automation', use natural language. For 'script_automation', use TypeScript code.",
                         "items": {
                             "type": "object",
                             "required": [
@@ -75,7 +75,7 @@
                             "crawler_automation",
                             "script_automation"
                         ],
-                        "description": "Execution engine: 'browser_use' for natural language, 'stagehand' for code."
+                        "description": "Execution engine: 'crawler_automation' for natural language, 'script_automation' for code."
                     },
                     "inspect": {
                         "type": "boolean"
@@ -218,7 +218,7 @@
                     "Task"
                 ],
                 "summary": "Create a new task.",
-                "description": "This endpoint allows you to create a new task using either natural language (Browser_use) or code instructions (Stagehand). You must specify the execution engine, project, location, and task steps.",
+                "description": "This endpoint allows you to create a new task using either natural language (crawler_automation) or code instructions (script_automation). You must specify the execution engine, project, location, and task steps.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -233,7 +233,7 @@
                             },
                             "examples": {
                                 "browser_use": {
-                                    "summary": "Browser_use (natural language)",
+                                    "summary": "crawler_automation (natural language)",
                                     "value": {
                                         "instructions": [
                                             {
@@ -248,7 +248,7 @@
                                     }
                                 },
                                 "stagehand": {
-                                    "summary": "Stagehand (code instructions)",
+                                    "summary": "script_automation (code instructions)",
                                     "value": {
                                         "instructions": [
                                             {
