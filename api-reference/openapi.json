@@ -72,8 +72,8 @@
                     "engine": {
                         "type": "string",
                         "enum": [
-                            "browser_use",
-                            "stagehand"
+                            "crawler_automation",
+                            "script_automation"
                         ],
                         "description": "Execution engine: 'browser_use' for natural language, 'stagehand' for code."
                     },

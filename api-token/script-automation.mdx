@@ -1,0 +1,45 @@
+---
+title: "Script Automation"
+description: "Script Automation allows you to automate browsers with natural language and code!"
+sidebarTitle: "Script Automation"
+---
+
+**Script Automation** lets you do anything a web browser can do, offering a powerful framework for building browser automations that are repeatable, customizable, and maintainable. By combining AI agents, AI tools, and standard Playwright functionality, Stagehand gives you full control over the complexity and behavior of your automations—whether simple or highly advanced.
+
+To use Script Automation in your **BrowserAI** tasks, just set the `engine` parameter to `Script Automation` and provide your instructions using a mix of human language inside TypeScript functions.
+
+With intuitive methods like `page.act()` for executing natural language actions, `page.extract()` for pulling structured data from pages, and `page.observe()` for previewing actions before execution, Script Automation makes it easy to build intelligent, flexible browser workflows.
+
+### Examples:
+Extract the title of medium.com
+```
+await page.goto('https://medium.com/');
+await page.extract({
+  instruction: 'extract the title of the page',
+  schema: z.string(),
+});
+```
+Extract three prices of AirPods Pro 2 from Amazon
+```
+await page.goto('https://www.amazon.com/');
+await page.act('search for AirPods Pro 2');
+await page.extract({
+  instruction: 'extract the three best prices available',
+  schema: z.object({
+    prices: z.array(z.number()),
+  }),
+});
+```
+
+Extract the latest article from browser.ai
+```
+await page.goto('https://browser.ai/news/');
+await page.act('open the most recent article');
+await page.extract({
+  instruction: 'extract the article title and summary paragraph',
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+  }),
+});
+```
