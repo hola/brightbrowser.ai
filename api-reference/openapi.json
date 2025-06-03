@@ -244,7 +244,7 @@
                                             "country": "US"
                                         },
                                         "project": "Project_1",
-                                        "engine": "browser_use"
+                                        "type": "browser_use"
                                     }
                                 },
                                 "stagehand": {
