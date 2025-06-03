@@ -44,7 +44,7 @@
                     "instructions",
                     "geoLocation",
                     "project",
-                    "engine"
+                    "type"
                 ],
                 "properties": {
                     "instructions": {
@@ -69,7 +69,7 @@
                     "project": {
                         "type": "string"
                     },
-                    "engine": {
+                    "type": {
                         "type": "string",
                         "enum": [
                             "crawler_automation",
