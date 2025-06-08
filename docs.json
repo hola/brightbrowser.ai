@@ -56,6 +56,12 @@
                             "headless-browser/cdp-func",
                             "general/code-snippets"
                         ]
+                    },
+                    {
+                        "group": "Other",
+                        "pages": [
+                            "general/troubleshooting"
+                        ]
                     }
                 ]
             },
