@@ -56,12 +56,6 @@
                             "headless-browser/cdp-func",
                             "general/code-snippets"
                         ]
-                    },
-                    {
-                        "group": "General",
-                        "pages": [
-                            "headless-browser/captcha-solver"
-                        ]
                     }
                 ]
             },
