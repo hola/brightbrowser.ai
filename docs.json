@@ -35,7 +35,8 @@
                         "pages": [
                             "general/intro",
                             "general/start",
-                            "general/faqs"
+                            "general/faqs",
+                            "general/troubleshooting"
                         ]
                     },
                     {
@@ -55,12 +56,6 @@
                             "general/configuration",
                             "headless-browser/cdp-func",
                             "general/code-snippets"
-                        ]
-                    },
-                    {
-                        "group": "Other",
-                        "pages": [
-                            "general/troubleshooting"
                         ]
                     }
                 ]
