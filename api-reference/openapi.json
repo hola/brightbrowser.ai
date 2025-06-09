@@ -232,7 +232,7 @@
                                 "$ref": "#/components/schemas/CreateTaskRequest"
                             },
                             "examples": {
-                                "browser_use": {
+                                "'crawler_automation": {
                                     "summary": "crawler_automation (natural language)",
                                     "value": {
                                         "instructions": [
@@ -244,10 +244,10 @@
                                             "country": "US"
                                         },
                                         "project": "Project_1",
-                                        "type": "browser_use"
+                                        "type": "'crawler_automation"
                                     }
                                 },
-                                "stagehand": {
+                                "script_automation": {
                                     "summary": "script_automation (code instructions)",
                                     "value": {
                                         "instructions": [
@@ -262,7 +262,7 @@
                                             "country": "US"
                                         },
                                         "project": "Project_1",
-                                        "engine": "stagehand"
+                                        "type": "script_automation"
                                     }
                                 }
                             }
