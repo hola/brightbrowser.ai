@@ -16,7 +16,7 @@ Extract the title of medium.com
 await page.goto('https://medium.com/');
 await page.extract({
   instruction: 'extract the title of the page',
-  schema: z.string(),
+  schema: z.object({title: z.string()}),
 });
 ```
 Extract three prices of AirPods Pro 2 from Amazon
