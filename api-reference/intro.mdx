@@ -24,8 +24,12 @@ Authorization: apikey <API-TOKEN>
 
 ## Available Endpoints
 
-| **Method**                                                      | **Endpoint**            | **Description**                              |
-| --------------------------------------------------------------- | ----------------------- | -------------------------------------------- |
-| [POST](https://docs.browser.ai/api-reference/create-a-new-task) | `/tasks`                | Create a new task.                           |
-| [GET](https://docs.browser.ai/api-reference/get-task-metadata)  | `/tasks/{session_id}`   | Get metadata, progress and status of a task. |
-| [GET](https://docs.browser.ai/api-reference/get-task-results)   | `/results/{session_id}` | Retrieve the results of a task.              |
+| **Method**                                                             | **Endpoint**                    | **Description**                              |
+| ---------------------------------------------------------------------- | ------------------------------- | -------------------------------------------- |
+| [POST](https://docs.browser.ai/api-reference/endpoint/tasks)           | `/tasks`                        | Create a new task.                           |
+| [POST](https://docs.browser.ai/api-reference/endpoint/forceStop)       | `/tasks/{session_id}/command`   | Force stop a task.                           |
+| [GET](https://docs.browser.ai/api-reference/endpoint/taskMetadata)     | `/tasks/{session_id}`           | Get metadata, progress and status of a task. |
+| [GET](https://docs.browser.ai/api-reference/endpoint/results)          | `/results/{session_id}`         | Retrieve the results of a task.              |
+| [POST](https://docs.browser.ai/api-reference/endpoint/createSavedTask) | `/saved_tasks`                  | Create a saved task.                         |
+| [GET](https://docs.browser.ai/api-reference/endpoint/getSavedTaskList) | `/saved_tasks`                  | Get list of saved tasks.                     |
+| [GET](https://docs.browser.ai/api-reference/endpoint/getSavedTaskName) | `/saved_tasks/name/{task_name}` | Get a saved task by name.                    |

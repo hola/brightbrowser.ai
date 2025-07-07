@@ -67,7 +67,8 @@
                         "group": "API Overview",
                         "pages": [
                             "api-reference/intro",
-                            "api-reference/token"
+                            "api-reference/token",
+                            "api-reference/n8n-node"
                         ]
                     },
                     {
