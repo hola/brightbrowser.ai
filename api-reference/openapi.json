@@ -244,7 +244,7 @@
                                             "country": "US"
                                         },
                                         "project": "Project_1",
-                                        "type": "'crawler_automation"
+                                        "type": "crawler_automation"
                                     }
                                 },
                                 "script_automation": {
