@@ -232,7 +232,7 @@
                                 "$ref": "#/components/schemas/CreateTaskRequest"
                             },
                             "examples": {
-                                "'crawler_automation": {
+                                "crawler_automation": {
                                     "summary": "crawler_automation (natural language)",
                                     "value": {
                                         "instructions": [
