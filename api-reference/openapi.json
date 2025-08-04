@@ -1,5 +1,8 @@
 {
     "openapi": "3.0.3",
+    "x-mcp": {
+        "enabled": true
+    },
     "info": {
         "title": "BrowserAI Task API",
         "version": "1.0.0",
