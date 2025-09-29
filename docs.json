@@ -2,6 +2,11 @@
     "$schema": "https://mintlify.com/docs.json",
     "name": "Browser.ai Documentation",
     "theme": "maple",
+    "contextual": {
+        "options": [
+            "copy"
+        ]
+    },
     "colors": {
         "primary": "#A1DE02",
         "light": "#CDFD50",
