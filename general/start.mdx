@@ -12,49 +12,45 @@ This guide will walk you through launching your first task in **BrowserAI** in j
   <Step title="Sign up">
     [Sign up](https://browser.ai/dashboard/page/projects) to BrowserAI.
   </Step>
-  <Step title="Go to Projects">
-    Navigate to the **Projects** section on the left sidebar and add a new project.
+  <Step title="Jump to Live chat">
+    Navigate to the **Live chat** section on the left sidebar and start a new conversation.
 
     <Frame>
-      ![](img/start1.png)
-    </Frame>
-  </Step>
-  <Step title="Name Your Project">
-    Inside the project, you can **rename** it to whatever suits your workflow.
-
-    <Frame>
-      ![](img/start2.png)
+      ![](img/browserai_start1.png)
     </Frame>
   </Step>
   <Step title="Send you first task">
-    Your **API token** and a ready-to-use **cURL command** are available in the right sidebar. Here you can customize:
-
-    ```javascript
-    curl -H "authorization: apikey {YOUR-API-TOKEN}" -H "Content-Type: application/json" --data "{\"task\":\"{YOUR-PROMPT}\", \"geoLocation\":{\"country\":\"{2-LETTER-CODE}\"}, \"project\":\"{PROJECT-NAME}\"}" -X POST https://browser.ai/api/v1/tasks
-    ```
-
-    1. _authorization_ - 'apikey' followed by your personal API Token.
-    2. _task_ - the prompt itself.
-    3. _country_ - the geolocation of the task, use <Tooltip tip="For example: NO for Norway">2-letter country code</Tooltip>.
+    Just say what you're aiming to do, the kind of info you're looking for, or the task you want to complete.
 
     <Tip>**Be sure to clearly define the task you're looking to accomplish** — providing detailed information will help BrowserAI deliver the most precise and relevant results.</Tip>
 
     <Frame>
-      ![](img/start3.png)
+      ![](img/browserai_start2.png)
     </Frame>
   </Step>
-  <Step title="Session dashboard">
-    Once you run the cURL command in your terminal, a new session will appear in your **activity dashboard**.
+  <Step title="Task break down">
+    BrowserAI will split your main task into several smaller sub-tasks to make it easier to achieve.
+    You can tweak, remove, or add more sub-tasks as you like. Once you're happy with it, just go ahead and approve it by pressing **Run session**.
 
     <Frame>
-      ![](img/start4.png)
+      ![](img/browserai_start3.png)
     </Frame>
   </Step>
-  <Step title="See results">
-    Once the session reaches a **Finalized** status, you can dive in to review the **results** and trace the steps taken by the AI agent.
+  <Step title="Live session window">
+    On your right, you'll find a **live browser window** that shows your session in action and how things are moving along.
 
     <Frame>
-      ![](img/start5.png)
+      ![](img/browserai_start4.png)
+    </Frame>
+  </Step>
+  <Step title="Download results JSON">
+    After the task is finished, you'll be able to download a ready-to-use JSON file containing all the parameters and information you requested by pressing **Download JSON**!
+
+    <Frame>
+      ![](img/browserai_start5.png)
+    </Frame>
+    <Frame>
+      ![](img/browserai_start6.png)
     </Frame>
   </Step>
   <Step title="Use our API">
