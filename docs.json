@@ -89,8 +89,8 @@
                         "pages": [
                             "api-reference/endpoint/tasks",
                             "api-reference/endpoint/forceStop",
-                            "api-reference/endpoint/addInstruction",
-                            "api-reference/endpoint/updateInstruction",
+                            "api-reference/endpoint/addInstructions",
+                            "api-reference/endpoint/updateInstructions",
                             "api-reference/endpoint/taskMetadata",
                             "api-reference/endpoint/results",
                             "api-reference/endpoint/createSavedTask",
