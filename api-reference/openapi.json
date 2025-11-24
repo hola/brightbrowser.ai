@@ -429,7 +429,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "task_id",
+                        "name": "session_id",
                         "in": "path",
                         "required": true,
                         "description": "The ID of the task you want to add instructions to.",
@@ -536,7 +536,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "task_id",
+                        "name": "session_id",
                         "in": "path",
                         "required": true,
                         "description": "The ID of the task you want to update instructions for.",
