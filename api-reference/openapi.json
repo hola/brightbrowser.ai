@@ -415,6 +415,222 @@
                 }
             }
         },
+        "/tasks/{task_id}/instructions": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Add instructions to a task",
+                "description": "Add (append) instructions to an existing task. For example, provide an OTP code after initiating a login task.",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of the task you want to add instructions to.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "instructions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "action": { "type": "string" },
+                                                "type": { "type": "string" }
+                                            },
+                                            "required": ["action"]
+                                        }
+                                    }
+                                },
+                                "required": ["instructions"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Instructions added successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "executionId": { "type": "string" },
+                                        "scriptType": { "type": "string" },
+                                        "status": { "type": "string" },
+                                        "geoLocation": { "$ref": "#/components/schemas/GeoLocation" },
+                                        "started": { "type": "string", "format": "date-time" },
+                                        "estimatedCompletion": { "type": "string", "format": "date-time" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid input"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update instructions for a task",
+                "description": "Update (replace) instructions for an existing task. Use this to overwrite the full set of task instructions.",
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true,
+                        "description": "The ID of the task you want to update instructions for.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "instructions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "action": { "type": "string" },
+                                                "type": { "type": "string" }
+                                            },
+                                            "required": ["action"]
+                                        }
+                                    }
+                                },
+                                "required": ["instructions"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Instructions updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "executionId": { "type": "string" },
+                                        "scriptType": { "type": "string" },
+                                        "status": { "type": "string" },
+                                        "geoLocation": { "$ref": "#/components/schemas/GeoLocation" },
+                                        "started": { "type": "string", "format": "date-time" },
+                                        "estimatedCompletion": { "type": "string", "format": "date-time" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Invalid input"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Unauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Task not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Internal server error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tasks/{session_id}": {
             "get": {
                 "tags": [
