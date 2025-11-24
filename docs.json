@@ -63,6 +63,7 @@
                     {
                         "group": "Headless Browser",
                         "pages": [
+                            "headless-browser/log-in",
                             "headless-browser/captcha-solver",
                             "headless-browser/geolocation",
                             "general/configuration",

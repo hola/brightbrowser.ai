@@ -1,0 +1,35 @@
+---
+title: Logging in to Forms Using BrowserAI
+description: Learn how to securely automate login processes with BrowserAI, including KYC prerequisites and handling OTP verification.
+---
+
+### Workflow & Requirements
+
+To automate logging in to websites with BrowserAI, please be aware of the requirements and proper workflow, especially when handling multifactor authentication.
+
+### KYC Approval
+
+Signing in to login forms using BrowserAI requires successful completion of KYC procedures before any activity can be performed.
+
+### Automated Login Process
+
+BrowserAI **can automate standard login flows** in your tasks.
+
+However, if an **OTP** (One-Time Password), such as an SMS code, is required during the login process, you must follow a two-step approach:
+
+<Steps>
+  <Step title="Initiate Login Task">
+    - Open the target website and navigate to the login form.
+    - Enter the username and password credentials.
+    - Use the [`/tasks` API endpoint](https://docs.browser.ai/api-reference/endpoint/tasks) to retrieve the corresponding `execution_id`.
+  </Step>
+  <Step title="Submit OTP for Verification">
+    - Once you receive the OTP (for example, via SMS), you need to provide this code to BrowserAI.
+    - Submit the OTP as a new instruction for the same task by using the [`/instructions` API endpoint](https://docs.browser.ai/api-reference/endpoint/instructions).
+    - This step allows BrowserAI to complete the authentication and proceed with your original workflow.
+  </Step>
+</Steps>
+
+---
+
+If you have any questions or require further guidance, please refer to the API documentation or contact the BrowserAI team for support.
