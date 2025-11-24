@@ -415,7 +415,7 @@
                 }
             }
         },
-        "/tasks/{task_id}/instructions": {
+        "/tasks/{session_id}/instructions": {
             "post": {
                 "tags": [
                     "Task"
