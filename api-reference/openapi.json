@@ -421,7 +421,7 @@
                     "Task"
                 ],
                 "summary": "Add instructions to a task",
-                "description": "Add (append) instructions to an existing task. For example, provide an OTP code after initiating a login task.",
+                "description": "Add (append) instructions to an existing task. For example: provide an OTP code after initiating a login task.",
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -528,7 +528,7 @@
                     "Task"
                 ],
                 "summary": "Update instructions for a task",
-                "description": "Update (replace) instructions for an existing task. Use this to overwrite the full set of task instructions.",
+                "description": "Update (replace) instructions for an existing task, use this to overwrite the full set of task instructions.",
                 "security": [
                     {
                         "ApiKeyAuth": []
